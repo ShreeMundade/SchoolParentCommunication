@@ -1,0 +1,224 @@
+URL: -
+
+Baseurl - localhost:8081/spc/api/v1
+
+Attendance Controller: -
+
+1) Add Attendance -
+/attendance/add
+
+POST	/teacher/{teacherId}/attendance
+
+
+2) Update Attendance -
+/attendance/update/{attendanceId}
+
+PATCH	/teacher/{teacherId}/attendance/{attendanceId}
+
+
+3) List Attendance By Class for a Month/Day -
+/attendance/getall/
+(Method to get all students in a class by month/day for attendance)
+
+GET	/teacher/{teacherId}/attendance/{classId}
+
+(search for month/day)
+
+
+4) List Attendance By Student Id -
+/attendance/get/{id}
+(Method to get a perticular attendance of student in a class)
+
+GET 	/teacher/{teacherId}/attendance/student/{studentId}
+
+
+5) List Attendance By Month/Day - 
+/attendance/getAttendanceByDate/{date} -
+
+GET	/teacher/{teacherId}/attendance/
+ 
+(search for month/day)
+
+
+Concern Controller: -
+
+1) Add Concerns - 
+
+/concern/addConcern/
+
+POST	/parent/{parentId}/concerns
+POST	/teacher/{teacherId}/concerns
+
+
+2) Update Concern -
+
+/concern/updateConcern/{concernId}
+
+PATCH	/teacher/{teacherId}/concern/{concernId}
+
+
+3) List all Concerns By Month/Day -
+
+/concern/retrieveAllConcerns/
+
+GET	/teacher/{teacherId}/concerns
+GET	/parent/{parentId}/concerns
+
+
+4) List all Unresolved/Resolved Concerns  -
+
+(method for getting all concerns when boolean value of resolved is false)
+
+GET	/teacher/{teacherId}/concerns/search?resolved
+GET	/parent/{parentId}/concerns/search?resolved
+
+
+Exam Controller: -
+
+1) Add Exam -
+
+/exam/addExam/
+
+POST	/teacher/{teacherId}/exam
+
+
+2) Update Exam - 
+
+/exam/updateExam/
+
+PATCH	/teacher/{teacherId}/exam/{examId}
+
+
+4) List All Exams By Date -
+
+/exam/listAllExamsByDate/{date}
+
+GET	/teacher/{teacherId}/exams/search?date
+
+
+4) List All Exams By Teacher -
+
+/exam/listAllExamsByDate/{date}
+
+GET	/teacher/{teacherId}/exams
+
+
+5) List All Exams By Student -
+
+/exam/listAllExamsByStudent/{studentId}
+
+GET	/student/{studentId}/exams
+
+
+6) List Exam By Id -
+
+/exam/listExamById/{examId}
+
+GET	/teacher/{teacherId}/exam/{examId}
+GET	/student/{studentId}/exam/{examId}
+
+
+Fee Controller: -
+
+1) Add Fee Detail - 
+
+/fee/addFee/
+
+POST 	/accountant/{accountantId}/student/{studentId}/fee
+
+
+2) Update Fee Detail For Student - 
+
+/fee/updateFee/{feeId}
+
+PATCH 	/accountant/{accountantId}/student/{studentId}/fee
+
+
+3) List Fee By Id - 
+
+/fee/retrieveFee/{feeId}
+
+GET	/accountant/{accountantId}/fee/{feeId}
+
+
+4) Get Fee By Student Id - 
+
+/fee/retrieveFeeByStudent/{studentId}
+
+GET	/accountant/{accountantId}/fee/student/{studentId}
+GET	parent/{parentId}/fee/{feeId}
+
+
+7) List All Fees By Month -
+
+/fee/retrieveAllFeeByMonth/{feeMonth}
+
+GET	/accountant/{accountantId}/fee/search?month
+
+
+Parent Controller: -
+
+1) Add Parent - 
+
+/parent/addParent/	
+
+POST	/parent
+
+
+2) Update Parent -
+
+/parent/updateParent/{parentId}
+
+PATCH	/parent/{parentId}
+PATCH	/admin/{adminId}/parent/{parentId}
+
+
+3) Get Parent By Student -
+
+/parent/retrieveParentByStudent/{studentId}
+
+GET	/admin/{adminId}/parent/{parentId}/student
+
+
+4) Get Parent By Id -
+
+/parent/retrieveParentById/{id}
+
+GET	/admin/{adminId}/parent/{parentId}
+
+
+Student Controller: -
+
+1) Add Student - 
+
+/student/addStudent/
+
+POST	/admin/{adminId}/student
+
+
+2) Update Student -
+
+/student/updateStudent/{studentId}
+
+PATCH 	/admin/{adminId}/student/{studentId}
+
+
+3) List All Students -
+
+/student/retrieveAllStudents/
+
+GET	/admin/{adminId}/students
+
+
+4) Get Student By Id -
+
+/student/retrieveStudentById/{id}
+
+GET 	/admin/{adminId}/student/{studentId}
+
+
+5) Get Student By Class -
+
+/student/retrieveStudentByClass/{classId}
+
+GET	/admin/{adminId}/students/{classId}
