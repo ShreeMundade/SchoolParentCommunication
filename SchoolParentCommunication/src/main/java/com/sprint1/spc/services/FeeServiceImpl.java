@@ -67,19 +67,17 @@ public class FeeServiceImpl implements IFeeService {
 		return feesByMonth;
 	}
 
-//	@Override
-//	public List<Fee> retrieveFeeByStudentId(long id) {
-////		Fee fee = (Fee)entityManager.createQuery("select s.fee from Student s where s.id = ?1").setParameter(1, id).getSingleResult();
-//		List<Fee> fee = (List<Fee>)iFeeRepository.retrieveFeeByStudentId(id);
-//		return fee;
-//	}
+	@Override
+	public List<Fee> retrieveFeeByStudentId(long id) {
+		List<Fee> fee = (List<Fee>)iFeeRepository.retrieveFeeByStudentId(id);
+		return fee;
+	}
 	
-//	@Override
-//	public Fee retrieveFeesByStudentName(String name) {
-////		List<Fee> feeList = entityManager.createQuery("select s.fee from Student s where s.username = ?1", Fee.class).setParameter(1, name).getResultList();
-//		Fee fee = iFeeRepository.retrieveFeesByStudentName(name);
-//		return fee;
-//	}
+	@Override
+	public Fee retrieveFeesByStudentName(String name) {
+		Fee fee = iFeeRepository.retrieveFeesByStudentName(name);
+		return fee;
+	}
 
 	@Override
 	public void deleteFeeById(long id) {

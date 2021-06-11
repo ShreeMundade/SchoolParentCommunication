@@ -105,32 +105,32 @@ public class AccountantController {
 	}
 
 	// Get fee by student id
-//	@GetMapping("{accountantId}/fee/student/id/{studentId}")
-//	public ResponseEntity<List<Fee>> getFeeByStudentId(@PathVariable long accountantId, @PathVariable long studentId) throws FeeServiceException {
-//		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
-//			throw new FeeServiceException("Please Add Valid Accountant Id");
-//		}
-//		else if(studentId == 0) {
-//			throw new FeeServiceException("Please Add Valid Student Id");
-//		}
-//		else {
-//			return new ResponseEntity<List<Fee>>(feeServiceImpl.retrieveFeeByStudentId(studentId), HttpStatus.OK);
-//		}
-//	}
-//
-//	// Get all fees by student name
-//	@GetMapping("{accountantId}/fee/student/name/{studentName}")
-//	public ResponseEntity<Fee> getFeeByStudentName(@PathVariable long accountantId, @PathVariable String studentName) throws FeeServiceException {
-//		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
-//			throw new FeeServiceException("Please Add Valid Accountant Id");
-//		}
-//		else if(studentName == null) {
-//			throw new FeeServiceException("Please Add Valid Student Name");
-//		}
-//		else {
-//			return new ResponseEntity<Fee>(feeServiceImpl.retrieveFeesByStudentName(studentName), HttpStatus.OK);
-//		}
-//	}
+	@GetMapping("{accountantId}/fee/student/id/{studentId}")
+	public ResponseEntity<List<Fee>> getFeeByStudentId(@PathVariable long accountantId, @PathVariable long studentId) throws FeeServiceException {
+		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
+			throw new FeeServiceException("Please Add Valid Accountant Id");
+		}
+		else if(studentId == 0) {
+			throw new FeeServiceException("Please Add Valid Student Id");
+		}
+		else {
+			return new ResponseEntity<List<Fee>>(feeServiceImpl.retrieveFeeByStudentId(studentId), HttpStatus.OK);
+		}
+	}
+
+	// Get all fees by student name
+	@GetMapping("{accountantId}/fee/student/name/{studentName}")
+	public ResponseEntity<Fee> getFeeByStudentName(@PathVariable long accountantId, @PathVariable String studentName) throws FeeServiceException {
+		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
+			throw new FeeServiceException("Please Add Valid Accountant Id");
+		}
+		else if(studentName == null) {
+			throw new FeeServiceException("Please Add Valid Student Name");
+		}
+		else {
+			return new ResponseEntity<Fee>(feeServiceImpl.retrieveFeesByStudentName(studentName), HttpStatus.OK);
+		}
+	}
 
 	// Delete fee by id
 	@DeleteMapping("{accountantId}/fee/delete/{feeId}")

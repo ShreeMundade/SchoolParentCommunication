@@ -41,7 +41,7 @@ public class UserServiceTest {
 	@Test
 	public void createUserTest() {
 		
-		User user = new User(1l,"mister","1234",1245l,"mister@gmail.com",Role.ADMIN);
+		User user = new User(1l,"mister","1234",1245l,"mister@gmail.com",Role.PARENT);
 
 		when(userRepo
 				.saveAndFlush(user))

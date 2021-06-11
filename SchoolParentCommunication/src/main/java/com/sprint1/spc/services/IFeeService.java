@@ -12,8 +12,8 @@ public interface IFeeService {
 	public Fee updateFee(long id, Fee fee);
 	public Fee retrieveFeeById(long id);
 	public List<Fee> retrieveAllFees();
-	//public List<Fee> retrieveFeeByStudentId(long id);
+	public List<Fee> retrieveFeeByStudentId(long id);
 	public List<Fee> retrieveAllFeesByMonth(long month);
-	//public Fee retrieveFeesByStudentName(String name);
+	public Fee retrieveFeesByStudentName(String name);
 	public void deleteFeeById(long id);
 }
