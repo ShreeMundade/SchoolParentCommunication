@@ -1,38 +1,34 @@
 package com.sprint1.spc.services;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.FeeInstallment;
-import com.sprint1.spc.entities.Student;
+import com.sprint1.spc.repository.IFeeInstallmentRepository;
 
 @Service
-public class FeeInstallmentServiceImpl implements IFeeInstallmentService{
+public class FeeInstallmentServiceImpl implements IFeeInstallmentService {
+	
+	@Autowired
+	private IFeeInstallmentRepository iFeeInstallmentRepository;
 
 	@Override
 	public FeeInstallment makePayment(FeeInstallment feeInstallment) {
-		// TODO Auto-generated method stub
-		return null;
+		return iFeeInstallmentRepository.save(feeInstallment);
 	}
 
-	@Override
-	public List<FeeInstallment> pendingInstallments(Student student) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<FeeInstallment> pendingInstallments(Student student) {
+//		return null;
+//	}
 
 	@Override
 	public FeeInstallment retrieveFeeInstallmentById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return iFeeInstallmentRepository.getById(null);
 	}
 
-	@Override
-	public List<FeeInstallment> retrieveAllFeeInstallmentsByFee(Fee fee) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+//	@Override
+//	public List<FeeInstallment> retrieveAllFeeInstallmentsByFee(Fee fee) {
+//		return null;
+//	}
 }

@@ -44,9 +44,13 @@ public class AccountantServiceImpl implements IAccountantService {
 	@Override
 	public Accountant patchAccountant(long phoneNumber, long accountantId) {
 		Accountant accountant = iAccountantRepository.findById(accountantId).get();
-
 		accountant.setPhoneNumber(phoneNumber);
+		iAccountantRepository.save(accountant);
 		return accountant;
 	}
 
+	@Override
+	public void deleteAccountant(long accountantId) {
+		iAccountantRepository.deleteById(accountantId);
+	}
 }

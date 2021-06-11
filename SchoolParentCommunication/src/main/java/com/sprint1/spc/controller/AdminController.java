@@ -1,7 +1,6 @@
 package com.sprint1.spc.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -15,25 +14,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Accountant;
-import com.sprint1.spc.entities.Admin;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Role;
 import com.sprint1.spc.entities.Student;
+import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.entities.User;
 import com.sprint1.spc.exception.StudentIDNotFoundException;
-import com.sprint1.spc.services.AccountantServiceImpl;
 import com.sprint1.spc.services.IAccountantService;
 import com.sprint1.spc.services.IParentService;
 import com.sprint1.spc.services.IStudentService;
 import com.sprint1.spc.services.ITeacherService;
 import com.sprint1.spc.services.IUserService;
-import com.sprint1.spc.services.ParentServiceImpl;
 import com.sprint1.spc.services.StudentServiceImpl;
+import com.sprint1.spc.services.SubjectServiceImpl;
 
 @RestController
 @RequestMapping("/admin")
@@ -56,7 +53,11 @@ public class AdminController {
 
 	@Autowired
 	private StudentServiceImpl studentServiceImpl;
+	
+	@Autowired
+	private SubjectServiceImpl subjectServiceImpl;
 
+	
 	@PostMapping("/accountant")
 	public ResponseEntity<Accountant> addAccountant(@Valid @RequestBody Accountant accountant) {
 		return new ResponseEntity<Accountant>(accountantService.addAccountant(accountant), HttpStatus.CREATED);
@@ -66,7 +67,6 @@ public class AdminController {
 	public ResponseEntity<Accountant> updateAccountant(@Valid @RequestBody Accountant accountant) {
 		return new ResponseEntity<Accountant>(accountantService.updateAccountant(accountant), HttpStatus.CREATED);
 	}
-
 
 	@PatchMapping("/accountant/{accountantId}/{phoneNumber}")
 	public ResponseEntity<Accountant> patchAccountant(@Valid @PathVariable long accountantId,
@@ -145,4 +145,15 @@ public class AdminController {
 		else
 			throw new StudentIDNotFoundException("StudentId Not Found");
 	}
+
+	@PostMapping("/subject")
+	public ResponseEntity<Subject> addSubject(@Valid @RequestBody Subject subject) {
+		return new ResponseEntity<Subject>(subjectServiceImpl.addSubject(subject), HttpStatus.CREATED);
+	}
+	
+//	@GetMapping("/subjects")
+//	public ResponseEntity<List<Subject>> getAllSubjects() {
+//		List<Subject> listOfSubjects = subjectServiceImpl.listUserByRole(Role.PARENT);
+//		return new ResponseEntity<List<User>>(listOfParents, HttpStatus.OK);
+//	}
 }
