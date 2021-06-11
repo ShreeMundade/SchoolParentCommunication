@@ -19,11 +19,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Teacher extends User {
 
-
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<Subject> subjects;
 
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<StudentClass> studentClasses;
 
 	@ManyToMany
@@ -31,7 +32,6 @@ public class Teacher extends User {
 	@JsonBackReference
 	private List<Exam> exams;
 
-	
 	//POJO for Teacher class.
 	public List<Subject> getSubjects() {
 		return subjects;
@@ -67,23 +67,22 @@ public class Teacher extends User {
 
 	public Teacher(long id, String username, String password, long phoneNumber, String emailId, Role role) {
 		super(id, username, password, phoneNumber, emailId, role);
-
 	}
 
 	public Teacher(String username, String password, long phoneNumber, String emailId, Role role) {
 		super(username, password, phoneNumber, emailId, role);
-
 	}
 
 	public Teacher(String username, String password) {
 		super(username, password);
-
 	}
 
 	public Teacher() {
 		super();
-
 	}
 
-
+	@Override
+	public String toString() {
+		return "Teacher [subjects=" + subjects + ", studentClasses=" + studentClasses + ", exams=" + exams + "]";
+	}
 }

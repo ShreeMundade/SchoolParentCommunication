@@ -151,9 +151,9 @@ public class AdminController {
 		return new ResponseEntity<Subject>(subjectServiceImpl.addSubject(subject), HttpStatus.CREATED);
 	}
 	
-//	@GetMapping("/subjects")
-//	public ResponseEntity<List<Subject>> getAllSubjects() {
-//		List<Subject> listOfSubjects = subjectServiceImpl.listUserByRole(Role.PARENT);
-//		return new ResponseEntity<List<User>>(listOfParents, HttpStatus.OK);
-//	}
+	@GetMapping("/subjects")
+	public ResponseEntity<List<Subject>> getAllSubjects() {
+		List<Subject> listOfSubjects = subjectServiceImpl.retrieveAllSubjects();
+		return new ResponseEntity<List<Subject>>(listOfSubjects, HttpStatus.OK);
+	}
 }
