@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Attendance;
+import com.sprint1.spc.entities.Exam;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.repository.IAttendanceRepository;
 import com.sprint1.spc.repository.IStudentRepository;
@@ -40,10 +41,10 @@ public class AttendanceServiceImpl implements IAttendanceService{
 	}
 	
 	
-	@Override
-	public List<Attendance> listAttendance() {
-		// TODO Auto-generated method stub
-		return attendanceRepo.findAll();
+	public List<Attendance> listAttendance(){
+		List<Attendance> attendence= attendanceRepo.findAll();
+		return attendence;
+		
 	}
 
 
@@ -51,6 +52,8 @@ public class AttendanceServiceImpl implements IAttendanceService{
 		// TODO Auto-generated method stub
 		return attendanceRepo.findById(attendanceId).get();
 	}
+
+
 
 
 	

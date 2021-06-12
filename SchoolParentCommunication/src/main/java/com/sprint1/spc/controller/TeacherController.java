@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Exam;
+import com.sprint1.spc.services.AttendanceServiceImpl;
 import com.sprint1.spc.services.ExamServiceImpl;
 
 @RestController
@@ -24,8 +26,8 @@ public class TeacherController {
 	@Autowired
 	private ExamServiceImpl examServiceImpl;
 	
-//	@Autowired
-//	private AttendanceServiceImpl attendanceServiceImpl;
+	@Autowired
+	private AttendanceServiceImpl attendanceServiceImpl;
 //	@Autowired
 //	private ConcernServiceImpl concernServiceImpl;
 
@@ -54,6 +56,24 @@ public class TeacherController {
 	public ResponseEntity<Exam> insertExam(@RequestBody Exam exam) {
 		return new ResponseEntity<Exam>(examServiceImpl.addExam(exam), HttpStatus.CREATED);
 	}
-	
+	@GetMapping("/attendance")
+	public List<Attendance> getAllAttendance() {
+		return attendanceServiceImpl.listAttendance();
+
+	}
+	@GetMapping("/attendance/date/{dateOfAttendance}")
+	public List<Attendance> getAllAttendanceByDate(@PathVariable CharSequence dateOfAttendance) {
+		return attendanceServiceImpl.listAttendanceByDate(LocalDate.parse(dateOfAttendance));
+
+	}
+	@PostMapping("/attendance")
+	public ResponseEntity<Attendance> addAttendance(@RequestBody Attendance attendance) {
+		return new ResponseEntity<Attendance>(attendanceServiceImpl.addAttendance(attendance),HttpStatus.OK);
+		
+	}
+	@PutMapping("/attendance")
+	public ResponseEntity<Attendance> updateAttendance(@RequestBody Attendance attendance) {
+		return new ResponseEntity<Attendance>(attendanceServiceImpl.updateAttendanceById(attendance), HttpStatus.CREATED);
+	}
 
 }
