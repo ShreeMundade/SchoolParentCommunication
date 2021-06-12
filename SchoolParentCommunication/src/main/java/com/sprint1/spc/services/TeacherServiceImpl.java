@@ -35,7 +35,7 @@ public class TeacherServiceImpl implements ITeacherService {
 	/***** Update Teacher *****/
 	@Override
 	public Teacher updateTeacher(Teacher teacher) throws TeacherNotFoundException {
-		Teacher existingTeacher = iTeacherRepo.findById(teacher.getId()).orElseThrow(TeacherNotFoundException::new);
+		Teacher existingTeacher = iTeacherRepo.getById(teacher.getId());
 		BeanUtils.copyProperties(teacher, existingTeacher, "teacherId");
 		return existingTeacher;
 	}
@@ -67,6 +67,6 @@ public class TeacherServiceImpl implements ITeacherService {
 	/***** Find Teacher By Id *****/
 	@Override
 	public Teacher retrieveTeacherById(long id) {
-		return iTeacherRepo.findById(id).get();
+		return iTeacherRepo.getById(id);
 	}
 }

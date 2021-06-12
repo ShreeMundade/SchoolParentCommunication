@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Fee;
-import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Student;
-import com.sprint1.spc.exception.ParentServiceException;
-import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.repository.IAccountantRepository;
 import com.sprint1.spc.repository.IStudentRepository;
 

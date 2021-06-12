@@ -1,12 +1,10 @@
 package com.sprint1.spc.services;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +12,6 @@ import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Student;
-import com.sprint1.spc.exception.ParentServiceException;
-import com.sprint1.spc.repository.IFeeRepository;
 import com.sprint1.spc.repository.IParentRepository;
 
 @Service
@@ -46,8 +42,8 @@ public class ParentServiceImpl implements IParentService {
 
 	/***** Patch Student To Parent *****/
 	@Override
-	public Parent updateStudentToParent(long id, Parent parent) throws ParentServiceException {
-		Parent existingParent = iParentRepository.findById(id).orElseThrow(ParentServiceException::new);
+	public Parent updateStudentToParent(long id, Parent parent) {
+		Parent existingParent = iParentRepository.getById(id);
 		existingParent.setStudents(parent.getStudents());
 		iParentRepository.save(existingParent);
 		return existingParent;
@@ -55,8 +51,8 @@ public class ParentServiceImpl implements IParentService {
 	
 	/***** Update Parent *****/
 	@Override
-	public Parent updateParent(long id, long phoneNumber) throws ParentServiceException {
-		Parent existingParent = iParentRepository.findById(id).orElseThrow(ParentServiceException::new);
+	public Parent updateParent(long id, long phoneNumber) {
+		Parent existingParent = iParentRepository.getById(id);
 		existingParent.setPhoneNumber(phoneNumber);
 		iParentRepository.save(existingParent);
 		return existingParent;
