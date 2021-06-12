@@ -25,6 +25,7 @@ import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.entities.StudentClass;
 import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
+import com.sprint1.spc.exception.ParentServiceException;
 import com.sprint1.spc.repository.IParentRepository;
 import com.sprint1.spc.services.ParentServiceImpl;
 
@@ -106,7 +107,7 @@ public class ParentServiceTest {
 	}
 
 	@Test
-	public void updateParentTest() {
+	public void updateParentTest() throws ParentServiceException {
 		Set<Student> studentSet1 = new HashSet<Student>();
 		studentSet1.add(new Student(1L, "Yash", "Yash1234", 1234567890L, "yash@gmail.com", Role.STUDENT));
 		studentSet1.add(new Student(2L, "Rohit", "Rohit1234", 1234567890L, "rohit@gmail.com", Role.STUDENT));

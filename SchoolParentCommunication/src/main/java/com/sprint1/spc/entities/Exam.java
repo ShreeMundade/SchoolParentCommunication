@@ -11,11 +11,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Exam")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+//@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Exam {
 
 	@Id
@@ -26,13 +27,14 @@ public class Exam {
 	private double maximumMarks;
 
 	@ManyToOne
+	//@JsonIgnore
 	private Teacher conductedBy;
 
 	@Embedded
 	private ExamAttempt examAttempt;
 
 	@ManyToOne
-	@JsonBackReference
+	//@JsonBackReference
 	private Subject subject;
 
 	public long getExamId() {

@@ -18,25 +18,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Student")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+//@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Student extends User {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "Student_Exam", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "exam_id"))
-	@JsonBackReference(value = "list_exam")
+	//@JsonBackReference(value = "list_exam")
 	private List<Exam> exam;
 
 	@ElementCollection
-	@JsonBackReference(value = "Student_attendance")
+	//@JsonBackReference(value = "Student_attendance")
 	private List<Attendance> attendance;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "StudentClass")
-	@JsonBackReference(value="Student_class")
+	//@JsonBackReference(value="Student_class")
 	private StudentClass studentClass;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonBackReference(value="Student_fee")
+	//@JsonBackReference(value="Student_fee")
 	private Fee fee;
 
 	public List<Exam> getExam() {

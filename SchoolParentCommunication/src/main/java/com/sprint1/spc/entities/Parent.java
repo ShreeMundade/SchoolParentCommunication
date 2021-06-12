@@ -15,12 +15,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Parent")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+//@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Parent extends User {
 
 	@Access(AccessType.PROPERTY)
 	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	@JsonBackReference(value="students")
+	//@JsonBackReference(value="students")
 	private Set<Student> students;
 
 	public Set<Student> getStudents() {

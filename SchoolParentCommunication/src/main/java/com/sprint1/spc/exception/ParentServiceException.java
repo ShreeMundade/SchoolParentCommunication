@@ -6,4 +6,6 @@ public class ParentServiceException extends Exception {
 	{
 		super(str);
 	}
+	public ParentServiceException() {}
+	
 }

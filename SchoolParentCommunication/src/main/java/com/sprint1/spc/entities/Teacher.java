@@ -16,20 +16,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Teacher")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+//@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Teacher extends User {
 
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JsonBackReference
+	//@JsonBackReference
 	private List<Subject> subjects;
 
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JsonBackReference
+	//@JsonBackReference
 	private List<StudentClass> studentClasses;
 
 	@ManyToMany
 	@JoinTable(name = "Teacher_Exam", joinColumns = @JoinColumn(name = "teacher_id"), inverseJoinColumns = @JoinColumn(name = "exam_id"))
-	@JsonBackReference
+	//@JsonBackReference
 	private List<Exam> exams;
 
 	//POJO for Teacher class.
@@ -62,6 +62,13 @@ public class Teacher extends User {
 		super(id, username, password, phoneNumber, emailId, role);
 		this.subjects = subjects;
 		this.studentClasses = studentClasses;
+		this.exams = exams;
+	}
+	
+
+	public Teacher(long id, String name, String password, long phoneNumber, String emailId, Role role,
+			List<Exam> exams) {
+		super(id, name, password, phoneNumber, emailId, role);
 		this.exams = exams;
 	}
 

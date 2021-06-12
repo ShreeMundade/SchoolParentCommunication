@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Concern")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+//@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Concern {
 
 	@Id
@@ -35,7 +35,7 @@ public class Concern {
 	private Parent affectedParty;
 
 	@ManyToOne
-	@JsonIgnore
+	//@JsonIgnore
 	private Teacher resolvedBy;
 
 	@Enumerated(value = EnumType.STRING)

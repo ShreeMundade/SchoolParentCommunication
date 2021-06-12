@@ -10,7 +10,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "Fee")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+//@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Fee {
 
 	@Id

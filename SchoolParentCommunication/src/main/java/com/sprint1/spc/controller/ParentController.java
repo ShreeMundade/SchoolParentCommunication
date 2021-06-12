@@ -42,7 +42,7 @@ public class ParentController {
 	}
 
 	@PatchMapping("/parent/{parentId}")
-	public Parent updateParent(@PathVariable long parentId, @RequestBody Parent parent) {
+	public Parent updateParent(@PathVariable long parentId, @RequestBody Parent parent) throws ParentServiceException {
 		return parentServiceImpl.updateParent(parentId, parent);
 	}
 	
