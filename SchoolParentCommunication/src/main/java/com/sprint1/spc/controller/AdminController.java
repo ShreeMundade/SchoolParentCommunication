@@ -74,39 +74,40 @@ public class AdminController {
 		return new ResponseEntity<Accountant>(accountantService.patchAccountant(phoneNumber,accountantId), HttpStatus.CREATED);
 	}
 
+	@GetMapping("/accountants")
+	public ResponseEntity<List<Accountant>> getAllAccountants() {
+		List<Accountant> listOfAccountants = accountantService.retrieveAllAccountants();
+		return new ResponseEntity<List<Accountant>>(listOfAccountants, HttpStatus.OK);
+	}
+
 	@GetMapping("/students")
 	public ResponseEntity<List<User>> adminGetStudents() {
 		List<User> listOfStudents = userService.listUserByRole(Role.STUDENT);
 		return new ResponseEntity<List<User>>(listOfStudents, HttpStatus.OK);
-
 	}
 
 	@GetMapping("{id}")
 	public ResponseEntity<User> getAdminId(@PathVariable long id) {
 		User user = userService.getUserById(id);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
-
 	}
 
 	@GetMapping("/admins")
 	public ResponseEntity<List<User>> adminGetAdmins() {
 		List<User> listOfAdmins = userService.listUserByRole(Role.ADMIN);
 		return new ResponseEntity<List<User>>(listOfAdmins, HttpStatus.OK);
-
 	}
 
 	@GetMapping("/teachers")
 	public ResponseEntity<List<User>> adminGetTeachers() {
 		List<User> listOfTeachers = userService.listUserByRole(Role.TEACHER);
 		return new ResponseEntity<List<User>>(listOfTeachers, HttpStatus.OK);
-
 	}
 
 	@GetMapping("/parents")
 	public ResponseEntity<List<User>> adminGetParents() {
 		List<User> listOfParents = userService.listUserByRole(Role.PARENT);
 		return new ResponseEntity<List<User>>(listOfParents, HttpStatus.OK);
-
 	}
 
 	@PostMapping("/student")

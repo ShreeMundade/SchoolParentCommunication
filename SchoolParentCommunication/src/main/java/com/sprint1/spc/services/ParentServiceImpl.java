@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Concern;
+import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.repository.IParentRepository;
 
@@ -21,6 +22,9 @@ public class ParentServiceImpl implements IParentService {
 
 	@Autowired
 	private ConcernServiceImpl concernServiceImpl;
+	
+	@Autowired
+	private FeeServiceImpl feeServiceImpl;
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -102,6 +106,8 @@ public class ParentServiceImpl implements IParentService {
 		return concernList;
 	}
 
-	
-	
+	@Override
+	public Fee getFee() {
+		return null;
+	}
 }

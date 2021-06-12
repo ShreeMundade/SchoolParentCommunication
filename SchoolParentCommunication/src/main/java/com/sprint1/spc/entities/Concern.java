@@ -24,7 +24,6 @@ public class Concern {
 	private boolean resolved;
 	private String resolution;
 	private LocalDate concernDate;
-
 	private LocalDate resolvedDate;
 
 	@Enumerated(value = EnumType.STRING)

@@ -5,6 +5,7 @@ import java.util.*;
 import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Concern;
+import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
 
 @Service
@@ -17,4 +18,5 @@ public interface IParentService {
 	public Parent retrieveParentById(long id);
 	public Concern addConcern1(Concern concern);
 	public List<Concern> retrieveAllConcerns1();
+	public Fee getFee();
 }

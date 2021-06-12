@@ -52,6 +52,16 @@ public class StudentServiceImpl implements IStudentService{
 		return studentRepo.findById(id);
 	}
 
+	public long retreiveStudentById1(long id) {
+		List<Student> studentList = studentRepo.findAll();
+		long studentId = 0;
+		for(Student student : studentList) {
+			if(student.getId() == id) {
+				studentId = id;
+			}
+		}
+		return studentId;
+	}
 	
 	@Override
 	public Exam giveExam(Exam exam) {

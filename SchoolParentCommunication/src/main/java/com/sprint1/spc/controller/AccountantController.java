@@ -20,6 +20,7 @@ import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.exception.FeeServiceException;
 import com.sprint1.spc.services.AccountantServiceImpl;
 import com.sprint1.spc.services.FeeServiceImpl;
+import com.sprint1.spc.services.StudentServiceImpl;
 
 @RestController
 @RequestMapping("/accountant")
@@ -30,6 +31,9 @@ public class AccountantController {
 	
 	@Autowired
 	private AccountantServiceImpl accountantServiceImpl;
+	
+	@Autowired
+	private StudentServiceImpl studentServiceImpl;
 
 	// Get all fees
 	@GetMapping("{accountantId}/fees")
@@ -59,10 +63,13 @@ public class AccountantController {
 	}
 
 	// Add fee
-	@PostMapping("{accountantId}/fee")
-	public ResponseEntity<Fee> insertFee(@PathVariable long accountantId, @RequestBody final Fee fee) throws FeeServiceException {
+	@PostMapping("{accountantId}/{studentId}/fee")
+	public ResponseEntity<Fee> insertFee(@PathVariable long accountantId, @PathVariable long studentId, @RequestBody final Fee fee) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
-			throw new FeeServiceException("Please Add Valid Accountant Id");
+			throw new FeeServiceException("Please Add Valid Accountant Id And Student Id");
+		}
+		else if(studentServiceImpl.retreiveStudentById1(studentId) == 0) {
+			throw new FeeServiceException("Please Add Valid Student Id");
 		}
 		else if(fee.equals(null)) {
 			throw new FeeServiceException("Please Add Valid Fee");
