@@ -33,4 +33,9 @@ public class GlobalExceptionHandler {
 	public ErrorMessage parentNotFound(Exception e) {
 		return new ErrorMessage(HttpStatus.NOT_FOUND,e.getMessage());
 	}
+	
+	@ExceptionHandler(TeacherNotFoundException.class)
+	public ErrorMessage teacherNotFound(Exception e) {
+		return new ErrorMessage(HttpStatus.NOT_FOUND,e.getMessage());
+	}
 }

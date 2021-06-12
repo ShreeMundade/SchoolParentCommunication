@@ -65,5 +65,4 @@ public class UserServiceImpl implements IUserService{
 		List<User> userList = userRepo.findByRole(role);
 		return userList;
 	}
-
 }

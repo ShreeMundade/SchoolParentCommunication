@@ -1,6 +1,6 @@
 package com.sprint1.spc.entities;
 
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -10,12 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Parent")
-//@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Parent extends User {
 
 	@Access(AccessType.PROPERTY)

@@ -1,6 +1,6 @@
 package com.sprint1.spc.repository;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,5 +13,4 @@ public interface IUserRepository extends JpaRepository<User, Long> {
 	public User findByEmailId(String emailId);
 	public Student getById(Student student);
 	public List<User> findByRole(Role role);
-	
 }

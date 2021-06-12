@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Fee;
+import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.exception.FeeServiceException;
 import com.sprint1.spc.services.AccountantServiceImpl;
 import com.sprint1.spc.services.FeeServiceImpl;
@@ -34,68 +35,6 @@ public class AccountantController {
 	
 	@Autowired
 	private StudentServiceImpl studentServiceImpl;
-
-	// Get all fees
-	@GetMapping("{accountantId}/fees")
-	public ResponseEntity<List<Fee>> getAllFees(@Valid @PathVariable long accountantId) throws FeeServiceException {
-		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
-			throw new FeeServiceException("Please Add Valid Accountant Id");
-		}
-		else {
-			return new ResponseEntity<List<Fee>>(feeServiceImpl.retrieveAllFees(), HttpStatus.OK);
-		}
-	}
-
-	// Get fee by id
-	@GetMapping("{accountantId}/fee/{feeId}")
-	public ResponseEntity<Fee> getFeeById(@Valid @PathVariable long accountantId, @PathVariable long feeId) throws FeeServiceException {
-		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
-			throw new FeeServiceException("Please Add Valid Accountant Id");
-		}
-		else if(feeId == 0)
-		{
-			throw new FeeServiceException("Please Add Valid Fee Id");
-		}
-		else {
-			Fee fee = feeServiceImpl.retrieveFeeById(feeId);
-			return new ResponseEntity<Fee>(fee, HttpStatus.OK);
-		}
-	}
-
-	// Add fee
-	@PostMapping("{accountantId}/{studentId}/fee")
-	public ResponseEntity<Fee> insertFee(@PathVariable long accountantId, @PathVariable long studentId, @RequestBody final Fee fee) throws FeeServiceException {
-		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
-			throw new FeeServiceException("Please Add Valid Accountant Id And Student Id");
-		}
-		else if(studentServiceImpl.retreiveStudentById1(studentId) == 0) {
-			throw new FeeServiceException("Please Add Valid Student Id");
-		}
-		else if(fee.equals(null)) {
-			throw new FeeServiceException("Please Add Valid Fee");
-		}
-		else {
-			Fee addFee = feeServiceImpl.addFee(fee);
-			return new ResponseEntity<Fee>(addFee, HttpStatus.OK);
-		}
-	}
-
-	// Update fee
-	@PatchMapping("{accountantId}/fee/{feeId}")
-	public ResponseEntity<Fee> updateFee(@Valid @PathVariable long accountantId, @PathVariable long feeId, @RequestBody Fee fee) throws FeeServiceException {
-		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
-			throw new FeeServiceException("Please Add Valid Accountant Id");
-		}
-		else if(feeId == 0) {
-			throw new FeeServiceException("Please Add Valid Fee Id");
-		}
-		else if(fee.equals(null)) {
-			throw new FeeServiceException("Please Add Valid Fee");
-		}
-		else {
-			return new ResponseEntity<Fee>(feeServiceImpl.updateFee(feeId, fee), HttpStatus.OK);
-		}
-	}
 
 	// Get all fees by month
 	@GetMapping("{accountantId}/fee/month/{month}")
@@ -139,9 +78,71 @@ public class AccountantController {
 		}
 	}
 
+	// Get all fees
+	@GetMapping("{accountantId}/fees")
+	public ResponseEntity<List<Fee>> getAllFees(@Valid @PathVariable long accountantId) throws FeeServiceException {
+		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
+			throw new FeeServiceException("Please Add Valid Accountant Id");
+		}
+		else {
+			return new ResponseEntity<List<Fee>>(feeServiceImpl.retrieveAllFees(), HttpStatus.OK);
+		}
+	}
+
+	// Get fee by id
+	@GetMapping("{accountantId}/fee/{feeId}")
+	public ResponseEntity<Fee> getFeeById(@Valid @PathVariable long accountantId, @PathVariable long feeId) throws FeeServiceException {
+		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
+			throw new FeeServiceException("Please Add Valid Accountant Id");
+		}
+		else if(feeId == 0)
+		{
+			throw new FeeServiceException("Please Add Valid Fee Id");
+		}
+		else {
+			Fee fee = feeServiceImpl.retrieveFeeById(feeId);
+			return new ResponseEntity<Fee>(fee, HttpStatus.OK);
+		}
+	}
+
+//	// Add fee
+//	@PostMapping("{accountantId}/{studentId}/fee")
+//	public ResponseEntity<Fee> insertFee(@PathVariable long accountantId, @PathVariable long studentId, @RequestBody final Fee fee) throws FeeServiceException {
+//		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
+//			throw new FeeServiceException("Please Add Valid Accountant Id And Student Id");
+//		}
+//		else if(studentServiceImpl.retreiveStudentById1(studentId) == 0) {
+//			throw new FeeServiceException("Please Add Valid Student Id");
+//		}
+//		else if(fee.equals(null)) {
+//			throw new FeeServiceException("Please Add Valid Fee");
+//		}
+//		else {
+//			Fee addFee = feeServiceImpl.addFee(fee);
+//			return new ResponseEntity<Fee>(addFee, HttpStatus.OK);
+//		}
+//	}
+
+	// Update fee
+	@PatchMapping("{accountantId}/fee/{feeId}")
+	public ResponseEntity<Fee> updateFee(@Valid @PathVariable long accountantId, @PathVariable long feeId, @RequestBody Fee fee) throws FeeServiceException {
+		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
+			throw new FeeServiceException("Please Add Valid Accountant Id");
+		}
+		else if(feeId == 0) {
+			throw new FeeServiceException("Please Add Valid Fee Id");
+		}
+		else if(fee.equals(null)) {
+			throw new FeeServiceException("Please Add Valid Fee");
+		}
+		else {
+			return new ResponseEntity<Fee>(feeServiceImpl.updateFee(feeId, fee), HttpStatus.OK);
+		}
+	}
+
 	// Delete fee by id
 	@DeleteMapping("{accountantId}/fee/delete/{feeId}")
-	public ResponseEntity<Fee> deleteFeeById1(@PathVariable long accountantId, @PathVariable long feeId) throws FeeServiceException {
+	public ResponseEntity<Fee> deleteFeeById(@PathVariable long accountantId, @PathVariable long feeId) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
 			throw new FeeServiceException("Please Add Valid Accountant Id");
 		}
@@ -151,6 +152,23 @@ public class AccountantController {
 		else {
 			feeServiceImpl.deleteFeeById(feeId);
 			return new ResponseEntity<Fee>(HttpStatus.OK);
+		}
+	}
+	
+	// Update fee to student
+	@PatchMapping("{accountantId}/student/{studentId}")
+	public ResponseEntity<Student> patchFeeToStudent(@Valid @PathVariable long accountantId, @PathVariable long studentId, @RequestBody Fee fee) throws FeeServiceException {
+		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
+			throw new FeeServiceException("Please Add Valid Accountant Id");
+		}
+		else if(studentId == 0) {
+			throw new FeeServiceException("Please Add Valid Student Id");
+		}
+		else if(fee.equals(null)) {
+			throw new FeeServiceException("Please Add Valid Fee");
+		}
+		else {
+			return new ResponseEntity<Student>(accountantServiceImpl.updateFeeToStudent(studentId, fee), HttpStatus.OK);
 		}
 	}
 }

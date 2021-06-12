@@ -1,6 +1,6 @@
 package com.sprint1.spc.controller;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Concern;
+import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.exception.ParentServiceException;
 import com.sprint1.spc.services.ParentServiceImpl;
@@ -41,11 +42,11 @@ public class ParentController {
 		return parentServiceImpl.addParent(parent);
 	}
 
-	@PatchMapping("/parent/{parentId}")
-	public Parent updateParent(@PathVariable long parentId, @RequestBody Parent parent) throws ParentServiceException {
-		return parentServiceImpl.updateParent(parentId, parent);
+	@PatchMapping("/parent/student/{parentId}")
+	public Parent updateStudentToParent(@PathVariable long parentId, @RequestBody Parent parent) throws ParentServiceException {
+		return parentServiceImpl.updateStudentToParent(parentId, parent);
 	}
-	
+
 	@GetMapping("/parent/concerns")
 	public List<Concern> getParentConcerns() {
 		return parentServiceImpl.retrieveAllConcerns1();
@@ -56,6 +57,17 @@ public class ParentController {
 		return parentServiceImpl.addConcern1(concern);
 	}
 	
+	@GetMapping("/parent/fee/{parentId}")
+	public ResponseEntity<Fee> getFeeByParentById(@PathVariable long parentId) {
+		Fee fee = parentServiceImpl.getFeeByParentId(parentId);
+		return new ResponseEntity<Fee>(fee, HttpStatus.OK);
+	}
+
+	@PatchMapping("/parent/{parentId}/{phoneNumber}")
+	public Parent updateParent(@PathVariable long parentId, @PathVariable long phoneNumber) throws ParentServiceException {
+		return parentServiceImpl.updateParent(parentId, phoneNumber);
+	}
+
 //	@GetMapping("/parent/student/{studentId}")
 //	public Parent getParentByStudentId(@PathVariable long studentId) {
 //		Parent parent = parentServiceImpl.retrieveParentByStudentId(studentId);

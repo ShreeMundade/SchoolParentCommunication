@@ -55,6 +55,14 @@ public class StudentClass {
 		this.subjectTeacher = subjectTeacher;
 	}
 	
+	public StudentClass(long classId, String description, int grade, char division) {
+		super();
+		this.classId = classId;
+		this.description = description;
+		this.grade = grade;
+		this.division = division;
+	}
+
 	public StudentClass() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -6,13 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Accountant;
+import com.sprint1.spc.entities.Fee;
+import com.sprint1.spc.entities.Parent;
+import com.sprint1.spc.entities.Student;
+import com.sprint1.spc.exception.ParentServiceException;
+import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.repository.IAccountantRepository;
+import com.sprint1.spc.repository.IStudentRepository;
 
 @Service
 public class AccountantServiceImpl implements IAccountantService {
 
 	@Autowired
 	private IAccountantRepository iAccountantRepository;
+	
+	@Autowired
+	private IStudentRepository iStudentRepository;
 
 	@Override
 	public List<Accountant> retrieveAllAccountants() {
@@ -49,6 +58,15 @@ public class AccountantServiceImpl implements IAccountantService {
 		return accountant;
 	}
 
+	/***** Patch Fee To Student *****/
+	@Override
+	public Student updateFeeToStudent(long id, Fee fee) {
+		Student existingStudent = iStudentRepository.findById(id);
+		existingStudent.setFee(fee);
+		iStudentRepository.save(existingStudent);
+		return existingStudent;
+	}
+	
 	@Override
 	public void deleteAccountant(long accountantId) {
 		iAccountantRepository.deleteById(accountantId);
