@@ -19,8 +19,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Parent extends User {
 
 	@Access(AccessType.PROPERTY)
-	@OneToMany(mappedBy = "parent", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	@JsonBackReference
+	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JsonBackReference(value="students")
 	private Set<Student> students;
 
 	public Set<Student> getStudents() {

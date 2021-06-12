@@ -50,4 +50,5 @@ public class ConcernServiceImpl implements IConcernService{
 		return null;
 	}
 
+	
 }

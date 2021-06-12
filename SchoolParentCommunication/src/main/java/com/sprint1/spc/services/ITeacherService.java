@@ -2,6 +2,7 @@ package com.sprint1.spc.services;
 
 import java.util.List;
 
+import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Teacher;
 
 public interface ITeacherService {
@@ -10,6 +11,7 @@ public interface ITeacherService {
 	
 	public List<Teacher> retrieveAllTeachers();
 	public Teacher retrieveTeacherById(long id);
+	List<Concern> retrieveAllConcerns();
 	
 	
 

@@ -21,24 +21,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Student extends User {
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "Student_Exam", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "exam_id"))
+	@JsonBackReference(value = "list_exam")
 	private List<Exam> exam;
 
 	@ElementCollection
+	@JsonBackReference(value = "Student_attendance")
 	private List<Attendance> attendance;
-
-	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	@JoinColumn(name = "Parent")
-	private Parent parent;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "StudentClass")
-	@JsonBackReference
+	@JsonBackReference(value="Student_class")
 	private StudentClass studentClass;
 
-	@OneToOne
-	@JsonBackReference
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonBackReference(value="Student_fee")
 	private Fee fee;
 
 	public List<Exam> getExam() {
@@ -57,14 +55,7 @@ public class Student extends User {
 		this.attendance = attendance;
 	}
 
-	public Parent getParent() {
-		return parent;
-	}
-
-	public void setParent(Parent parent) {
-		this.parent = parent;
-	}
-
+	
 	public StudentClass getStudentClass() {
 		return studentClass;
 	}
@@ -82,11 +73,11 @@ public class Student extends User {
 	}
 
 	public Student(long id, String name, String password, long phoneNumber, String emailId, Role role, List<Exam> exam,
-			List<Attendance> attendance, Parent parent, StudentClass studentClass, Fee fee) {
+			List<Attendance> attendance,  StudentClass studentClass, Fee fee) {
 		super(id, name, password, phoneNumber, emailId, role);
 		this.exam = exam;
 		this.attendance = attendance;
-		this.parent = parent;
+		
 		this.studentClass = studentClass;
 		this.fee = fee;
 	}
@@ -113,8 +104,8 @@ public class Student extends User {
 
 	@Override
 	public String toString() {
-		return "Student [exam=" + exam + ", attendance=" + attendance + ", parent=" + parent + ", studentClass="
-				+ studentClass + ", fee=" + fee + "]";
+		return "Student [exam=" + exam + ", attendance=" + attendance + ", studentClass=" + studentClass + ", fee="
+				+ fee + "]";
 	}
 
 	@Override
@@ -124,7 +115,6 @@ public class Student extends User {
 		result = prime * result + ((attendance == null) ? 0 : attendance.hashCode());
 		result = prime * result + ((exam == null) ? 0 : exam.hashCode());
 		result = prime * result + ((fee == null) ? 0 : fee.hashCode());
-		result = prime * result + ((parent == null) ? 0 : parent.hashCode());
 		result = prime * result + ((studentClass == null) ? 0 : studentClass.hashCode());
 		return result;
 	}
@@ -153,11 +143,6 @@ public class Student extends User {
 				return false;
 		} else if (!fee.equals(other.fee))
 			return false;
-		if (parent == null) {
-			if (other.parent != null)
-				return false;
-		} else if (!parent.equals(other.parent))
-			return false;
 		if (studentClass == null) {
 			if (other.studentClass != null)
 				return false;
@@ -165,6 +150,7 @@ public class Student extends User {
 			return false;
 		return true;
 	}
+
 	
 	
 
