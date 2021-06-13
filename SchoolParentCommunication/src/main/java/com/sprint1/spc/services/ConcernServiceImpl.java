@@ -28,9 +28,14 @@ public class ConcernServiceImpl implements IConcernService {
 
 	@Override
 	public Concern addConcern(Concern concern) {
-		return iConcernRepo.saveAndFlush(concern);
+		Concern concern1 = new Concern();
+		concern1.getConcernDescription();
+		concern1.getConcernDate();
+		concern1.getAffectedParty();
+		concern1.getType();
+		return iConcernRepo.save(concern1);
 	}
-
+	
 	@Override
 	public Concern updateConcern(Concern concern) throws ConcernNotFoundException {
 		Concern existingConcern = iConcernRepo.getById(concern.getConcernId());

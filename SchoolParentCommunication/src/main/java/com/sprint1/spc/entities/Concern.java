@@ -19,7 +19,6 @@ public class Concern {
 	@GeneratedValue(generator = "ConcernIdGeneration")
 	private long concernId;
 
-	@NotNull
 	private String concernDescription;
 	private boolean resolved;
 	private String resolution;
@@ -160,6 +159,20 @@ public class Concern {
 		this.party = party;
 		this.affectedParty = affectedParty;
 		this.type = type;
+	}
+	
+	public Concern(String concernDescription, LocalDate concernDate, Parent affectedParty,
+			ConcernType type) {
+		super();
+		this.concernDescription = concernDescription;
+		this.concernDate = concernDate;
+		this.affectedParty = affectedParty;
+		this.type = type;
+	}
+	
+	public Concern() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
