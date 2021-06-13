@@ -7,4 +7,6 @@ import com.sprint1.spc.entities.StudentClass;
 @Service
 public interface IStudentClassService {
 	public StudentClass addStudentClass(StudentClass studentClass);
+
+	public StudentClass deleteStudentClassById(long studentClassId);
 }

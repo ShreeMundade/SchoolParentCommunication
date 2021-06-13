@@ -12,11 +12,18 @@ public class StudentClassServiceImpl implements IStudentClassService {
 	@Autowired
 	private IStudentClassRepository iStudentClassRepository;
 
+	@Override
 	public StudentClass addStudentClass(StudentClass studentClass) {
 		return iStudentClassRepository.save(studentClass);
 	}
-
-	public void deleteStudentClassById(long studentClassId) {
+	
+	
+	@Override
+	public StudentClass deleteStudentClassById(long studentClassId) {
+		StudentClass s=iStudentClassRepository.findById(studentClassId).get();
 		iStudentClassRepository.deleteById(studentClassId);
+		return s;
+		
 	}
+	
 }
