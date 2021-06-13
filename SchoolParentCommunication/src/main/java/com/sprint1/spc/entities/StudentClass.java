@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class StudentClass {
 	
 	@Id
+	@SequenceGenerator(name = "StudnetClassIdGeneration", initialValue = 8001, allocationSize = 50)
+	@GeneratedValue(generator = "StundetClassIdGeneration")
 	private long classId;
 	private String description;
 	private int grade;

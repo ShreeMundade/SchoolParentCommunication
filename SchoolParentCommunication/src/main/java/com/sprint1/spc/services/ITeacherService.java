@@ -13,5 +13,5 @@ public interface ITeacherService {
 	public List<Teacher> retrieveAllTeachers();
 	public Teacher retrieveTeacherById(long id);
 	List<Concern> retrieveAllConcerns();
-	Concern patchConcern(long teacherId, long concernId, String resolution);
+//	Concern patchConcern(long teacherId, long concernId, String resolution);
 }

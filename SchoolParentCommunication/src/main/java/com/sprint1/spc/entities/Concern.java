@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Concern {
 
 	@Id
-	@SequenceGenerator(name = "ConcernIdGeneration", initialValue = 2001, allocationSize = 1000)
+	@SequenceGenerator(name = "ConcernIdGeneration", initialValue = 2001, allocationSize = 995)
 	@GeneratedValue(generator = "ConcernIdGeneration")
 	private long concernId;
 

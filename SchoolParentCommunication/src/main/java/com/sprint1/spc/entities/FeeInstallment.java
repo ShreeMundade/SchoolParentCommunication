@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class FeeInstallment {
 
 	@Id
-	@SequenceGenerator(name = "FeesInstallmentGeneration", initialValue = 5001, allocationSize = 1000)
+	@SequenceGenerator(name = "FeesInstallmentGeneration", initialValue = 5001, allocationSize = 995)
 	@GeneratedValue(generator = "FeesInstallmentGeneration")
 	@Column(name = "installment_id")
 	private long feeInstallmentId;

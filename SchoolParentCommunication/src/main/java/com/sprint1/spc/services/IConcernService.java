@@ -13,9 +13,12 @@ public interface IConcernService {
 	public Concern addConcern(Concern concern);
 	public Concern updateConcern(Concern concern) throws ConcernNotFoundException;
 	public List<Concern> retrieveAllConcerns();
-	public List<Concern> retrieveAllConcernsByParent(Parent parent);
-	public List<Concern> retrieveAllUnResolvedConcerns();
-	public List<Concern> retrieveAllUnResolvedConcernsByParent(Parent parent);
+//	public List<Concern> retrieveAllConcernsByParent(Parent parent);
+	List<Concern> retrieveAllConcernsByParentId(long id);
+	
+//	public List<Concern> retrieveAllUnResolvedConcerns();
+//	public List<Concern> retrieveAllUnResolvedConcernsByParent(Parent parent);
+	
 	
 	
 }

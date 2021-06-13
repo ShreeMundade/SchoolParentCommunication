@@ -23,8 +23,8 @@ public class TeacherServiceImpl implements ITeacherService {
 	@Autowired
 	private IConcernRepository iConcernRepo;
 	
-//	@Autowired
-//	private ConcernServiceImpl concernServiceImpl;
+	@Autowired
+	private ConcernServiceImpl concernServiceImpl;
 
 	/***** Add Teacher *****/
 	@Override
@@ -46,11 +46,6 @@ public class TeacherServiceImpl implements ITeacherService {
 		return iTeacherRepo.findAll();
 	}
 
-//	@Override
-//	public Teacher retrieveTeacherById(long id) {	
-//		return iTeacherRepo.findById(id).get();
-//	}
-
 	/***** Retrieve All Concerns *****/
 	@Override
 	public List<Concern> retrieveAllConcerns() {
@@ -58,11 +53,11 @@ public class TeacherServiceImpl implements ITeacherService {
 	}
 
 	/***** Patch Concern *****/
-	@Override
-	public Concern patchConcern(long teacherId, long concernId, String resolution) {
-		Concern concern = iConcernRepo.findById(concernId).get();
-		return concern;
-	}
+//	@Override
+//	public Concern patchConcern(long teacherId, long concernId, String resolution) {
+//		Concern concern = concernServiceImpl.findById(concernId);
+//		return concern;
+//	}
 
 	/***** Find Teacher By Id *****/
 	@Override

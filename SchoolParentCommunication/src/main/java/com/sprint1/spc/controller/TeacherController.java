@@ -24,6 +24,7 @@ import com.sprint1.spc.entities.Exam;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.services.AttendanceServiceImpl;
+import com.sprint1.spc.services.ConcernServiceImpl;
 import com.sprint1.spc.services.ExamServiceImpl;
 import com.sprint1.spc.services.StudentServiceImpl;
 import com.sprint1.spc.services.TeacherServiceImpl;
@@ -44,8 +45,8 @@ public class TeacherController {
 	@Autowired
 	private StudentServiceImpl studentServiceImpl;
 	
-//	@Autowired
-//	private ConcernServiceImpl concernServiceImpl;
+	@Autowired
+	private ConcernServiceImpl concernServiceImpl;
 
 	@GetMapping("/exams")
 	public List<Exam> getAllExams() {
@@ -107,12 +108,13 @@ public class TeacherController {
 		return teacherServiceImpl.retrieveAllConcerns();
 	}
 	
-	@PatchMapping("{teacherId}/concern/{concernId}/{resolution}")
-	public ResponseEntity<Concern> patchConcern(@PathVariable long teacherId,
-			@PathVariable long concernId,@PathVariable String resolution) {
-		return new ResponseEntity<Concern>(teacherServiceImpl.patchConcern(teacherId,concernId,resolution), HttpStatus.OK);
-	}
+//	@PatchMapping("{teacherId}/concern/{concernId}/{resolution}")
+//	public ResponseEntity<Concern> patchConcern(@PathVariable long teacherId,
+//			@PathVariable long concernId,@PathVariable String resolution) {
+//		return new ResponseEntity<Concern>(teacherServiceImpl.patchConcern(teacherId,concernId,resolution), HttpStatus.OK);
+//	}
 
+	
 	
 	
 }

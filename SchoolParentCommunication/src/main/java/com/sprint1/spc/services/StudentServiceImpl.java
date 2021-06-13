@@ -7,20 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Exam;
-import com.sprint1.spc.entities.Role;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.repository.IStudentRepository;
-import com.sprint1.spc.repository.IUserRepository;
 
 @Service
 public class StudentServiceImpl implements IStudentService{
 	
 	@Autowired
 	private IStudentRepository studentRepo;
-	@Autowired
-	private IUserRepository userRepo;
-	
-	
+		
 	
 	@Override
 	public Student addStudent(Student student) {
