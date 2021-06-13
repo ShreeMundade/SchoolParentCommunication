@@ -71,12 +71,11 @@ public class AdminController {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     List<FieldErrorMessage> exceptionHandler(MethodArgumentNotValidException e) {
-      
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         List<FieldErrorMessage> fieldErrorMessages = fieldErrors.stream().map(fieldError -> new FieldErrorMessage(fieldError.getField(),fieldError.getDefaultMessage())).collect(Collectors.toList());
         return fieldErrorMessages;
     }
-	
+
 	@GetMapping("/accountants")
 	@ApiOperation(value = "Get All Accountants", notes = "List of all accountants given here.")
 	public ResponseEntity<List<Accountant>> getAllAccountants() {
@@ -114,8 +113,7 @@ public class AdminController {
 
 	@GetMapping("/users")
 	@ApiOperation(value = "Get All Users Of The System", notes = "List of all the users of the system.")
-	public ResponseEntity<List<User>> allUsers(){
-
+	public ResponseEntity<List<User>> allUsers() {
 		List<User> listOfUsers = userService.getAllUsers(); 
 		return new ResponseEntity<List<User>>(listOfUsers,HttpStatus.OK);
 	}
@@ -149,12 +147,13 @@ public class AdminController {
 	}
 
 	@PostMapping("/parent/{studentId}")
-	@ApiOperation(value = "Add Parent with Student Id", notes = "Enter the parent details with student id.")
+	@ApiOperation(value = "Add Parent With Student Id", notes = "Enter the parent details with student id.")
 	public ResponseEntity<Parent> insertParent(@Valid @PathVariable long studentId, @RequestBody Parent parent)
 			throws StudentIDNotFoundException {
 		if (studentService.retreiveStudentById1(studentId) == 0) {
 			throw new StudentIDNotFoundException("Student Not Found");
-		} else {
+		} 
+		else {
 			return new ResponseEntity<Parent>(parentService.addParent(parent), HttpStatus.CREATED);
 		}
 	}
@@ -174,8 +173,7 @@ public class AdminController {
 	@PostMapping("/studentClass")
 	@ApiOperation(value = "Add Student Class", notes = "Enter the class details to add.")
 	public ResponseEntity<StudentClass> addStudentClass(@Valid @RequestBody StudentClass studentClass) {
-		return new ResponseEntity<StudentClass>(studentClassService.addStudentClass(studentClass),
-				HttpStatus.CREATED);
+		return new ResponseEntity<StudentClass>(studentClassService.addStudentClass(studentClass), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/updateTeacher")
@@ -183,7 +181,6 @@ public class AdminController {
 	public ResponseEntity<Teacher> updateTeacher(@Valid @RequestBody Teacher teacher) throws TeacherNotFoundException {
 		return new ResponseEntity<Teacher>(teacherService.updateTeacher(teacher), HttpStatus.CREATED);
 	}
-
 
 	@PatchMapping("/student/{id}")
 	@ApiOperation(value = "Add Student Class To Student", notes = "Student will get added to the particular student class.")
@@ -202,16 +199,15 @@ public class AdminController {
 				HttpStatus.CREATED);
 	}
 
-
 	@DeleteMapping("/studentClass/{studentClassId}")
-	@ApiOperation(value = "Delete The Student Class By studentClassId", notes = "Delete studnetclass")
+	@ApiOperation(value = "Delete The Student Class By Student Class Id", notes = "Delete studnetclass")
 	public ResponseEntity<StudentClass> deleteStudentClass(@Valid @PathVariable long studentClassId) {
 		studentClassService.deleteStudentClassById(studentClassId);
 		return new ResponseEntity<StudentClass>(HttpStatus.OK);
 	}
-	//	@PutMapping("/accountant")
-	//	public ResponseEntity<Accountant> updateAccountant(@Valid @RequestBody Accountant accountant) {
-	//		return new ResponseEntity<Accountant>(accountantService.updateAccountant(accountant), HttpStatus.CREATED);
-	//	}
 
+//	@PutMapping("/accountant")
+//	public ResponseEntity<Accountant> updateAccountant(@Valid @RequestBody Accountant accountant) {
+//		return new ResponseEntity<Accountant>(accountantService.updateAccountant(accountant), HttpStatus.CREATED);
+//	}
 }

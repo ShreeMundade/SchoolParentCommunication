@@ -14,11 +14,13 @@ public interface IParentService {
 	public Parent addParent(Parent parent);
 	public List<Parent> retrieveAllParents();
 	public Parent retrieveParentById(long id);
-	public Concern addConcern1(Concern concern);
+//	public Concern addConcern1(Concern concern);
 	public List<Concern> retrieveAllConcerns1();
 	public Fee getFeeByParentId(long parentId);
 	public long retrieveParentById1(long id);
 	//public Parent retrieveParentByStudentId(long id);
 	public Parent updateStudentToParent(long id, Parent parent) throws ParentServiceException;
 	public Parent updateParent(long id, long phoneNumber) throws ParentServiceException;
+//	Concern addConcern(String concernDesc, LocalDate concernDate, long parentId, ConcernType type);
+	public Concern addConcern(Concern concern);
 }

@@ -52,7 +52,7 @@ class ConcernServiceTest {
 		Concern concern = new Concern(11l, "This Conrenc is regarding fees", LocalDate.now(), ConcernParty.TEACHER,
 				parent, ConcernType.PERFORMANCE);
 
-		Mockito.when(concernRepo.saveAndFlush(concern)).thenReturn(concern);
+		Mockito.when(concernRepo.save(concern)).thenReturn(concern);
 
 		Assertions.assertEquals(concern, concernService.addConcern(concern));
 

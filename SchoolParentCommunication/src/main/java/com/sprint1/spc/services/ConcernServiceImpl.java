@@ -2,18 +2,13 @@ package com.sprint1.spc.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Concern;
-import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
-import com.sprint1.spc.entities.Student;
-import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.exception.ConcernNotFoundException;
 import com.sprint1.spc.repository.IConcernRepository;
 import com.sprint1.spc.repository.IParentRepository;
@@ -28,12 +23,7 @@ public class ConcernServiceImpl implements IConcernService {
 
 	@Override
 	public Concern addConcern(Concern concern) {
-		Concern concern1 = new Concern();
-		concern1.getConcernDescription();
-		concern1.getConcernDate();
-		concern1.getAffectedParty();
-		concern1.getType();
-		return iConcernRepo.save(concern1);
+		return iConcernRepo.save(concern);
 	}
 	
 	@Override

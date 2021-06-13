@@ -1,5 +1,6 @@
 package com.sprint1.spc.controller;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Concern;
+import com.sprint1.spc.entities.ConcernType;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.exception.FieldErrorMessage;
@@ -98,7 +100,7 @@ public class ParentController {
 		}
 	}
 
-	@PostMapping("/parent/{parentId}/concern")
+	@PutMapping("/parent/{parentId}/concern")
 	@ApiOperation(value = "Add Concern", notes = "Add concern details.")
 	public Concern insertParentConcern(@PathVariable long parentId, @RequestBody Concern concern) throws ParentServiceException {
 		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
@@ -108,7 +110,7 @@ public class ParentController {
 			throw new ParentServiceException("Please Add Valid Concern Details.");
 		}
 		else {
-			return parentServiceImpl.addConcern1(concern);
+			return parentServiceImpl.addConcern(concern);
 		}
 	}
 

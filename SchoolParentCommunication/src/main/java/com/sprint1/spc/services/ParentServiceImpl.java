@@ -1,6 +1,7 @@
 package com.sprint1.spc.services;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -111,7 +112,7 @@ public class ParentServiceImpl implements IParentService {
 
 	/***** Add Concern *****/
 	@Override
-	public Concern addConcern1(Concern concern) {
+	public Concern addConcern(Concern concern) {
 		if(!concern.equals(null)) {
 			return concernServiceImpl.addConcern(concern);
 		}
@@ -119,7 +120,7 @@ public class ParentServiceImpl implements IParentService {
 			return null;
 		}
 	}
-
+	
 	/***** Retrieve Concerns *****/
 	@Override
 	public List<Concern> retrieveAllConcerns1() {
@@ -148,4 +149,28 @@ public class ParentServiceImpl implements IParentService {
 			return null;
 		}
 	}
+	
+//	/***** Add Concern *****/
+//	@Override
+//	public Concern addConcern(String concernDesc, LocalDate concernDate, long parentId, ConcernType type) {
+//		Concern concern = new Concern();
+//		Parent parent = iParentRepository.getById(parentId);
+//		concern.setConcernId(0);
+//		concern.setConcernDescription(concernDesc);
+//		concern.setResolved(false);
+//		concern.setResolution(null);
+//		concern.setConcernDate(concernDate);
+//		concern.setResolvedDate(null);
+//		concern.setParty(null);
+//		concern.setAffectedParty(parent);
+//		concern.setResolvedBy(null);
+//		concern.setType(type);
+//		if(!concern.equals(null)) {
+//			
+//			return iConcernRepository.save(concern);
+//		}
+//		else {
+//			return null;
+//		}
+//	}
 }

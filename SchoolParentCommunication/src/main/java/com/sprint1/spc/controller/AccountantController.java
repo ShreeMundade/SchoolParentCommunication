@@ -49,7 +49,7 @@ public class AccountantController {
     List<FieldErrorMessage> exceptionHandler(MethodArgumentNotValidException e) {
       
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-        List<FieldErrorMessage> fieldErrorMessages = fieldErrors.stream().map(fieldError-> new FieldErrorMessage(fieldError.getField(),fieldError.getDefaultMessage())).collect(Collectors.toList());
+        List<FieldErrorMessage> fieldErrorMessages = fieldErrors.stream().map(fieldError -> new FieldErrorMessage(fieldError.getField(),fieldError.getDefaultMessage())).collect(Collectors.toList());
         return fieldErrorMessages;
     }
 	
@@ -70,7 +70,7 @@ public class AccountantController {
 
 	// Get fee by student id
 	@GetMapping("{accountantId}/fee/student/id/{studentId}")
-	@ApiOperation(value = "Get Fee By studentId", notes = "Enter the studentId to get the fee details for the student.")
+	@ApiOperation(value = "Get Fee By Student Id", notes = "Enter the studentId to get the fee details for the student.")
 	public ResponseEntity<List<Fee>> getFeeByStudentId(@Valid @PathVariable long accountantId, @PathVariable long studentId) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
 			throw new FeeServiceException("Please Add Valid Accountant Id.");
@@ -85,7 +85,7 @@ public class AccountantController {
 
 	// Get all fees by student name
 	@GetMapping("{accountantId}/fee/student/name/{studentName}")
-	@ApiOperation(value = "Get Fee By studentName", notes = "Enter the studentName to get the fee details for the student.")
+	@ApiOperation(value = "Get Fee By Student Name", notes = "Enter the studentName to get the fee details for the student.")
 	public ResponseEntity<Fee> getFeeByStudentName(@Valid @PathVariable long accountantId, @PathVariable String studentName) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
 			throw new FeeServiceException("Please Add Valid Accountant Id.");
@@ -112,7 +112,7 @@ public class AccountantController {
 
 	// Get fee by id
 	@GetMapping("{accountantId}/fee/{feeId}")
-	@ApiOperation(value = "Get Fee By feeId", notes = "Enter the feeId to get the fee details for the student.")
+	@ApiOperation(value = "Get Fee By Fee Id", notes = "Enter the feeId to get the fee details for the student.")
 	public ResponseEntity<Fee> getFeeById(@Valid @PathVariable long accountantId, @PathVariable long feeId) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
 			throw new FeeServiceException("Please Add Valid Accountant Id.");
@@ -129,7 +129,7 @@ public class AccountantController {
 
 	// Update fee
 	@PatchMapping("{accountantId}/fee/{feeId}")
-	@ApiOperation(value = "Update Fee By feeId", notes = "Enter the feeId to update fee details.")
+	@ApiOperation(value = "Update Fee By Fee Id", notes = "Enter the feeId to update fee details.")
 	public ResponseEntity<Fee> updateFee(@Valid @PathVariable long accountantId, @PathVariable long feeId, @RequestBody Fee fee) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
 			throw new FeeServiceException("Please Add Valid Accountant Id");
@@ -147,7 +147,7 @@ public class AccountantController {
 
 	// Patch fee to student
 	@PatchMapping("{accountantId}/student/{studentId}")
-	@ApiOperation(value = "Add Fee With studentId", notes = "Enter the studentId to update fee details.")
+	@ApiOperation(value = "Add Fee With Student Id", notes = "Enter the studentId to update fee details.")
 	public ResponseEntity<Student> patchFeeToStudent(@Valid @PathVariable long accountantId, @PathVariable long studentId, @RequestBody Fee fee) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
 			throw new FeeServiceException("Please Add Valid Accountant Id");
@@ -165,7 +165,7 @@ public class AccountantController {
 
 	// Delete fee by id
 	@DeleteMapping("{accountantId}/fee/delete/{feeId}")
-	@ApiOperation(value = "Delete Fee By feeId", notes = "Enter the feeId to delete that fee.")
+	@ApiOperation(value = "Delete Fee By Fee Id", notes = "Enter the feeId to delete that fee.")
 	public ResponseEntity<Fee> deleteFeeById(@Valid @PathVariable long accountantId, @PathVariable long feeId) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
 			throw new FeeServiceException("Please Add Valid Accountant Id");
@@ -181,6 +181,7 @@ public class AccountantController {
 
 	// Add fee
 	@PostMapping("{accountantId}/{studentId}/fee")
+	@ApiOperation(value = "Add Fee", notes = "Enter the fee details.")
 	public ResponseEntity<Fee> insertFee(@PathVariable long accountantId, @PathVariable long studentId, @RequestBody final Fee fee) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
 			throw new FeeServiceException("Please Add Valid Accountant Id And Student Id");
