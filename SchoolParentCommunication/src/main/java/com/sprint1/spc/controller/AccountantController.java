@@ -1,6 +1,6 @@
 package com.sprint1.spc.controller;
 
-import java.util.*;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +20,6 @@ import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.exception.FeeServiceException;
 import com.sprint1.spc.services.AccountantServiceImpl;
 import com.sprint1.spc.services.FeeServiceImpl;
-import com.sprint1.spc.services.StudentServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -35,8 +33,8 @@ public class AccountantController {
 	@Autowired
 	private AccountantServiceImpl accountantServiceImpl;
 	
-	@Autowired
-	private StudentServiceImpl studentServiceImpl;
+//	@Autowired
+//	private StudentServiceImpl studentServiceImpl;
 
 	// Get all fees by month
 	@GetMapping("{accountantId}/fee/month/{month}")
@@ -85,7 +83,7 @@ public class AccountantController {
 
 	// Get all fees
 	@GetMapping("{accountantId}/fees")
-	@ApiOperation(value = "Get All Fees ", notes = "List of all fee details.")
+	@ApiOperation(value = "Get All Fees", notes = "List of all fee details.")
 	public ResponseEntity<List<Fee>> getAllFees(@Valid @PathVariable long accountantId) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
 			throw new FeeServiceException("Please Add Valid Accountant Id");
@@ -132,7 +130,7 @@ public class AccountantController {
 
 	// Update fee
 	@PatchMapping("{accountantId}/fee/{feeId}")
-	@ApiOperation(value = "Update Fee By feetId", notes = "Enter the feeId to update fee details.")
+	@ApiOperation(value = "Update Fee By feeId", notes = "Enter the feeId to update fee details.")
 	public ResponseEntity<Fee> updateFee(@Valid @PathVariable long accountantId, @PathVariable long feeId, @RequestBody Fee fee) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
 			throw new FeeServiceException("Please Add Valid Accountant Id");
@@ -166,7 +164,7 @@ public class AccountantController {
 	
 	// Update fee to student
 	@PatchMapping("{accountantId}/student/{studentId}")
-	@ApiOperation(value = "Add Fee With StudentID ", notes = "Enter the studentId to update fee details.")
+	@ApiOperation(value = "Add Fee With studentId", notes = "Enter the studentId to update fee details.")
 	public ResponseEntity<Student> patchFeeToStudent(@Valid @PathVariable long accountantId, @PathVariable long studentId, @RequestBody Fee fee) throws FeeServiceException {
 		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
 			throw new FeeServiceException("Please Add Valid Accountant Id");
