@@ -119,11 +119,11 @@ public class TeacherController {
 	public List<Concern> getTeacherConcerns() {
 		return teacherServiceImpl.retrieveAllConcerns();
 	}
-	@GetMapping("/concerns")
-	@ApiOperation(value = "Get All The Concern by concernId.", notes = "Get all the concern details.")
-	
-		return teacherServiceImpl.retrieveAllConcerns();
-	}
+//	@GetMapping("/concern/{concernId}")
+//	@ApiOperation(value = "Get All The Concerns", notes = "Get all the concern details.")
+//	public List<Concern> getTeacherConcerns() {
+//		return teacherServiceImpl.retrieveAllConcerns();
+//	}
 	
 //	@PatchMapping("{teacherId}/concern/{concernId}/{resolution}")
 //	public ResponseEntity<Concern> patchConcern(@PathVariable long teacherId,
