@@ -65,15 +65,15 @@ public class StudentServiceImpl implements IStudentService{
 	
 	@Override
 	public Exam giveExam(Exam exam) {
-		// TODO Auto-generated method stub
-		return studentRepo.getById(exam);
+		
+		return studentRepo.findById(exam);
 		
 	}
 	
 	@Override
 	public Attendance giveAttendence(Attendance attendance)
 	{
-		return studentRepo.getById(attendance);
+		return studentRepo.findById(attendance);
 		
 	}
 

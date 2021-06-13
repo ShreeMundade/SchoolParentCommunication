@@ -12,8 +12,7 @@ public interface IStudentExamAttemptService {
 	public ExamAttempt addStudentExamAttempt(ExamAttempt attempt);
 	public ExamAttempt updateStudentExamAttempt(ExamAttempt attempt);
 	public ExamAttempt deleteStudentExamAttempt(ExamAttempt attempt);
-	public List<ExamAttempt> retrieveAllStudentExamAttemptByStudent(Student student);
-	public ExamAttempt retrieveStudentExamAttemptById(int id);
+	public ExamAttempt retrieveStudentExamAttemptById(Long id);
 	
 	
 }

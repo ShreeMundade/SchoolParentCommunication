@@ -87,7 +87,7 @@ public class StudentServiceTest {
 	   ExamAttempt examattempt = new ExamAttempt(true,60);
 	   Subject subject = new Subject("Maths");
 	   Exam exam = new Exam(12l,LocalDate.now(),100d,teacher,examattempt,subject);
-	   when(studentRepo.getById(exam)).thenReturn(exam);
+	   when(studentRepo.findById(exam)).thenReturn(exam);
 	   Assertions.assertEquals(exam, studentService.giveExam(exam));
 	   
    }
@@ -95,7 +95,7 @@ public class StudentServiceTest {
    public void giveAttendanceTest()
    {
 	   Attendance attendance = new Attendance(12l,LocalDate.now(),true);
-	   when(studentRepo.getById(attendance)).thenReturn(attendance);
+	   when(studentRepo.findById(attendance)).thenReturn(attendance);
 	   Assertions.assertEquals(attendance,studentService.giveAttendence(attendance));
    }
    

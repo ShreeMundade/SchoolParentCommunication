@@ -8,8 +8,8 @@ import com.sprint1.spc.entities.Student;
 
 public interface IStudentRepository extends JpaRepository<Student, Long> {
 	public Student findById(long id);
-	public Exam getById(Exam exam);
-	public Attendance getById(Attendance attendance);
+	public Exam findById(Exam exam);
+	public Attendance findById(Attendance attendance);
 	
 	
 }
