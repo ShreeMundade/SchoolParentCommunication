@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Accountant;
-import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Role;
 import com.sprint1.spc.entities.Student;
@@ -26,7 +25,6 @@ import com.sprint1.spc.entities.StudentClass;
 import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.entities.User;
-import com.sprint1.spc.exception.FeeServiceException;
 import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.exception.TeacherNotFoundException;
 import com.sprint1.spc.services.IAccountantService;
@@ -103,6 +101,14 @@ public class AdminController {
 		return new ResponseEntity<List<User>>(listOfParents, HttpStatus.OK);
 	}
 
+	@GetMapping("/users")
+	@ApiOperation(value = "Get All Users Of The System", notes = "List of all the users of the system.")
+	public ResponseEntity<List<User>> allUsers(){
+
+		List<User> listOfUsers = userService.getAllUsers(); 
+		return new ResponseEntity<List<User>>(listOfUsers,HttpStatus.OK);
+	}
+
 	@GetMapping("/student/{studentId}")
 	@ApiOperation(value = "Get Student By Id", notes = "Enter student id to get student information. ")
 	public Student getStudentById(@PathVariable long studentId) throws StudentIDNotFoundException {
@@ -168,7 +174,6 @@ public class AdminController {
 	}
 
 
-
 	@PatchMapping("/student/{id}")
 	@ApiOperation(value = "Add Student Class To Student", notes = "Student will get added to the particular student class.")
 	public ResponseEntity<Student> updateStudent(@PathVariable long id, @RequestBody Student student) {
@@ -193,9 +198,9 @@ public class AdminController {
 		studentClassServiceImpl.deleteStudentClassById(studentClassId);
 		return new ResponseEntity<StudentClass>(HttpStatus.OK);
 	}
-//	@PutMapping("/accountant")
-//	public ResponseEntity<Accountant> updateAccountant(@Valid @RequestBody Accountant accountant) {
-//		return new ResponseEntity<Accountant>(accountantService.updateAccountant(accountant), HttpStatus.CREATED);
-//	}
+	//	@PutMapping("/accountant")
+	//	public ResponseEntity<Accountant> updateAccountant(@Valid @RequestBody Accountant accountant) {
+	//		return new ResponseEntity<Accountant>(accountantService.updateAccountant(accountant), HttpStatus.CREATED);
+	//	}
 
 }

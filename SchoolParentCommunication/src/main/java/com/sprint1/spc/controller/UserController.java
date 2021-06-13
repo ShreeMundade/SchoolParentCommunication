@@ -18,6 +18,8 @@ import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.services.IParentService;
 import com.sprint1.spc.services.IUserService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -27,16 +29,10 @@ public class UserController {
 	
 	@Autowired
 	private IParentService parentService;
-
-	@GetMapping("/users")
-	public ResponseEntity<List<User>> allUsers(){
-		
-		List<User> listOfUsers = userService.getAllUsers(); 
-		return new ResponseEntity<List<User>>(listOfUsers,HttpStatus.OK);
-	}
 	
 	
 	@PostMapping("/register/parent")
+	@ApiOperation(value = "Parent Registration", notes = "Parents can register with us from here.")
 	public ResponseEntity<User> registerUser(@RequestBody Parent newUser) throws EmailAlreadyExistsException{
 
 		User user = userService.getUserEmail(newUser.getEmailId());
@@ -54,6 +50,7 @@ public class UserController {
 
 
 	@PostMapping("/login")
+	@ApiOperation(value = "User Login", notes = "Users can sign in from here.")
 	public ResponseEntity<User> loginUser(@RequestBody User user) throws UserNotFoundException{
 		
 		User userExists = userService.signIn(user);
@@ -69,6 +66,7 @@ public class UserController {
 
 
 	@PostMapping("/logout")
+	@ApiOperation(value = "User Logout", notes = "Users can sign out from here.")
 	public ResponseEntity<User> logoutUser(@RequestBody User user){
 		
 		User userInSystem = userService.signOut(user);
