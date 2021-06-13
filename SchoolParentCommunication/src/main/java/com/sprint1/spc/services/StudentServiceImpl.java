@@ -44,7 +44,7 @@ public class StudentServiceImpl implements IStudentService{
 	@Override
 	public Student retrieveStudentById(long id) {
 		// TODO Auto-generated method stub
-		return studentRepo.findById(id);
+		return studentRepo.getById(id);
 	}
 
 	public long retreiveStudentById1(long id) {

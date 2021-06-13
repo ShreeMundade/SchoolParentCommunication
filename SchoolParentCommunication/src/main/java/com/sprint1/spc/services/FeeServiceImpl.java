@@ -28,13 +28,23 @@ public class FeeServiceImpl implements IFeeService {
 	
 	@Override
 	public Fee addFee(Fee fee) {
-		return iFeeRepository.saveAndFlush(fee);
+		if(fee != null)	{
+			return iFeeRepository.saveAndFlush(fee);
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Fee> retrieveAllFees() {
 		List<Fee> feeList = iFeeRepository.findAll();
-		return feeList;
+		if(feeList != null) {
+			return feeList;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
@@ -59,9 +69,11 @@ public class FeeServiceImpl implements IFeeService {
 		{
 			Month getStartMonth = fee.getStartMonthYear().getMonth();
 			Month getEndMonth = fee.getEndMonthYear().getMonth();
-			if(month == getStartMonth.getValue() || month == getEndMonth.getValue())
-			{
+			if(month == getStartMonth.getValue() || month == getEndMonth.getValue()) {
 				feesByMonth.add(fee);
+			}
+			else {
+				return null;
 			}
 		}
 		return feesByMonth;
