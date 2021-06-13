@@ -10,12 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Exam;
+import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.repository.IExamRepository;
+import com.sprint1.spc.repository.ISubjectRepository;
 
 @Service
 public class ExamServiceImpl implements IExamService{
 	@Autowired
 	private IExamRepository examRepo;
+	@Autowired
+	private ISubjectRepository subjectRepo;
 	
 	
 	@Override
@@ -76,6 +80,15 @@ public class ExamServiceImpl implements IExamService{
 		return examRepo.getById(examId);
 	}
 
+
+	@Override
+    public Exam patchExam(long subjectId,long examId) {
+        Exam exam=examRepo.findById(examId).get();
+        Subject subject=subjectRepo.findById(subjectId).get();
+        exam.setSubject(subject);
+        examRepo.save(exam);
+        return exam;
+    }
 	
 	
 	

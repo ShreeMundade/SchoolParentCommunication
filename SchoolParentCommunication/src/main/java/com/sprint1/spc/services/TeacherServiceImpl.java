@@ -64,4 +64,9 @@ public class TeacherServiceImpl implements ITeacherService {
 	public Teacher retrieveTeacherById(long id) {
 		return iTeacherRepo.getById(id);
 	}
+
+	public Concern patchConcern(long teacherId, long concernId, String resolution) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

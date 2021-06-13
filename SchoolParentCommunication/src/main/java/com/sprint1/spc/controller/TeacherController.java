@@ -137,13 +137,19 @@ public class TeacherController {
 	
 //	@GetMapping("/concern/{concernId}")
 //	@ApiOperation(value = "Get All The Concerns", notes = "Get all the concern details.")
-//	public List<Concern> getTeacherConcerns() {
+//	public List<Concern> getTeacherConcerns1() {
 //		return teacherServiceImpl.retrieveAllConcerns();
 //	}
-	
+//
 //	@PatchMapping("{teacherId}/concern/{concernId}/{resolution}")
 //	public ResponseEntity<Concern> patchConcern(@PathVariable long teacherId,
 //			@PathVariable long concernId,@PathVariable String resolution) {
 //		return new ResponseEntity<Concern>(teacherServiceImpl.patchConcern(teacherId,concernId,resolution), HttpStatus.OK);
 //	}
+	
+	@PatchMapping("{subjectId}/exam/{examId}")
+    public ResponseEntity<Exam> patchExam(@PathVariable long subjectId,@PathVariable long examId)
+    {
+        return new ResponseEntity<Exam>(examServiceImpl.patchExam(subjectId,examId),HttpStatus.OK);
+    }
 }

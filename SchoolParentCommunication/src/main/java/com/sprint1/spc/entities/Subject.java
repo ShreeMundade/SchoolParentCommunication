@@ -14,14 +14,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Subject {
 
 	@Id
-	private int subjectId;
+	private long subjectId;
 	private String subjectTitle;
 
-	public int getSubjectId() {
+	public long getSubjectId() {
 		return subjectId;
 	}
 
-	public void setSubjectId(int subjectId) {
+	public void setSubjectId(long subjectId) {
 		this.subjectId = subjectId;
 	}
 
@@ -33,19 +33,25 @@ public class Subject {
 		this.subjectTitle = subjectTitle;
 	}
 
-	public Subject(int subjectId, String subjectTitle) {
+	public Subject(long subjectId, String subjectTitle) {
 		super();
 		this.subjectId = subjectId;
 		this.subjectTitle = subjectTitle;
 	}
 
-	public Subject(String subjectTitle) {
+	public Subject(long subjectId) {
 		super();
-		this.subjectTitle = subjectTitle;
+		this.subjectId = subjectId;
 	}
 
 	public Subject() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Subject(String subjectTitle) {
+		super();
+		this.subjectTitle = subjectTitle;
 	}
 
 	@Override

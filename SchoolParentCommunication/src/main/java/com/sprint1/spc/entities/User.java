@@ -9,13 +9,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.UniqueElements;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -43,9 +40,6 @@ public class User {
 	@ApiModelProperty(value = "Password.")
 	private String password;
 
-//	@NotNull(message = "Phone number must not be null.")
-//	@Size(min = 10, max = 10, message = "Phone number must be {max} digits.")
-	//@Pattern(regexp = "^\\+([0-9\\-]?){9,11}[0-9]$", message = "Phone number can contain only Numeric characters.")
 	private long phoneNumber;
 	
 

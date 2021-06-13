@@ -20,5 +20,8 @@ public interface IExamService {
 	public Exam deleteExam(int id);
 	public Exam updateExam(long id,Exam exam);
 	
+	
+	public Exam patchExam(long subjectId, long examId);
+	
 
 }
