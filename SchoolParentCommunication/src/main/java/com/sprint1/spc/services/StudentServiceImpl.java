@@ -59,19 +59,19 @@ public class StudentServiceImpl implements IStudentService{
 		return studentId;
 	}
 	
-	@Override
-	public Exam giveExam(Exam exam) {
-		
-		return studentRepo.findById(exam);
-		
-	}
+//	@Override
+//	public Exam giveExam(Exam exam) {
+//		
+//		return studentRepo.findById(exam);
+//		
+//	}
 	
-	@Override
-	public Attendance giveAttendence(Attendance attendance)
-	{
-		return studentRepo.findById(attendance);
-		
-	}
+//	@Override
+//	public Attendance giveAttendence(Attendance attendance)
+//	{
+//		return studentRepo.findById(attendance);
+//		
+//	}
 
 	@Override
 	public Student listStudentById(long studentId) {
@@ -82,7 +82,7 @@ public class StudentServiceImpl implements IStudentService{
 	/***** Patch Student To Parent *****/
 	@Override
 	public Student updateStudentClassToStudent(long id, Student student) {
-		Student existingStudent = studentRepo.findById(id);
+		Student existingStudent = studentRepo.findById(id).get();
 		if(!existingStudent.equals(null)) {
 			existingStudent.setStudentClass(student.getStudentClass());
 			studentRepo.save(existingStudent);

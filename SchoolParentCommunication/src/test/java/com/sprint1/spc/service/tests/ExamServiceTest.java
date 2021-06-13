@@ -67,7 +67,7 @@ public class ExamServiceTest {
 		  Subject subject=new Subject("maths");
 		  final ExamAttempt examattempt=new ExamAttempt(true,100);
 		   Exam exam = new Exam(11l, LocalDate.now(),100d,teacher,examattempt,subject);
-		   when(examRepo.getById(11l)).thenReturn(exam);
+		   when(examRepo.findById(11l)).thenReturn(Optional.of(exam));
 		   Assertions.assertEquals(exam,examService.listExamById(11l));
 		   
 

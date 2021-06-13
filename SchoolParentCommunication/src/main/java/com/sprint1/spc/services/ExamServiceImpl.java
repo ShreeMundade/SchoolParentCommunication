@@ -26,7 +26,7 @@ public class ExamServiceImpl implements IExamService{
 
 	@Override
 	public Exam listExamById(long id) {
-		Exam exam=examRepo.getById(id);
+		Exam exam=examRepo.findById(id).get();
 		return exam;
 	}
 	@Override

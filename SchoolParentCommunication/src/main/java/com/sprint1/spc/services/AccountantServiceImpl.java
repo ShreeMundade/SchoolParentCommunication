@@ -58,7 +58,7 @@ public class AccountantServiceImpl implements IAccountantService {
 	/***** Patch Fee To Student *****/
 	@Override
 	public Student updateFeeToStudent(long id, Fee fee) {
-		Student existingStudent = iStudentRepository.findById(id);
+		Student existingStudent = iStudentRepository.findById(id).get();
 		existingStudent.setFee(fee);
 		iStudentRepository.save(existingStudent);
 		return existingStudent;

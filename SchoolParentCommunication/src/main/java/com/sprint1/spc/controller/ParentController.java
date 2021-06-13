@@ -42,6 +42,15 @@ public class ParentController {
 //		return new ResponseEntity<List<Parent>>(parentServiceImpl.retrieveAllParents(), HttpStatus.OK);
 //	}
 
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    List<FieldErrorMessage> exceptionHandler(MethodArgumentNotValidException e) {
+      
+        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+        List<FieldErrorMessage> fieldErrorMessages = fieldErrors.stream().map(fieldError-> new FieldErrorMessage(fieldError.getField(),fieldError.getDefaultMessage())).collect(Collectors.toList());
+        return fieldErrorMessages;
+    }
+	
 	@GetMapping("/parent/{parentId}")
 	@ApiOperation(value = "Get Parent By Id", notes = "Get parent details by parentId.")
 	public ResponseEntity<Parent> getParentById(@PathVariable long parentId) throws ParentServiceException {
@@ -87,17 +96,7 @@ public class ParentController {
 			return parentServiceImpl.addParent(parent);
 		}
 	}
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    List<FieldErrorMessage> exceptionHandler(MethodArgumentNotValidException e) {
-      
-        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-        List<FieldErrorMessage> fieldErrorMessages = fieldErrors.stream().map(fieldError-> new FieldErrorMessage(fieldError.getField(),fieldError.getDefaultMessage())).collect(Collectors.toList());
-        return fieldErrorMessages;
-    }
-   
 	
-
 	@PostMapping("/parent/{parentId}/concern")
 	@ApiOperation(value = "Add Concern", notes = "Add concern details.")
 	public Concern insertParentConcern(@PathVariable long parentId, @RequestBody Concern concern) throws ParentServiceException {
