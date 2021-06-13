@@ -57,10 +57,8 @@ public class ConcernServiceImpl implements IConcernService {
 				filteredConcern.add(concern);
 			}
 		}
-
 		return filteredConcern;
 	}
-	
 	
 
 //	@Override

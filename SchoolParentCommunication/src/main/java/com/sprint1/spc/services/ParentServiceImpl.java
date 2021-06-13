@@ -31,38 +31,64 @@ public class ParentServiceImpl implements IParentService {
 	/***** Add Parent *****/
 	@Override
 	public Parent addParent(Parent parent) {
-		return iParentRepository.saveAndFlush(parent);
+		if(!parent.equals(null)) {
+			return iParentRepository.save(parent);
+		}
+		else {
+			return null;
+		}
 	}
 
 	/***** Retrieve Parent *****/
 	@Override
 	public List<Parent> retrieveAllParents() {
-		return iParentRepository.findAll();
+		List<Parent> parentList = iParentRepository.findAll();
+		if(!parentList.equals(null)) {
+			return parentList;
+		}
+		else {
+			return null;
+		} 
 	}
 
 	/***** Patch Student To Parent *****/
 	@Override
 	public Parent updateStudentToParent(long id, Parent parent) {
 		Parent existingParent = iParentRepository.getById(id);
-		existingParent.setStudents(parent.getStudents());
-		iParentRepository.save(existingParent);
-		return existingParent;
+		if(!existingParent.equals(null)) {
+			existingParent.setStudents(parent.getStudents());
+			iParentRepository.save(existingParent);
+			return existingParent;
+		}
+		else {
+			return null;
+		}
 	}
-	
+
 	/***** Update Parent *****/
 	@Override
 	public Parent updateParent(long id, long phoneNumber) {
 		Parent existingParent = iParentRepository.getById(id);
-		existingParent.setPhoneNumber(phoneNumber);
-		iParentRepository.save(existingParent);
-		return existingParent;
+		if(!existingParent.equals(null)) {
+			existingParent.setPhoneNumber(phoneNumber);
+			iParentRepository.save(existingParent);
+			return existingParent;
+		}
+		else {
+			return null;
+		}
 	}
 
 	/***** Retrieve Parent By Id *****/
 	@Override
 	public Parent retrieveParentById(long id) {
-		Parent parent = iParentRepository.getById(id);
-		return parent;
+		Parent parent = iParentRepository.findById(id).get();
+		if(!parent.equals(null)) {
+			return parent;
+		}
+		else {
+			return null;
+		}
 	}
 
 	/***** Retrieve Parent Id By Id *****/
@@ -75,20 +101,35 @@ public class ParentServiceImpl implements IParentService {
 				parentId = id;
 			}
 		}
-		return parentId;
+		if(parentId != 0) {
+			return parentId;
+		}
+		else {
+			return 0;
+		}
 	}
 
 	/***** Add Concern *****/
 	@Override
 	public Concern addConcern1(Concern concern) {
-		return concernServiceImpl.addConcern(concern);
+		if(!concern.equals(null)) {
+			return concernServiceImpl.addConcern(concern);
+		}
+		else {
+			return null;
+		}
 	}
 
 	/***** Retrieve Concerns *****/
 	@Override
 	public List<Concern> retrieveAllConcerns1() {
 		List<Concern> concernList = concernServiceImpl.retrieveAllConcerns();
-		return concernList;
+		if(!concernList.equals(null)) {
+			return concernList;
+		}
+		else {
+			return null;
+		}
 	}
 
 	/***** Retrieve Fee By Parent Id *****/
@@ -100,6 +141,11 @@ public class ParentServiceImpl implements IParentService {
 		for(Student student : studentSet) {
 			fee = student.getFee();
 		}
-		return fee;
+		if(!fee.equals(null)) {
+			return fee;
+		}
+		else {
+			return null;
+		}
 	}
 }

@@ -36,46 +36,90 @@ public class ParentController {
 
 	@GetMapping("/parent/{parentId}")
 	@ApiOperation(value = "Get Parent By Id", notes = "Get parent details by parentId.")
-	public ResponseEntity<Parent> getParentById(@PathVariable long parentId) {
-		Parent parent = parentServiceImpl.retrieveParentById(parentId);
-		return new ResponseEntity<Parent>(parent, HttpStatus.OK);
+	public ResponseEntity<Parent> getParentById(@PathVariable long parentId) throws ParentServiceException {
+		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
+			throw new ParentServiceException("Parent Not Found.");
+		}
+		else {
+			Parent parent = parentServiceImpl.retrieveParentById(parentId);
+			return new ResponseEntity<Parent>(parent, HttpStatus.OK);
+		}
+	}
+
+	@GetMapping("/parent/{parentId}/concerns")
+	@ApiOperation(value = "Get All Concerns", notes = "Get all concern details of parent.")
+	public List<Concern> getParentConcerns(@PathVariable long parentId) throws ParentServiceException {
+		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
+			throw new ParentServiceException("Parent Not Found.");
+		}
+		else {
+			return parentServiceImpl.retrieveAllConcerns1();
+		}
+	}
+
+	@GetMapping("/parent/{parentId}/fee")
+	@ApiOperation(value = "Get Fee Details", notes = "Get fee details by parent id.")
+	public ResponseEntity<Fee> getFeeByParentById(@PathVariable long parentId) throws ParentServiceException {
+		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
+			throw new ParentServiceException("Parent Not Found.");
+		}
+		else {
+			Fee fee = parentServiceImpl.getFeeByParentId(parentId);
+			return new ResponseEntity<Fee>(fee, HttpStatus.OK);
+		}
 	}
 
 	@PostMapping("/parent")
 	@ApiOperation(value = "Add Parent Details", notes = "Add parent details.")
-	public Parent insertParent(@RequestBody Parent parent) {
-		return parentServiceImpl.addParent(parent);
+	public Parent insertParent(@RequestBody Parent parent) throws ParentServiceException {
+		if(parent.equals(null)) {
+			throw new ParentServiceException("Please Add Valid Parent Details.");
+		}
+		else {
+			return parentServiceImpl.addParent(parent);
+		}
 	}
 
-	@PatchMapping("/parent/student/{parentId}")
+	@PostMapping("/parent/{parentId}/concern")
+	@ApiOperation(value = "Add Concern", notes = "Add concern details.")
+	public Concern insertParentConcern(@PathVariable long parentId, @RequestBody Concern concern) throws ParentServiceException {
+		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
+			throw new ParentServiceException("Parent Not Found.");
+		}
+		else if(concern.equals(null)) {
+			throw new ParentServiceException("Parent Add Valid Concern Details.");
+		}
+		else {
+			return parentServiceImpl.addConcern1(concern);
+		}
+	}
+
+	@PatchMapping("/parent/{parentId}/student")
 	@ApiOperation(value = "Update Student Details To Parent", notes = "Update student details to parent.")
 	public Parent updateStudentToParent(@PathVariable long parentId, @RequestBody Parent parent) throws ParentServiceException {
-		return parentServiceImpl.updateStudentToParent(parentId, parent);
-	}
-
-	@GetMapping("/parent/concerns")
-	@ApiOperation(value = "Get All Concerns", notes = "Get all concern details of parent.")
-	public List<Concern> getParentConcerns() {
-		return parentServiceImpl.retrieveAllConcerns1();
-	}
-	
-	@PostMapping("/parent/concern")
-	@ApiOperation(value = "Add concern", notes = "Add concern details.")
-	public Concern insertParentConcern(@RequestBody Concern concern) {
-		return parentServiceImpl.addConcern1(concern);
-	}
-	
-	@GetMapping("/parent/fee/{parentId}")
-	@ApiOperation(value = "Get Fee Details", notes = "Get fee details by parent id.")
-	public ResponseEntity<Fee> getFeeByParentById(@PathVariable long parentId) {
-		Fee fee = parentServiceImpl.getFeeByParentId(parentId);
-		return new ResponseEntity<Fee>(fee, HttpStatus.OK);
+		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
+			throw new ParentServiceException("Parent Not Found.");
+		}
+		else if(parent.equals(null)) {
+			throw new ParentServiceException("Please Add Valid Parent Details.");
+		}
+		else {
+			return parentServiceImpl.updateStudentToParent(parentId, parent);
+		}
 	}
 
 	@PatchMapping("/parent/{parentId}/{phoneNumber}")
 	@ApiOperation(value = "Update Phone Number", notes = "Update phone number by parent id.")
 	public Parent updateParent(@PathVariable long parentId, @PathVariable long phoneNumber) throws ParentServiceException {
-		return parentServiceImpl.updateParent(parentId, phoneNumber);
+		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
+			throw new ParentServiceException("Parent Not Found.");
+		}
+		else if(phoneNumber == 0) {
+			throw new ParentServiceException("Please Add Valid Phone Number.");
+		}
+		else {
+			return parentServiceImpl.updateParent(parentId, phoneNumber);
+		}
 	}
 
 //	@GetMapping("/parent/student/{studentId}")

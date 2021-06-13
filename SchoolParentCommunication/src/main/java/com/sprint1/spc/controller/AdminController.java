@@ -96,9 +96,9 @@ public class AdminController {
 
 	@GetMapping("/parents")
 	@ApiOperation(value = "Get All Parents", notes = "List of all parents given here.")
-	public ResponseEntity<List<User>> adminGetParents() {
-		List<User> listOfParents = userService.listUserByRole(Role.PARENT);
-		return new ResponseEntity<List<User>>(listOfParents, HttpStatus.OK);
+	public ResponseEntity<List<Parent>> adminGetParents() {
+		List<Parent> listOfParents = parentService.retrieveAllParents();
+		return new ResponseEntity<List<Parent>>(listOfParents, HttpStatus.OK);
 	}
 
 	@GetMapping("/users")

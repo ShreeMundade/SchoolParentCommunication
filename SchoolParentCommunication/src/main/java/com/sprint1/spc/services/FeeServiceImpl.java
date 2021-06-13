@@ -28,8 +28,8 @@ public class FeeServiceImpl implements IFeeService {
 	
 	@Override
 	public Fee addFee(Fee fee) {
-		if(fee != null)	{
-			return iFeeRepository.saveAndFlush(fee);
+		if(!fee.equals(null)) {
+			return iFeeRepository.save(fee);
 		}
 		else {
 			return null;
@@ -39,7 +39,7 @@ public class FeeServiceImpl implements IFeeService {
 	@Override
 	public List<Fee> retrieveAllFees() {
 		List<Fee> feeList = iFeeRepository.findAll();
-		if(feeList != null) {
+		if(!feeList.equals(null)) {
 			return feeList;
 		}
 		else {
@@ -49,16 +49,26 @@ public class FeeServiceImpl implements IFeeService {
 
 	@Override
 	public Fee updateFee(long id, Fee fee) {
-		Fee existingFee = iFeeRepository.getById(id);
-		BeanUtils.copyProperties(fee, existingFee, "feeId");
-		iFeeRepository.save(existingFee);
-		return existingFee;
+		Fee existingFee = iFeeRepository.findById(id).get();
+		if(!existingFee.equals(null)) {
+			BeanUtils.copyProperties(fee, existingFee, "feeId");
+			iFeeRepository.save(existingFee);
+			return existingFee;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public Fee retrieveFeeById(long id) {
-		Fee fee = iFeeRepository.getById(id);
-		return fee;
+		Fee fee = iFeeRepository.findById(id).get();
+		if(!fee.equals(null)) {
+			return fee;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
@@ -82,13 +92,23 @@ public class FeeServiceImpl implements IFeeService {
 	@Override
 	public List<Fee> retrieveFeeByStudentId(long id) {
 		List<Fee> fee = (List<Fee>)iFeeRepository.retrieveFeeByStudentId(id);
-		return fee;
+		if(!fee.equals(null)) {
+			return fee;
+		}
+		else {
+			return null;
+		}
 	}
 	
 	@Override
 	public Fee retrieveFeesByStudentName(String name) {
 		Fee fee = iFeeRepository.retrieveFeesByStudentName(name);
-		return fee;
+		if(!fee.equals(null)) {
+			return fee;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override

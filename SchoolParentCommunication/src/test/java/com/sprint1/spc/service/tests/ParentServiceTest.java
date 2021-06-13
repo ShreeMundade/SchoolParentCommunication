@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +46,7 @@ public class ParentServiceTest {
 		Parent parent = new Parent(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.PARENT, studentSet);
 		assertNotNull(parent);
 		
-		Mockito.when(iParentRepository.saveAndFlush(parent)).thenReturn(parent);
+		Mockito.when(iParentRepository.save(parent)).thenReturn(parent);
 		assertEquals(parent, parentServiceImpl.addParent(parent));
 	}
 
@@ -72,7 +73,7 @@ public class ParentServiceTest {
 		Parent parent = new Parent(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.PARENT, studentSet);
 		assertNotNull(parent);
 		
-		Mockito.when(iParentRepository.getById(1L)).thenReturn(parent);
+		Mockito.when(iParentRepository.findById(1L)).thenReturn(Optional.of(parent));
 		assertEquals(parent, parentServiceImpl.retrieveParentById(1L));
 	}
 
@@ -93,7 +94,7 @@ public class ParentServiceTest {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(new Student(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.STUDENT));
 		studentSet.add(new Student(2L, "Rohit", "Rohit1234", 1234567890, "rohit@gmail.com", Role.STUDENT));
-		Parent parent = new Parent(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.PARENT);
+		Parent parent = new Parent(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.PARENT, studentSet);
 		assertNotNull(parent);
 		
 		Mockito.when(iParentRepository.getById(1L)).thenReturn(parent);

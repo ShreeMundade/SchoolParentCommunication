@@ -37,10 +37,10 @@ public class FeeServiceTest {
 	// Add fee test
 	@Test
 	public void addFeeTest() {
-		Fee fee1 = new Fee(1L, 200, 100, LocalDate.now(), LocalDate.now());
-		Fee fee2 = new Fee(1L, 200, 100, LocalDate.now(), LocalDate.now());
-		Mockito.when(iFeeRepository.saveAndFlush(fee1)).thenReturn(fee2);
-		assertEquals(fee2, feeServiceImpl.addFee(fee1));
+		Fee fee = new Fee(1L, 200, 100, LocalDate.now(), LocalDate.now());
+		
+		Mockito.when(iFeeRepository.save(fee)).thenReturn(fee);
+		assertEquals(fee, feeServiceImpl.addFee(fee));
 	}
 	
 	// Get all fees test
@@ -57,7 +57,8 @@ public class FeeServiceTest {
 		feeInstallments.add(new FeeInstallment(200, LocalDate.now(), LocalDate.now(), true));
 		feeInstallments.add(new FeeInstallment(300, LocalDate.now(), LocalDate.now(), false));
 		Fee fee = new Fee(1L, 200, 100, LocalDate.now(), LocalDate.now(), feeInstallments);
-		Mockito.when(iFeeRepository.getById(1L)).thenReturn(fee);
+	
+		Mockito.when(iFeeRepository.findById(fee.getFeeId())).thenReturn(Optional.of(fee));
 		assertEquals(fee, feeServiceImpl.retrieveFeeById(1L));
 	}
 	
@@ -68,7 +69,8 @@ public class FeeServiceTest {
 		feeInstallments.add(new FeeInstallment(200, LocalDate.now(), LocalDate.now(), true));
 		feeInstallments.add(new FeeInstallment(300, LocalDate.now(), LocalDate.now(), false));
 		Fee fee = new Fee(1L, 200, 100, LocalDate.now(), LocalDate.now(), feeInstallments);
-		Mockito.when(iFeeRepository.getById(fee.getFeeId())).thenReturn(fee);
+		
+		Mockito.when(iFeeRepository.findById(fee.getFeeId())).thenReturn(Optional.of(fee));
 		assertEquals(fee, feeServiceImpl.updateFee(1L, fee));
 	}
 	
@@ -79,7 +81,8 @@ public class FeeServiceTest {
 		feeInstallments.add(new FeeInstallment(1L, 2000, LocalDate.now(), LocalDate.now(), true));
 		feeInstallments.add(new FeeInstallment(3L, 8000, LocalDate.now(), LocalDate.now(), false));
 		Fee fee = new Fee(1L, 2000, 3000, LocalDate.now(), LocalDate.now(), feeInstallments);
-		Mockito.when(iFeeRepository.getById(1L)).thenReturn(fee);
+	
+		Mockito.when(iFeeRepository.findById(fee.getFeeId())).thenReturn(Optional.of(fee));
 		for(Fee feeTest: feeServiceImpl.retrieveAllFeesByMonth(6L)) {
 			assertEquals(fee.getFeeId(), feeTest.getFeeId());
 			assertEquals(fee.getEndMonthYear(), feeTest.getEndMonthYear());
@@ -95,11 +98,10 @@ public class FeeServiceTest {
 		List<FeeInstallment> feeInstallments = new ArrayList<FeeInstallment>();
 		feeInstallments.add(new FeeInstallment(200, LocalDate.now(), LocalDate.now(), true));
 		feeInstallments.add(new FeeInstallment(300, LocalDate.now(), LocalDate.now(), false));
-		Fee fee1 = new Fee(1L, 200, 100, LocalDate.now(), LocalDate.now(), feeInstallments);
-		Fee fee2 = new Fee(1L, 200, 100, LocalDate.now(), LocalDate.now(), feeInstallments);
+		Fee fee = new Fee(1L, 200, 100, LocalDate.now(), LocalDate.now(), feeInstallments);
 		List<Fee> feeList = new ArrayList<Fee>();
-		feeList.add(fee1);
-		feeList.add(fee2);
+		feeList.add(fee);
+
 		Mockito.when(iFeeRepository.retrieveFeeByStudentId(2L)).thenReturn(feeList);
 		assertEquals(feeList, feeServiceImpl.retrieveFeeByStudentId(2L));
 	}
@@ -111,6 +113,7 @@ public class FeeServiceTest {
 		feeInstallments.add(new FeeInstallment(200, LocalDate.now(), LocalDate.now(), true));
 		feeInstallments.add(new FeeInstallment(300, LocalDate.now(), LocalDate.now(), false));
 		Fee fee = new Fee(1L, 2000, 3000, LocalDate.now(), LocalDate.now(), feeInstallments);
+
 		Mockito.when(iFeeRepository.retrieveFeesByStudentName("Student1")).thenReturn(fee);
 		assertEquals(fee.getFeeId(), feeServiceImpl.retrieveFeesByStudentName("Student1").getFeeId());
 		assertEquals(fee.getEndMonthYear(), feeServiceImpl.retrieveFeesByStudentName("Student1").getEndMonthYear());
