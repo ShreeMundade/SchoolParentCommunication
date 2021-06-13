@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Role;
 import com.sprint1.spc.entities.Student;
+import com.sprint1.spc.exception.ParentServiceException;
 import com.sprint1.spc.repository.IParentRepository;
 import com.sprint1.spc.services.ParentServiceImpl;
 
@@ -76,7 +77,7 @@ public class ParentServiceTest {
 	}
 
 	@Test
-	public void updateParentTest() {
+	public void updateParentTest() throws ParentServiceException {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(new Student(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.STUDENT));
 		studentSet.add(new Student(2L, "Rohit", "Rohit1234", 1234567890, "rohit@gmail.com", Role.STUDENT));
@@ -88,7 +89,7 @@ public class ParentServiceTest {
 	}
 	
 	@Test
-	public void updateStudentToParentTest() {
+	public void updateStudentToParentTest() throws ParentServiceException {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(new Student(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.STUDENT));
 		studentSet.add(new Student(2L, "Rohit", "Rohit1234", 1234567890, "rohit@gmail.com", Role.STUDENT));
