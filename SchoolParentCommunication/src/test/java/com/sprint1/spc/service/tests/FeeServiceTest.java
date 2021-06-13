@@ -70,7 +70,7 @@ public class FeeServiceTest {
 		feeInstallments.add(new FeeInstallment(300, LocalDate.now(), LocalDate.now(), false));
 		Fee fee = new Fee(1L, 200, 100, LocalDate.now(), LocalDate.now(), feeInstallments);
 		
-		Mockito.when(iFeeRepository.findById(fee.getFeeId())).thenReturn(Optional.of(fee));
+		Mockito.when(iFeeRepository.getById(fee.getFeeId())).thenReturn(fee);
 		assertEquals(fee, feeServiceImpl.updateFee(1L, fee));
 	}
 	

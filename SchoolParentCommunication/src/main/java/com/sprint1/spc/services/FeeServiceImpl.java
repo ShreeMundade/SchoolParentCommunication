@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Fee;
+import com.sprint1.spc.repository.IFeeInstallmentRepository;
 import com.sprint1.spc.repository.IFeeRepository;
 
 @Service
@@ -19,6 +20,9 @@ public class FeeServiceImpl implements IFeeService {
 	
 	@Autowired
 	private IFeeRepository iFeeRepository;
+	
+	@Autowired
+	private IFeeInstallmentRepository iFeeInstallmentRepository;
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -49,14 +53,18 @@ public class FeeServiceImpl implements IFeeService {
 
 	@Override
 	public Fee updateFee(long id, Fee fee) {
-		Fee existingFee = iFeeRepository.findById(id).get();
-		if(!existingFee.equals(null)) {
+		long feeId = fee.getFeeId();
+		Fee existingFee = iFeeRepository.findById(feeId).orElse(null);
+		if(existingFee == null) {
+			return null;
+//			BeanUtils.copyProperties(fee, existingFee, "feeId");
+//			iFeeRepository.save(existingFee);
+//			return existingFee;
+		}
+		else {
 			BeanUtils.copyProperties(fee, existingFee, "feeId");
 			iFeeRepository.save(existingFee);
 			return existingFee;
-		}
-		else {
-			return null;
 		}
 	}
 

@@ -124,7 +124,7 @@ public class Concern {
 
 	
 	
-	public Concern(long concernId, @NotNull String concernDescription, boolean resolved, String resolution,
+	public Concern(long concernId, String concernDescription, boolean resolved, String resolution,
 			LocalDate concernDate, LocalDate resolvedDate, ConcernParty party, Parent affectedParty, Teacher resolvedBy,
 			ConcernType type) {
 		super();
@@ -141,7 +141,7 @@ public class Concern {
 	}
 	
 
-	public Concern(long concernId,@NotNull 	String concernDescription, LocalDate concernDate, ConcernParty party,
+	public Concern(long concernId, String concernDescription, LocalDate concernDate, ConcernParty party,
 			Parent affectedParty, ConcernType type) {
 		super();
 		this.concernId = concernId;
@@ -151,9 +151,17 @@ public class Concern {
 		this.affectedParty = affectedParty;
 		this.type = type;
 	}
-
-
 	
+	public Concern(String concernDescription, LocalDate concernDate, ConcernParty party, Parent affectedParty,
+			ConcernType type) {
+		super();
+		this.concernDescription = concernDescription;
+		this.concernDate = concernDate;
+		this.party = party;
+		this.affectedParty = affectedParty;
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 		return "Concern [concernId=" + concernId + ", concernDescription=" + concernDescription + ", resolved="

@@ -1,25 +1,33 @@
 package com.sprint1.spc.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.exception.FeeServiceException;
+import com.sprint1.spc.exception.FieldErrorMessage;
 import com.sprint1.spc.services.AccountantServiceImpl;
 import com.sprint1.spc.services.FeeServiceImpl;
+import com.sprint1.spc.services.StudentServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -33,9 +41,18 @@ public class AccountantController {
 	@Autowired
 	private AccountantServiceImpl accountantServiceImpl;
 	
-//	@Autowired
-//	private StudentServiceImpl studentServiceImpl;
+	@Autowired
+	private StudentServiceImpl studentServiceImpl;
 
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    List<FieldErrorMessage> exceptionHandler(MethodArgumentNotValidException e) {
+      
+        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+        List<FieldErrorMessage> fieldErrorMessages = fieldErrors.stream().map(fieldError-> new FieldErrorMessage(fieldError.getField(),fieldError.getDefaultMessage())).collect(Collectors.toList());
+        return fieldErrorMessages;
+    }
+	
 	// Get all fees by month
 	@GetMapping("{accountantId}/fee/month/{month}")
 	@ApiOperation(value = "Get All Fees By Month", notes = "Enter the month to get the fee details for that month.")
@@ -162,21 +179,21 @@ public class AccountantController {
 		}
 	}
 
-//	// Add fee
-//	@PostMapping("{accountantId}/{studentId}/fee")
-//	public ResponseEntity<Fee> insertFee(@PathVariable long accountantId, @PathVariable long studentId, @RequestBody final Fee fee) throws FeeServiceException {
-//		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
-//			throw new FeeServiceException("Please Add Valid Accountant Id And Student Id");
-//		}
-//		else if(studentServiceImpl.retreiveStudentById1(studentId) == 0) {
-//			throw new FeeServiceException("Please Add Valid Student Id");
-//		}
-//		else if(fee.equals(null)) {
-//			throw new FeeServiceException("Please Add Valid Fee");
-//		}
-//		else {
-//			Fee addFee = feeServiceImpl.addFee(fee);
-//			return new ResponseEntity<Fee>(addFee, HttpStatus.OK);
-//		}
-//	}
+	// Add fee
+	@PostMapping("{accountantId}/{studentId}/fee")
+	public ResponseEntity<Fee> insertFee(@PathVariable long accountantId, @PathVariable long studentId, @RequestBody final Fee fee) throws FeeServiceException {
+		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
+			throw new FeeServiceException("Please Add Valid Accountant Id And Student Id");
+		}
+		else if(studentServiceImpl.retreiveStudentById1(studentId) == 0) {
+			throw new FeeServiceException("Please Add Valid Student Id");
+		}
+		else if(fee.equals(null)) {
+			throw new FeeServiceException("Please Add Valid Fee");
+		}
+		else {
+			Fee addFee = feeServiceImpl.addFee(fee);
+			return new ResponseEntity<Fee>(addFee, HttpStatus.OK);
+		}
+	}
 }
