@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Exam;
+import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.repository.IStudentRepository;
 
@@ -78,7 +79,19 @@ public class StudentServiceImpl implements IStudentService{
 		return null;
 	}
 
-	
+	/***** Patch Student To Parent *****/
+	@Override
+	public Student updateStudentClassToStudent(long id, Student student) {
+		Student existingStudent = studentRepo.findById(id);
+		if(!existingStudent.equals(null)) {
+			existingStudent.setStudentClass(student.getStudentClass());
+			studentRepo.save(existingStudent);
+			return existingStudent;
+		}
+		else {
+			return null;
+		}
+	}
 	
 
 }

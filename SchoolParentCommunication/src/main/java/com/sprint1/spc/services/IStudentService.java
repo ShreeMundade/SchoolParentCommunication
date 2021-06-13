@@ -21,6 +21,8 @@ public interface IStudentService {
 	public Exam giveExam(Exam exam);
 	public Attendance giveAttendence(Attendance attendance);
 	public Student listStudentById(long studentId);
+	public Student updateStudentClassToStudent(long id, Student student);
+	public long retreiveStudentById1(long id);
 	
 	
 	

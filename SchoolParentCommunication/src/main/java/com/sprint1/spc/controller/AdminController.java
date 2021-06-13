@@ -35,12 +35,11 @@ import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.exception.TeacherNotFoundException;
 import com.sprint1.spc.services.IAccountantService;
 import com.sprint1.spc.services.IParentService;
+import com.sprint1.spc.services.IStudentClassService;
 import com.sprint1.spc.services.IStudentService;
+import com.sprint1.spc.services.ISubjectService;
 import com.sprint1.spc.services.ITeacherService;
 import com.sprint1.spc.services.IUserService;
-import com.sprint1.spc.services.StudentClassServiceImpl;
-import com.sprint1.spc.services.StudentServiceImpl;
-import com.sprint1.spc.services.SubjectServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -64,13 +63,10 @@ public class AdminController {
 	private IAccountantService accountantService;
 
 	@Autowired
-	private StudentServiceImpl studentServiceImpl;
+	private ISubjectService subjectService;
 
 	@Autowired
-	private SubjectServiceImpl subjectServiceImpl;
-
-	@Autowired
-	private StudentClassServiceImpl studentClassServiceImpl;
+	private IStudentClassService studentClassService;
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -90,9 +86,9 @@ public class AdminController {
 
 	@GetMapping("/students")
 	@ApiOperation(value = "Get All Students", notes = "List of all students given here.")
-	public ResponseEntity<List<User>> getAllStudents() {
-		List<User> listOfStudents = userService.listUserByRole(Role.STUDENT);
-		return new ResponseEntity<List<User>>(listOfStudents, HttpStatus.OK);
+	public ResponseEntity<List<Student>> getAllStudents() {
+		List<Student> listOfStudents = studentService.retrieveAllStudents();
+		return new ResponseEntity<List<Student>>(listOfStudents, HttpStatus.OK);
 	}
 
 	@GetMapping
@@ -104,9 +100,9 @@ public class AdminController {
 
 	@GetMapping("/teachers")
 	@ApiOperation(value = "Get All Teachers", notes = "List of all teachers given here.")
-	public ResponseEntity<List<User>> adminGetTeachers() {
-		List<User> listOfTeachers = userService.listUserByRole(Role.TEACHER);
-		return new ResponseEntity<List<User>>(listOfTeachers, HttpStatus.OK);
+	public ResponseEntity<List<Teacher>> adminGetTeachers() {
+		List<Teacher> listOfTeachers = teacherService.retrieveAllTeachers();
+		return new ResponseEntity<List<Teacher>>(listOfTeachers, HttpStatus.OK);
 	}
 
 	@GetMapping("/parents")
@@ -128,7 +124,7 @@ public class AdminController {
 	@ApiOperation(value = "Get Student By Id", notes = "Enter student id to get student information. ")
 	public Student getStudentById(@PathVariable long studentId) throws StudentIDNotFoundException {
 		if (studentId != 0)
-			return studentServiceImpl.retrieveStudentById(studentId);
+			return studentService.retrieveStudentById(studentId);
 		else
 			throw new StudentIDNotFoundException("StudentId Not Found");
 	}
@@ -136,7 +132,7 @@ public class AdminController {
 	@ApiOperation(value = "Get All Subjects", notes = "List of all subjects given here.")
 	@GetMapping("/subjects")
 	public ResponseEntity<List<Subject>> getAllSubjects() {
-		List<Subject> listOfSubjects = subjectServiceImpl.retrieveAllSubjects();
+		List<Subject> listOfSubjects = subjectService.retrieveAllSubjects();
 		return new ResponseEntity<List<Subject>>(listOfSubjects, HttpStatus.OK);
 	}
 
@@ -156,7 +152,7 @@ public class AdminController {
 	@ApiOperation(value = "Add Parent with Student Id", notes = "Enter the parent details with student id.")
 	public ResponseEntity<Parent> insertParent(@Valid @PathVariable long studentId, @RequestBody Parent parent)
 			throws StudentIDNotFoundException {
-		if (studentServiceImpl.retreiveStudentById1(studentId) == 0) {
+		if (studentService.retreiveStudentById1(studentId) == 0) {
 			throw new StudentIDNotFoundException("Student Not Found");
 		} else {
 			return new ResponseEntity<Parent>(parentService.addParent(parent), HttpStatus.CREATED);
@@ -166,7 +162,7 @@ public class AdminController {
 	@PostMapping("/subject")
 	@ApiOperation(value = "Add Subject", notes = "Enter the subject details to add.")
 	public ResponseEntity<Subject> addSubject(@Valid @RequestBody Subject subject) {
-		return new ResponseEntity<Subject>(subjectServiceImpl.addSubject(subject), HttpStatus.CREATED);
+		return new ResponseEntity<Subject>(subjectService.addSubject(subject), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/accountant")
@@ -178,7 +174,7 @@ public class AdminController {
 	@PostMapping("/studentClass")
 	@ApiOperation(value = "Add Student Class", notes = "Enter the class details to add.")
 	public ResponseEntity<StudentClass> addStudentClass(@Valid @RequestBody StudentClass studentClass) {
-		return new ResponseEntity<StudentClass>(studentClassServiceImpl.addStudentClass(studentClass),
+		return new ResponseEntity<StudentClass>(studentClassService.addStudentClass(studentClass),
 				HttpStatus.CREATED);
 	}
 
@@ -191,11 +187,11 @@ public class AdminController {
 
 	@PatchMapping("/student/{id}")
 	@ApiOperation(value = "Add Student Class To Student", notes = "Student will get added to the particular student class.")
-	public ResponseEntity<Student> updateStudent(@PathVariable long id, @RequestBody Student student) {
-		Student s1 = studentService.retrieveStudentById(id);
-		s1.setStudentClass(student.getStudentClass());
-		Student updatedClass = studentService.updateStudent(s1);
-		return new ResponseEntity<Student>(updatedClass, HttpStatus.OK);
+	public ResponseEntity<Student> updateStudentClassToStudent(@Valid @PathVariable long id, @RequestBody Student student) {
+//		Student s1 = studentService.retrieveStudentById(id);
+//		s1.setStudentClass(student.getStudentClass());
+//		Student updatedClass = studentService.updateStudent(s1);
+		return new ResponseEntity<Student>(studentService.updateStudentClassToStudent(id, student), HttpStatus.OK);
 	}
 
 	@PatchMapping("/accountant/{accountantId}/{phoneNumber}")
@@ -209,8 +205,8 @@ public class AdminController {
 
 	@DeleteMapping("/studentClass/{studentClassId}")
 	@ApiOperation(value = "Delete The Student Class By studentClassId", notes = "Delete studnetclass")
-	public ResponseEntity<StudentClass> deleteStudentClass(@PathVariable long studentClassId) {
-		studentClassServiceImpl.deleteStudentClassById(studentClassId);
+	public ResponseEntity<StudentClass> deleteStudentClass(@Valid @PathVariable long studentClassId) {
+		studentClassService.deleteStudentClassById(studentClassId);
 		return new ResponseEntity<StudentClass>(HttpStatus.OK);
 	}
 	//	@PutMapping("/accountant")
