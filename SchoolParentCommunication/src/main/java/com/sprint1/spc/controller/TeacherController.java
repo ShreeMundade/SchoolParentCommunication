@@ -25,11 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Exam;
+import com.sprint1.spc.exception.ConcernNotFoundException;
 import com.sprint1.spc.exception.FieldErrorMessage;
+import com.sprint1.spc.exception.ParentServiceException;
 import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.services.AttendanceServiceImpl;
 import com.sprint1.spc.services.ConcernServiceImpl;
 import com.sprint1.spc.services.ExamServiceImpl;
+import com.sprint1.spc.services.ParentServiceImpl;
 import com.sprint1.spc.services.StudentServiceImpl;
 import com.sprint1.spc.services.TeacherServiceImpl;
 
@@ -53,6 +56,9 @@ public class TeacherController {
 	
 	@Autowired
 	private ConcernServiceImpl concernServiceImpl;
+	
+	@Autowired
+	private ParentServiceImpl parentServiceImpl;
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -149,4 +155,18 @@ public class TeacherController {
 //			@PathVariable long concernId,@PathVariable String resolution) {
 //		return new ResponseEntity<Concern>(teacherServiceImpl.patchConcern(teacherId,concernId,resolution), HttpStatus.OK);
 //	}
+
+	@PatchMapping("/teacher/{parentId}/concern/")
+	@ApiOperation(value = "Resolve Concern", notes = "Solve concern details.")
+	public Concern resolveConcern(@PathVariable long parentId, @RequestBody Concern concern) throws ConcernNotFoundException {
+		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
+			throw new ConcernNotFoundException("Concern Not Found For Parent Id.");
+		}
+		else if(concern.equals(null)) {
+			throw new ConcernNotFoundException("Please Add Valid Concern Details.");
+		}
+		else {
+			return parentServiceImpl.addConcern(concern);
+		}
+	}
 }
