@@ -9,12 +9,14 @@ import com.sprint1.spc.entities.Attendance;
 
 @Service
 public interface IAttendanceService {
+	
+	
 	public Attendance addAttendance(Attendance attendance);
 	public Attendance updateAttendanceById(Attendance attendance);
     public List<Attendance> listAttendanceByDate(LocalDate dateOfClass);
 	public List<Attendance> listAttendance();
 	public Attendance giveAttendance(long attendanceId);
-
+	
 
 //	public Attendance updateAttendanceById(Long attendanceId);
 }

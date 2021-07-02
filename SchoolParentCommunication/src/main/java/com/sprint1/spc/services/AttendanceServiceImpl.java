@@ -1,7 +1,10 @@
 package com.sprint1.spc.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,8 @@ public class AttendanceServiceImpl implements IAttendanceService{
 	@Autowired
 	private  IAttendanceRepository attendanceRepo;
 	
+	@Autowired
+	private IStudentRepository studentRepo;
 	
 	
 	@Override
@@ -53,7 +58,24 @@ public class AttendanceServiceImpl implements IAttendanceService{
 		return attendanceRepo.findById(attendanceId).get();
 	}
 
-
+	
+	
+//
+//	@Override
+//    public List<Attendance> listAllAttendanceByStudentId(long studentId){
+//        Student student = studentRepo.findById(studentId).get();
+//        List<Attendance> attendanceList = attendanceRepo.findAll();
+//        List<Attendance> filteredList = new ArrayList<Attendance>();
+//        for(Attendance attendance : attendanceList) {
+//            if(attendance.getStudent().getStudentId() == student.getStudentId()) {
+//                filteredList.add(attendance);
+//            }
+//            else {
+//              return null;
+//            }
+//        }
+//        return filteredList;
+//    }
 
 
 	

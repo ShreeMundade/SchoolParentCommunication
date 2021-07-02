@@ -3,9 +3,12 @@ package com.sprint1.spc.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.entities.StudentClass;
 import com.sprint1.spc.exception.UserNotFoundException;
@@ -68,6 +71,12 @@ public class StudentServiceImpl implements IStudentService{
 		return studentId;
 	}
 	
+	@Override
+	public List<Attendance> listAllAttendanceByStudentId(long studentId) {
+		
+		return studentRepo.findByStudentId(studentId);
+	}
+
 //	@Override
 //	public Exam giveExam(Exam exam) {
 //		

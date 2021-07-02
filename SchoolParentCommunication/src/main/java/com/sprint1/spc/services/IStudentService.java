@@ -24,6 +24,7 @@ public interface IStudentService {
 	public Student listStudentById(long studentId);
 	public Student updateStudentClassToStudent(long studentId, long classId);
 	public long retreiveStudentById1(long id);
+	public List<Attendance> listAllAttendanceByStudentId(long studentId);
 	
 	
 	

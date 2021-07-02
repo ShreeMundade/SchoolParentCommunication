@@ -103,11 +103,19 @@ public class TeacherController {
 		return attendanceServiceImpl.listAttendanceByDate(LocalDate.parse(dateOfAttendance));
 
 	}
+	@GetMapping("/attendance/student/{studentId}")
+	//@ApiOperation(value = "Get The Attendance  ", notes = "Get the attendence details by studentID")
+	public List<Attendance> getAllAttendanceByStudentId(@Valid @PathVariable Long studentId) {
+		return studentServiceImpl.listAllAttendanceByStudentId(studentId);
+		
 
-	@PostMapping("{teacherId}/{studentId}/attendance")
+	}
+	//Tobe completed get student id get a join 
+
+	@PostMapping("/attendance/student/{studentId}")
 	@ApiOperation(value = "Add The Attendence By Student Id", notes = "Add the attendence details for student.")
-	public ResponseEntity<Attendance> addAttendance(@Valid @PathVariable long teacherId, @PathVariable long studentId , @RequestBody Attendance attendance) throws StudentIDNotFoundException {
-		if(teacherServiceImpl.retrieveTeacherById(teacherId) == null && studentServiceImpl.retreiveStudentById1(studentId) == 0) {
+	public ResponseEntity<Attendance> addAttendance(@Valid  @PathVariable long studentId , @RequestBody Attendance attendance) throws StudentIDNotFoundException {
+		if(studentServiceImpl.retreiveStudentById1(studentId) == 0) {
             throw new StudentIDNotFoundException("Please Add Valid Student Id.");
         }
         else if(attendance.equals(null)) {
@@ -118,6 +126,24 @@ public class TeacherController {
             return new ResponseEntity<Attendance>(attendance2,HttpStatus.OK);
         }
     }
+	
+
+
+
+//	@PostMapping("{teacherId}/{studentId}/attendance")
+//	@ApiOperation(value = "Add The Attendence By Student Id", notes = "Add the attendence details for student.")
+//	public ResponseEntity<Attendance> addAttendance(@Valid @PathVariable long teacherId, @PathVariable long studentId , @RequestBody Attendance attendance) throws StudentIDNotFoundException {
+//		if(teacherServiceImpl.retrieveTeacherById(teacherId) == null && studentServiceImpl.retreiveStudentById1(studentId) == 0) {
+//            throw new StudentIDNotFoundException("Please Add Valid Student Id.");
+//        }
+//        else if(attendance.equals(null)) {
+//            throw new StudentIDNotFoundException("Please Add Valid Attendance.");
+//        }
+//        else {
+//            Attendance attendance2 = attendanceServiceImpl.addAttendance(attendance);
+//            return new ResponseEntity<Attendance>(attendance2,HttpStatus.OK);
+//        }
+//    }
 
 	@PutMapping("/attendance")
 	@ApiOperation(value = "Update The Attendence By StudentId", notes = "Update the attendence details for student.")
