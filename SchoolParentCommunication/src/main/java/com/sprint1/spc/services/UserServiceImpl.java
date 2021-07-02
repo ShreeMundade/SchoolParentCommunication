@@ -27,22 +27,22 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public User signIn(User user) throws UserNotFoundException {
-		User user1 = userRepo
-				.findByEmailIdAndPassword(user.getEmailId(), user.getPassword());
-		if(user1 != null) {
-			user1.setLoggedIn(true);
-			userRepo.saveAndFlush(user1);
-			return user1;
+	public User signIn(String emailId,String password) throws UserNotFoundException {
+		User user = userRepo
+				.findByEmailIdAndPassword(emailId, password);
+		if(user != null) {
+			user.setLoggedIn(true);
+			userRepo.saveAndFlush(user);
+			return user;
 		}
 		else
 			throw new UserNotFoundException("User Not Found ! Try registering first...");
 	}
 
 	@Override
-	public User signOut(User user) {
-		user = userRepo
-				.findByEmailIdAndPassword(user.getEmailId(), user.getPassword());
+	public User signOut(String emailId,String password) {
+		User user = userRepo
+				.findByEmailIdAndPassword(emailId, password);
 		user.setLoggedIn(false);
 		userRepo.saveAndFlush(user);
 		return user;

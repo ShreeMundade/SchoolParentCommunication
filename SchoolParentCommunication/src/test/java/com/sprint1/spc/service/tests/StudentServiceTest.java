@@ -2,9 +2,9 @@ package com.sprint1.spc.service.tests;
 
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,14 +14,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.google.common.base.Optional;
-import com.sprint1.spc.entities.Attendance;
-import com.sprint1.spc.entities.Exam;
-import com.sprint1.spc.entities.ExamAttempt;
 import com.sprint1.spc.entities.Role;
 import com.sprint1.spc.entities.Student;
-import com.sprint1.spc.entities.Subject;
-import com.sprint1.spc.entities.Teacher;
+import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.repository.IStudentRepository;
 import com.sprint1.spc.services.StudentServiceImpl;
 
@@ -63,10 +58,10 @@ public class StudentServiceTest {
 	}
 	
    @Test
-   public void retrieveStudentByIdTest()
+   public void retrieveStudentByIdTest() throws UserNotFoundException
    {
 	   Student student = new Student(22L,"priyanka","1234",12451,"priyanka1998@gmail.com",Role.STUDENT);
-	   when(studentRepo.getById(22L)).thenReturn(student);
+	   when(studentRepo.findById(22L)).thenReturn(Optional.of(student));
 	   Assertions.assertEquals(student,studentService.retrieveStudentById(22L));
    }
    

@@ -44,14 +44,14 @@ public class AccountantController {
 	@Autowired
 	private StudentServiceImpl studentServiceImpl;
 
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    List<FieldErrorMessage> exceptionHandler(MethodArgumentNotValidException e) {
-      
-        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-        List<FieldErrorMessage> fieldErrorMessages = fieldErrors.stream().map(fieldError -> new FieldErrorMessage(fieldError.getField(),fieldError.getDefaultMessage())).collect(Collectors.toList());
-        return fieldErrorMessages;
-    }
+//	@ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    List<FieldErrorMessage> exceptionHandler(MethodArgumentNotValidException e) {
+//      
+//        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+//        List<FieldErrorMessage> fieldErrorMessages = fieldErrors.stream().map(fieldError -> new FieldErrorMessage(fieldError.getField(),fieldError.getDefaultMessage())).collect(Collectors.toList());
+//        return fieldErrorMessages;
+//    }
 	
 	// Get all fees by month
 	@GetMapping("{accountantId}/fee/month/{month}")

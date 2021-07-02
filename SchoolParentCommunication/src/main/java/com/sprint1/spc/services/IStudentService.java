@@ -9,6 +9,7 @@ import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Exam;
 import com.sprint1.spc.entities.Role;
 import com.sprint1.spc.entities.Student;
+import com.sprint1.spc.exception.UserNotFoundException;
 
 
 @Service
@@ -17,11 +18,11 @@ public interface IStudentService {
 	public Student updateStudent(Student student);
 	public Student deleteStudent(Student student);
 	public List<Student> retrieveAllStudents();
-	public Student retrieveStudentById(long id);
+	public Student retrieveStudentById(long id) throws UserNotFoundException;
 //	public Exam giveExam(Exam exam);
 //	public Attendance giveAttendence(Attendance attendance);
 	public Student listStudentById(long studentId);
-	public Student updateStudentClassToStudent(long id, Student student);
+	public Student updateStudentClassToStudent(long studentId, long classId);
 	public long retreiveStudentById1(long id);
 	
 	

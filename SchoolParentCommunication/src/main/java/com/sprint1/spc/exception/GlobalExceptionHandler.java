@@ -1,15 +1,22 @@
 package com.sprint1.spc.exception;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 @ResponseBody
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(UserNotFoundException.class)
+	
+	@ExceptionHandler(UserNotFoundException.class)
     public ErrorMessage userNameNotFound(Exception e) {
     	return new ErrorMessage(HttpStatus.NOT_FOUND,e.getMessage());
     }	
@@ -43,4 +50,18 @@ public class GlobalExceptionHandler {
 		return new ErrorMessage(HttpStatus.NOT_FOUND,e.getMessage());
 	}
 	
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+    List<FieldErrorMessage> exceptionHandler(MethodArgumentNotValidException e) {
+        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+        List<FieldErrorMessage> fieldErrorMessages = fieldErrors.stream().map(fieldError -> new FieldErrorMessage(fieldError.getField(),fieldError.getDefaultMessage())).collect(Collectors.toList());
+        return fieldErrorMessages;
+    }
+	
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(Exception.class)
+    public ErrorMessage handleAllExceptions(Exception e) {
+    	return new ErrorMessage(
+    			HttpStatus.INTERNAL_SERVER_ERROR,"Something went wrong");
+    }
 }

@@ -1,14 +1,15 @@
 package com.sprint1.spc.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sprint1.spc.entities.Attendance;
-import com.sprint1.spc.entities.Exam;
-import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Student;
+import com.sprint1.spc.entities.StudentClass;
+import com.sprint1.spc.exception.UserNotFoundException;
+import com.sprint1.spc.repository.IStudentClassRepository;
 import com.sprint1.spc.repository.IStudentRepository;
 
 @Service
@@ -16,6 +17,9 @@ public class StudentServiceImpl implements IStudentService{
 	
 	@Autowired
 	private IStudentRepository studentRepo;
+	
+	@Autowired
+	private IStudentClassRepository classRepo;
 		
 	
 	@Override
@@ -43,9 +47,14 @@ public class StudentServiceImpl implements IStudentService{
 	}
 
 	@Override
-	public Student retrieveStudentById(long id) {
+	public Student retrieveStudentById(long id) throws UserNotFoundException {
 		// TODO Auto-generated method stub
-		return studentRepo.getById(id);
+		Optional<Student> student = studentRepo.findById(id);
+		if(!student.isPresent()) {
+			throw new UserNotFoundException("Student id not found");
+		}
+		return student.get();
+		
 	}
 
 	public long retreiveStudentById1(long id) {
@@ -79,12 +88,13 @@ public class StudentServiceImpl implements IStudentService{
 		return null;
 	}
 
-	/***** Patch Student To Parent *****/
+	/***** Patch StudentClass To Student *****/
 	@Override
-	public Student updateStudentClassToStudent(long id, Student student) {
-		Student existingStudent = studentRepo.findById(id).get();
+	public Student updateStudentClassToStudent(long studentId, long classId) {
+		Student existingStudent = studentRepo.findById(studentId).get();
+		StudentClass existingClass = classRepo.findById(classId).get();
 		if(!existingStudent.equals(null)) {
-			existingStudent.setStudentClass(student.getStudentClass());
+			existingStudent.setStudentClass(existingClass);
 			studentRepo.save(existingStudent);
 			return existingStudent;
 		}

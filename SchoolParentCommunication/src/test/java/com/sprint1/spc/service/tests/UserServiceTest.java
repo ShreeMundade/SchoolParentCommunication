@@ -76,7 +76,7 @@ public class UserServiceTest {
 
 		when(userRepo.findByEmailIdAndPassword("rise@gmail.com", "1758"))
 		.thenReturn(user);
-		user = userService.signIn(user);
+		user = userService.signIn("rise@gmail.com","1758");
 		Assertions.assertEquals(true,user.isLoggedIn());
 
 	}
@@ -89,7 +89,7 @@ public class UserServiceTest {
 		user.setPassword("1758");
 		when(userRepo.findByEmailIdAndPassword("rise@gmail.com", "1758"))
 		.thenReturn(user);
-		user = userService.signOut(user);
+		user = userService.signOut("rise@gmail.com","1758");
 		Assertions.assertEquals(false,user.isLoggedIn());
 	}
 	

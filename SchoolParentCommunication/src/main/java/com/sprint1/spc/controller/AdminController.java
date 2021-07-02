@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +35,7 @@ import com.sprint1.spc.entities.User;
 import com.sprint1.spc.exception.FieldErrorMessage;
 import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.exception.TeacherNotFoundException;
+import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.services.IAccountantService;
 import com.sprint1.spc.services.IParentService;
 import com.sprint1.spc.services.IStudentClassService;
@@ -45,6 +48,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin(allowedHeaders = "*")
 public class AdminController {
 
 	@Autowired
@@ -67,14 +71,7 @@ public class AdminController {
 
 	@Autowired
 	private IStudentClassService studentClassService;
-
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    List<FieldErrorMessage> exceptionHandler(MethodArgumentNotValidException e) {
-        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-        List<FieldErrorMessage> fieldErrorMessages = fieldErrors.stream().map(fieldError -> new FieldErrorMessage(fieldError.getField(),fieldError.getDefaultMessage())).collect(Collectors.toList());
-        return fieldErrorMessages;
-    }
+	
 
 	@GetMapping("/accountants")
 	@ApiOperation(value = "Get All Accountants", notes = "List of all accountants given here.")
@@ -118,13 +115,16 @@ public class AdminController {
 		return new ResponseEntity<List<User>>(listOfUsers,HttpStatus.OK);
 	}
 
-	@GetMapping("/student/{studentId}")
+	@GetMapping("/student")
 	@ApiOperation(value = "Get Student By Id", notes = "Enter student id to get student information. ")
-	public Student getStudentById(@PathVariable long studentId) throws StudentIDNotFoundException {
-		if (studentId != 0)
-			return studentService.retrieveStudentById(studentId);
-		else
-			throw new StudentIDNotFoundException("StudentId Not Found");
+	public ResponseEntity<Student> getStudentById(@RequestParam long studentId) throws UserNotFoundException {
+		Student student = studentService.retrieveStudentById(studentId);
+		if (student.equals(null)) {
+			throw new UserNotFoundException("Student Not Found");
+		}
+		return new ResponseEntity<Student>(student,HttpStatus.OK);
+		
+			
 	}
 
 	@ApiOperation(value = "Get All Subjects", notes = "List of all subjects given here.")
@@ -149,9 +149,10 @@ public class AdminController {
 	@PostMapping("/parent/{studentId}")
 	@ApiOperation(value = "Add Parent With Student Id", notes = "Enter the parent details with student id.")
 	public ResponseEntity<Parent> insertParent(@Valid @PathVariable long studentId, @RequestBody Parent parent)
-			throws StudentIDNotFoundException {
-		if (studentService.retreiveStudentById1(studentId) == 0) {
-			throw new StudentIDNotFoundException("Student Not Found");
+			throws UserNotFoundException {
+		Student student = studentService.retrieveStudentById(studentId);
+		if (student.equals(null)) {
+			throw new UserNotFoundException("Student Id Not Found");
 		} 
 		else {
 			return new ResponseEntity<Parent>(parentService.addParent(parent), HttpStatus.CREATED);
@@ -182,13 +183,12 @@ public class AdminController {
 		return new ResponseEntity<Teacher>(teacherService.updateTeacher(teacher), HttpStatus.CREATED);
 	}
 
-	@PatchMapping("/student/{id}")
+	@PatchMapping("/student")
 	@ApiOperation(value = "Add Student Class To Student", notes = "Student will get added to the particular student class.")
-	public ResponseEntity<Student> updateStudentClassToStudent(@Valid @PathVariable long id, @RequestBody Student student) {
-//		Student s1 = studentService.retrieveStudentById(id);
-//		s1.setStudentClass(student.getStudentClass());
-//		Student updatedClass = studentService.updateStudent(s1);
-		return new ResponseEntity<Student>(studentService.updateStudentClassToStudent(id, student), HttpStatus.OK);
+	public ResponseEntity<Student> updateStudentClassToStudent(@Valid 
+			@RequestParam long studentId, @RequestParam long classId) {
+
+		return new ResponseEntity<Student>(studentService.updateStudentClassToStudent(studentId, classId), HttpStatus.OK);
 	}
 
 	@PatchMapping("/accountant/{accountantId}/{phoneNumber}")
@@ -196,12 +196,12 @@ public class AdminController {
 	public ResponseEntity<Accountant> patchAccountant(@Valid @PathVariable long accountantId,
 			@PathVariable long phoneNumber) {
 		return new ResponseEntity<Accountant>(accountantService.patchAccountant(phoneNumber, accountantId),
-				HttpStatus.CREATED);
+				HttpStatus.OK);
 	}
 
-	@DeleteMapping("/studentClass/{studentClassId}")
-	@ApiOperation(value = "Delete The Student Class By Student Class Id", notes = "Delete studnetclass")
-	public ResponseEntity<StudentClass> deleteStudentClass(@Valid @PathVariable long studentClassId) {
+	@DeleteMapping("/studentClass")
+	@ApiOperation(value = "Delete The Student Class By Student Class Id", notes = "Delete studentclass")
+	public ResponseEntity<StudentClass> deleteStudentClass(@Valid @RequestParam long studentClassId) {
 		studentClassService.deleteStudentClassById(studentClassId);
 		return new ResponseEntity<StudentClass>(HttpStatus.OK);
 	}
