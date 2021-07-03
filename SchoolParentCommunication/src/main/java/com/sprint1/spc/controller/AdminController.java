@@ -126,6 +126,18 @@ public class AdminController {
 		
 			
 	}
+	
+	@GetMapping("/teacher")
+	@ApiOperation(value = "Get Teacher By Id", notes = "Enter teacher id to get teacher information. ")
+	public ResponseEntity<Teacher> getTeacherById(@RequestParam long teacherId) throws UserNotFoundException {
+		Teacher teacher = teacherService.retrieveTeacherById(teacherId);
+//		if (teacher.equals(null)) {
+//			throw new UserNotFoundException("Student Not Found");
+//		}
+		return new ResponseEntity<Teacher>(teacher,HttpStatus.OK);
+		
+			
+	}
 
 	@ApiOperation(value = "Get All Subjects", notes = "List of all subjects given here.")
 	@GetMapping("/subjects")
