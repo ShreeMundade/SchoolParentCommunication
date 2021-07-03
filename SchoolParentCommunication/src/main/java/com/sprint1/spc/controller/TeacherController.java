@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/teacher")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowedHeaders={"Authorization","Access-Control-Request-Headers","Content-Type","Access-Control-Allow-Origin","Access-Control-Allow-Credentials","Access-Control-Allow-Headers"})
 public class TeacherController {
 
 	@Autowired
@@ -112,21 +114,35 @@ public class TeacherController {
 	}
 	//Tobe completed get student id get a join 
 
-	@PostMapping("/attendance/student/{studentId}")
+//	@PostMapping("/attendance/student/{studentId}")
+//	@ApiOperation(value = "Add The Attendence By Student Id", notes = "Add the attendence details for student.")
+//	public ResponseEntity<Attendance> addAttendance(@Valid  @PathVariable long studentId , @RequestBody Attendance attendance) throws StudentIDNotFoundException {
+//		if(studentServiceImpl.retreiveStudentById1(studentId) == 0) {
+//            throw new StudentIDNotFoundException("Please Add Valid Student Id.");
+//        }
+//        else if(attendance.equals(null)) {
+//            throw new StudentIDNotFoundException("Please Add Valid Attendance.");
+//        }
+//        else {
+//            Attendance attendance2 = attendanceServiceImpl.addAttendance(attendance);
+//            return new ResponseEntity<Attendance>(attendance2,HttpStatus.OK);
+//        }
+//    }
+//	
+	@PostMapping("/attendance")
 	@ApiOperation(value = "Add The Attendence By Student Id", notes = "Add the attendence details for student.")
-	public ResponseEntity<Attendance> addAttendance(@Valid  @PathVariable long studentId , @RequestBody Attendance attendance) throws StudentIDNotFoundException {
-		if(studentServiceImpl.retreiveStudentById1(studentId) == 0) {
-            throw new StudentIDNotFoundException("Please Add Valid Student Id.");
-        }
-        else if(attendance.equals(null)) {
-            throw new StudentIDNotFoundException("Please Add Valid Attendance.");
-        }
-        else {
-            Attendance attendance2 = attendanceServiceImpl.addAttendance(attendance);
-            return new ResponseEntity<Attendance>(attendance2,HttpStatus.OK);
-        }
-    }
-	
+	public ResponseEntity<Attendance> addAttendance(@RequestBody Attendance attendance) throws StudentIDNotFoundException {
+	// if(teacherServiceImpl.retrieveTeacherById(teacherId) == null && studentServiceImpl.retreiveStudentById1(studentId) == 0) {
+	// throw new StudentIDNotFoundException("Please Add Valid Student Id.");
+	// }
+	// else if(attendance.equals(null)) {
+	// throw new StudentIDNotFoundException("Please Add Valid Attendance.");
+	// }
+	// else {
+	Attendance attendance2 = attendanceServiceImpl.addAttendance(attendance);
+	return new ResponseEntity<Attendance>(attendance2,HttpStatus.OK);
+	// }
+	}
 
 
 
@@ -150,6 +166,11 @@ public class TeacherController {
 	public ResponseEntity<Attendance> updateAttendance(@Valid @RequestBody Attendance attendance) {
 		return new ResponseEntity<Attendance>(attendanceServiceImpl.updateAttendanceById(attendance), HttpStatus.CREATED);
 	}
+	@PutMapping("/exam")
+    @ApiOperation(value = "Update The Exam By ExamId", notes = "Update the attendence details for student.")
+    public ResponseEntity<Exam> updateExam(@Valid @RequestBody Exam exam) {
+        return new ResponseEntity<Exam>(examServiceImpl.updateExamById(exam), HttpStatus.CREATED);
+    }
 
 	@GetMapping("/concerns")
 	@ApiOperation(value = "Get All The Concerns", notes = "Get all the concern details.")

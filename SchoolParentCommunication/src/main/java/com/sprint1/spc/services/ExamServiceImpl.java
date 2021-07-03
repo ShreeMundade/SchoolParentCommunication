@@ -89,6 +89,14 @@ public class ExamServiceImpl implements IExamService{
         examRepo.save(exam);
         return exam;
     }
+	@Override
+    public Exam updateExamById(Exam exam) {
+        // TODO Auto-generated method stub
+        return examRepo.save(exam);
+
+ 
+
+    }
 	
 	
 	

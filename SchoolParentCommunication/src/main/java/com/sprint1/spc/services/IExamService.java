@@ -19,7 +19,7 @@ public interface IExamService {
 	public Exam addExam(Exam exam);
 	public Exam deleteExam(int id);
 	public Exam updateExam(long id,Exam exam);
-	
+	public Exam updateExamById(Exam exam);
 	
 	public Exam patchExam(long subjectId, long examId);
 	
