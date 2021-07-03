@@ -22,4 +22,8 @@ public class SubjectServiceImpl implements ISubjectService {
 	public List<Subject> retrieveAllSubjects() {
 		return iSubjectRepository.findAll();
 	}
+	
+	public Subject getSubjectById(long subjectId) {
+		return iSubjectRepository.findById(subjectId).get();
+	}
 }

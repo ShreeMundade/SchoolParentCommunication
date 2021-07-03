@@ -10,4 +10,5 @@ import com.sprint1.spc.entities.Subject;
 public interface ISubjectService {
 	public Subject addSubject(Subject subject);
 	public List<Subject> retrieveAllSubjects(); 
+	public Subject getSubjectById(long subjectId);
 }
