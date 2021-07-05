@@ -66,7 +66,7 @@ public class StudentServiceTest {
    }
    
    @Test
-   public void updateStudentTest()
+   public void updateStudentTest() throws UserNotFoundException
    {
 	   Student student = new Student(22,"priyanka","1234",12451,"priyanka1998@gmail.com",Role.STUDENT);
 	   when(studentRepo.save(student)).thenReturn(student);

@@ -17,7 +17,7 @@ import com.sprint1.spc.exception.UserNotFoundException;
 @Service
 public interface IStudentService {
 	public Student addStudent(Student student);
-	public Student updateStudent(Student student);
+	public Student updateStudent(Student student) throws UserNotFoundException;
 	public Student deleteStudent(Student student);
 	public List<Student> retrieveAllStudents();
 	public Student retrieveStudentById(long id) throws UserNotFoundException;

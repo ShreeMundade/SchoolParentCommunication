@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,19 @@ public class StudentServiceImpl implements IStudentService{
 	}
 
 	@Override
-	public Student updateStudent(Student student) {
+	public Student updateStudent(Student student) throws UserNotFoundException {
 		// TODO Auto-generated method stub
-		return studentRepo.save(student);
+		long studentId = student.getId();
+		String id = Long.toString(studentId);
+		Student studentDb = studentRepo.findById(studentId).get();
+		if((id.equals(null)) || (studentDb.equals(null))) {
+			throw new UserNotFoundException("Can't Update Student, Please Try Again!");
+		}
+		else {
+			BeanUtils.copyProperties(student, studentDb, "studentId");
+			studentRepo.save(studentDb);
+			return studentDb;
+		}
 	}
 
 	@Override

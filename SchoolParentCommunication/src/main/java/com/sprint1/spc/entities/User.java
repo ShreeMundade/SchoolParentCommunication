@@ -40,7 +40,7 @@ public class User {
 //	@ApiModelProperty(value = "Password.")
 	private String password;
 
-	private long phoneNumber;
+	private String phoneNumber;
 	
 
 //	@NotNull(message = "Email must not be null.")
@@ -78,11 +78,11 @@ public class User {
 		this.password = password;
 	}
 
-	public long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -109,7 +109,7 @@ public class User {
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
 	}
-	public User(long id, String name, String password, long phoneNumber, String emailId, Role role) {
+	public User(long id, String name, String password, String phoneNumber, String emailId, Role role) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -119,7 +119,7 @@ public class User {
 		this.role = role;
 	}
 
-	public User(String name, String password, long phoneNumber, String emailId, Role role) {
+	public User(String name, String password, String phoneNumber, String emailId, Role role) {
 		super();
 		this.name = name;
 		this.password = password;

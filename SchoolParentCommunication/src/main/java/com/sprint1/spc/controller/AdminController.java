@@ -195,12 +195,11 @@ public class AdminController {
 		return new ResponseEntity<Teacher>(teacherService.updateTeacher(teacher), HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/updateStudent")
+	@PatchMapping("/studentDet")
 	@ApiOperation(value = "Update Student Details", notes = "Enter the Student details to update.")
 	public ResponseEntity<Student> updateStudent(@Valid @RequestBody Student student)  {
 		return new ResponseEntity<Student>(studentService.updateStudentById(student), HttpStatus.CREATED);
 	}
-
 
 	@PatchMapping("/student")
 	@ApiOperation(value = "Add Student Class To Student", notes = "Student will get added to the particular student class.")
