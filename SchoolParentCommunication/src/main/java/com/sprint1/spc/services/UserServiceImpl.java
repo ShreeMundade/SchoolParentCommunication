@@ -28,8 +28,7 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public User signIn(String emailId,String password) throws UserNotFoundException {
-		User user = userRepo
-				.findByEmailIdAndPassword(emailId, password);
+		User user = userRepo.findByEmailIdAndPassword(emailId, password);
 		if(user != null) {
 			user.setLoggedIn(true);
 			userRepo.saveAndFlush(user);
@@ -65,4 +64,16 @@ public class UserServiceImpl implements IUserService{
 		List<User> userList = userRepo.findByRole(role);
 		return userList;
 	}
+
+	public void loginUser(String userName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+    public User findUser(User user) {
+        return userRepo.findByEmailId(user.getEmailId());
+    }
+
+	
 }

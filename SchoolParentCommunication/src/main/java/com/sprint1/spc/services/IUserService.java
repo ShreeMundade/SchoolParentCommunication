@@ -17,4 +17,5 @@ public interface IUserService {
 	public List<User> getAllUsers();
 	public List<User> listUserByRole(Role role);
 	public User getUserById(Long id);
+	public User findUser(User user);
 }

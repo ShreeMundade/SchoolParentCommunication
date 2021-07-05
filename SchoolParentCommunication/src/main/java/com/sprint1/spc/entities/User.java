@@ -28,23 +28,23 @@ public class User {
 	private long id;
 
 	
-	@NotNull(message = "name must not be null.")
-	@Size(min = 5, max = 15, message = "Name must be between {min} and {max} characters.")
-	@Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Name can contain only alphanumeric characters.")
-	@ApiModelProperty(value = "Description about name.")
+//	@NotNull(message = "name must not be null.")
+//	@Size(min = 5, max = 15, message = "Name must be between {min} and {max} characters.")
+//	@Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Name can contain only alphanumeric characters.")
+//	@ApiModelProperty(value = "Description about name.")
 	private String name;
 	
-	@NotNull(message = "Password must not be null.")
-	@Size(min = 8, max = 15, message = "Password must be between {min} and {max} characters.")
-	@Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Password can contain only alphanumeric characters.")
-	@ApiModelProperty(value = "Password.")
+//	@NotNull(message = "Password must not be null.")
+//	@Size(min = 8, max = 15, message = "Password must be between {min} and {max} characters.")
+//	@Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Password can contain only alphanumeric characters.")
+//	@ApiModelProperty(value = "Password.")
 	private String password;
 
 	private long phoneNumber;
 	
 
-	@NotNull(message = "Email must not be null.")
-	@Email(message = "Email not formated correctly.")
+//	@NotNull(message = "Email must not be null.")
+//	@Email(message = "Email not formated correctly.")
 	private String emailId;
 	
 	private boolean loggedIn;
@@ -127,12 +127,20 @@ public class User {
 		this.emailId = emailId;
 		this.role = role;
 	}
+	
+	
 
-	public User(String name, String password) {
+	public User(String password, String emailId) {
 		super();
-		this.name = name;
 		this.password = password;
+		this.emailId = emailId;
 	}
+
+//	public User(String name, String password) {
+//		super();
+//		this.name = name;
+//		this.password = password;
+//	}
 
 	public User() {
 		super();

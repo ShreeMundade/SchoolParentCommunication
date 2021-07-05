@@ -58,10 +58,10 @@ public class GlobalExceptionHandler {
         return fieldErrorMessages;
     }
 	
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	@ExceptionHandler(Exception.class)
-    public ErrorMessage handleAllExceptions(Exception e) {
-   	return new ErrorMessage(
-   			HttpStatus.INTERNAL_SERVER_ERROR,"Something went wrong");
-   }
+//	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//	@ExceptionHandler(Exception.class)
+//    public ErrorMessage handleAllExceptions(Exception e) {
+//   	return new ErrorMessage(
+//   			HttpStatus.INTERNAL_SERVER_ERROR,"Something went wrong");
+//   }
 }
