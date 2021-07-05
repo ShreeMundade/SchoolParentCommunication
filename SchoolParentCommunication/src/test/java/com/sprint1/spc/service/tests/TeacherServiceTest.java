@@ -40,7 +40,7 @@ public class TeacherServiceTest {
 
 	@Test
 	public void addTeacherTest() {
-		Teacher teacher = new Teacher("shree", "Shree@123", 7276377795L, "shree@gmail.com", Role.TEACHER);
+		Teacher teacher = new Teacher("shree", "Shree@123", "7276377795", "shree@gmail.com", Role.TEACHER);
 		
 		Mockito.when(teacherRepo.saveAndFlush(teacher)).thenReturn(teacher);
 		assertEquals(teacher, teacherService.addTeacher(teacher));
@@ -51,7 +51,7 @@ public class TeacherServiceTest {
 		List<Subject> subjects = new ArrayList<Subject>();
 		List<StudentClass> stundentClasses = new ArrayList<StudentClass>();
 		List<Exam> exams = new ArrayList<Exam>();
-		Teacher teacher = new Teacher(1l, "shree", "Shree@123", 7276377795L, "shree@gmail.com", Role.TEACHER, subjects,
+		Teacher teacher = new Teacher(1l, "shree", "Shree@123", "7276377795", "shree@gmail.com", Role.TEACHER, subjects,
 				stundentClasses, exams);
 
 		Mockito.when(teacherRepo.getById(teacher.getId())).thenReturn(teacher);
@@ -64,7 +64,7 @@ public class TeacherServiceTest {
 		List<StudentClass> stundentClasses = new ArrayList<StudentClass>();
 		List<Exam> exams = new ArrayList<Exam>();
 		List<Teacher> teacher = new ArrayList<Teacher>();
-		Teacher teacher1 = new Teacher(1l, "shree", "Shree@123", 7276377795L, "shree@gmail.com", Role.TEACHER, subjects,
+		Teacher teacher1 = new Teacher(1l, "shree", "Shree@123", "7276377795", "shree@gmail.com", Role.TEACHER, subjects,
 				stundentClasses, exams);
 		teacher.add(teacher1);
 		
@@ -78,7 +78,7 @@ public class TeacherServiceTest {
 		List<Subject> subjects = new ArrayList<Subject>();
 		List<StudentClass> stundentClasses = new ArrayList<StudentClass>();
 		List<Exam> exams = new ArrayList<Exam>();
-		Teacher teacher1 = new Teacher(1l, "shree", "Shree@123", 7276377795L, "shree@gmail.com", Role.TEACHER, subjects,
+		Teacher teacher1 = new Teacher(1l, "shree", "Shree@123", "7276377795", "shree@gmail.com", Role.TEACHER, subjects,
 				stundentClasses, exams);
 
 		Mockito.when(teacherRepo.getById(teacher1.getId())).thenReturn(teacher1);

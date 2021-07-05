@@ -20,7 +20,9 @@ public interface IParentService {
 	public long retrieveParentById1(long id);
 	//public Parent retrieveParentByStudentId(long id);
 	public Parent updateStudentToParent(long id, Parent parent) throws ParentServiceException;
-	public Parent updateParent(long id, long phoneNumber) throws ParentServiceException;
+
 //	Concern addConcern(String concernDesc, LocalDate concernDate, long parentId, ConcernType type);
 	public Concern addConcern(Concern concern);
+	/***** Update Parent *****/
+	public Parent updateParent(long id, String phoneNumber);
 }

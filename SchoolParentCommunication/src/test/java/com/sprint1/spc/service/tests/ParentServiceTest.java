@@ -41,9 +41,9 @@ public class ParentServiceTest {
 	@Test
 	public void addParentTest() {
 		Set<Student> studentSet = new HashSet<Student>();
-		studentSet.add(new Student(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.STUDENT));
-		studentSet.add(new Student(2L, "Rohit", "Rohit1234", 1234567890, "rohit@gmail.com", Role.STUDENT));
-		Parent parent = new Parent(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.PARENT, studentSet);
+		studentSet.add(new Student(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.STUDENT));
+		studentSet.add(new Student(2L, "Rohit", "Rohit1234", "1234567890", "rohit@gmail.com", Role.STUDENT));
+		Parent parent = new Parent(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.PARENT, studentSet);
 		assertNotNull(parent);
 		
 		Mockito.when(iParentRepository.save(parent)).thenReturn(parent);
@@ -53,10 +53,10 @@ public class ParentServiceTest {
 	@Test
 	public void retrieveAllParentsTest() {
 		Set<Student> studentSet = new HashSet<Student>();
-		studentSet.add(new Student(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.STUDENT));
-		studentSet.add(new Student(2L, "Rohit", "Rohit1234", 1234567890, "rohit@gmail.com", Role.STUDENT));
+		studentSet.add(new Student(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.STUDENT));
+		studentSet.add(new Student(2L, "Rohit", "Rohit1234", "1234567890", "rohit@gmail.com", Role.STUDENT));
 		List<Parent> parentList = new ArrayList<Parent>();
-		Parent parent = new Parent(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.PARENT, studentSet);
+		Parent parent = new Parent(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.PARENT, studentSet);
 		parentList.add(parent);
 		assertNotNull(parent);
 		
@@ -68,9 +68,9 @@ public class ParentServiceTest {
 	@Test
 	public void retrieveParentByIdTest() {
 		Set<Student> studentSet = new HashSet<Student>();
-		studentSet.add(new Student(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.STUDENT));
-		studentSet.add(new Student(2L, "Rohit", "Rohit1234", 1234567890, "rohit@gmail.com", Role.STUDENT));
-		Parent parent = new Parent(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.PARENT, studentSet);
+		studentSet.add(new Student(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.STUDENT));
+		studentSet.add(new Student(2L, "Rohit", "Rohit1234", "1234567890", "rohit@gmail.com", Role.STUDENT));
+		Parent parent = new Parent(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.PARENT, studentSet);
 		assertNotNull(parent);
 		
 		Mockito.when(iParentRepository.findById(1L)).thenReturn(Optional.of(parent));
@@ -80,21 +80,21 @@ public class ParentServiceTest {
 	@Test
 	public void updateParentTest() throws ParentServiceException {
 		Set<Student> studentSet = new HashSet<Student>();
-		studentSet.add(new Student(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.STUDENT));
-		studentSet.add(new Student(2L, "Rohit", "Rohit1234", 1234567890, "rohit@gmail.com", Role.STUDENT));
-		Parent parent = new Parent(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.PARENT, studentSet);
+		studentSet.add(new Student(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.STUDENT));
+		studentSet.add(new Student(2L, "Rohit", "Rohit1234", "1234567890", "rohit@gmail.com", Role.STUDENT));
+		Parent parent = new Parent(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.PARENT, studentSet);
 		assertNotNull(parent);
 		
 		Mockito.when(iParentRepository.getById(1L)).thenReturn(parent);
-		assertEquals(parent, parentServiceImpl.updateParent(1L, 1234567890));
+		assertEquals(parent, parentServiceImpl.updateParent(1L, "1234567890"));
 	}
 	
 	@Test
 	public void updateStudentToParentTest() throws ParentServiceException {
 		Set<Student> studentSet = new HashSet<Student>();
-		studentSet.add(new Student(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.STUDENT));
-		studentSet.add(new Student(2L, "Rohit", "Rohit1234", 1234567890, "rohit@gmail.com", Role.STUDENT));
-		Parent parent = new Parent(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.PARENT, studentSet);
+		studentSet.add(new Student(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.STUDENT));
+		studentSet.add(new Student(2L, "Rohit", "Rohit1234", "1234567890", "rohit@gmail.com", Role.STUDENT));
+		Parent parent = new Parent(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.PARENT, studentSet);
 		assertNotNull(parent);
 		
 		Mockito.when(iParentRepository.getById(1L)).thenReturn(parent);
@@ -104,10 +104,10 @@ public class ParentServiceTest {
 	@Test
 	public void retrieveParentById1Test() {
 		Set<Student> studentSet = new HashSet<Student>();
-		studentSet.add(new Student(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.STUDENT));
-		studentSet.add(new Student(2L, "Rohit", "Rohit1234", 1234567890, "rohit@gmail.com", Role.STUDENT));
+		studentSet.add(new Student(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.STUDENT));
+		studentSet.add(new Student(2L, "Rohit", "Rohit1234", "1234567890", "rohit@gmail.com", Role.STUDENT));
 		List<Parent> parentList = new ArrayList<Parent>();
-		Parent parent1 = new Parent(1L, "Yash", "Yash1234", 1234567890, "yash@gmail.com", Role.PARENT, studentSet);
+		Parent parent1 = new Parent(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.PARENT, studentSet);
 		parentList.add(parent1);
 		assertNotNull(parentList);
 		

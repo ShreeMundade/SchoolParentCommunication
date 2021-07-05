@@ -34,7 +34,7 @@ public class StudentTest {
 		studentclass.setClassTeacher(teacher);
 		
 		student.setPassword("1234");
-		student.setPhoneNumber(9611275585L);
+		student.setPhoneNumber("9611275585");
 		student.setName("priyanka");
 		student.setEmailId("priyasn1998@gmail.com");
 		student.setRole(Role.STUDENT);

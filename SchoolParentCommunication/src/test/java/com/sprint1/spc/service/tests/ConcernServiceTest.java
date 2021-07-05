@@ -47,7 +47,7 @@ class ConcernServiceTest {
 	@Test
 	public void createConcernTest() {
 
-		Parent parent = new Parent(1l, "miser", "1234", 1245l, "miser@gmail.com", Role.PARENT);
+		Parent parent = new Parent(1l, "miser", "1234", "1245", "miser@gmail.com", Role.PARENT);
 
 		Concern concern = new Concern(11l, "This Conrenc is regarding fees", LocalDate.now(), ConcernParty.TEACHER,
 				parent, ConcernType.PERFORMANCE);
@@ -61,9 +61,9 @@ class ConcernServiceTest {
 	@Test
 	public void resolveConcernTest() throws ConcernNotFoundException {
 
-		Parent parent = new Parent(1l, "miser", "1234", 1245l, "miser@gmail.com", Role.PARENT);
+		Parent parent = new Parent(1l, "miser", "1234", "1245", "miser@gmail.com", Role.PARENT);
 
-		Teacher teacher = new Teacher(1l, "miser", "1234", 1245l, "miser@gmail.com", Role.TEACHER);
+		Teacher teacher = new Teacher(1l, "miser", "1234", "1245", "miser@gmail.com", Role.TEACHER);
 
 		Concern concern = new Concern(11l, "This Conrenc is regarding Performance", LocalDate.now(),
 				ConcernParty.TEACHER, parent, ConcernType.PERFORMANCE);
@@ -78,9 +78,9 @@ class ConcernServiceTest {
 	}
 	@Test
 	public void retriveAllConcernTest() throws ConcernNotFoundException {
-		Parent parent = new Parent(1l, "miser", "1234", 1245l, "miser@gmail.com", Role.PARENT);
+		Parent parent = new Parent(1l, "miser", "1234", "1245", "miser@gmail.com", Role.PARENT);
 
-		Teacher teacher = new Teacher(1l, "miser", "1234", 1245l, "miser@gmail.com", Role.TEACHER);
+		Teacher teacher = new Teacher(1l, "miser", "1234", "1245", "miser@gmail.com", Role.TEACHER);
 
 		List<Concern> concernList=new ArrayList<Concern>();
 		concernList.add(new Concern(11l, "This Conrenc is regarding Performance", true, "Fees is good", LocalDate.now(),LocalDate.now(),ConcernParty.TEACHER,parent, teacher, ConcernType.PERFORMANCE));

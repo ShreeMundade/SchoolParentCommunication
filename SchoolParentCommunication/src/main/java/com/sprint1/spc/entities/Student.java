@@ -72,7 +72,7 @@ public class Student extends User {
 		this.fee = fee;
 	}
 
-	public Student(long id, String name, String password, long phoneNumber, String emailId, Role role, List<Exam> exam,
+	public Student(long id, String name, String password, String phoneNumber, String emailId, Role role, List<Exam> exam,
 			List<Attendance> attendance,  StudentClass studentClass, Fee fee) {
 		super(id, name, password, phoneNumber, emailId, role);
 		this.exam = exam;
@@ -82,12 +82,12 @@ public class Student extends User {
 		this.fee = fee;
 	}
 
-	public Student(long id, String name, String password, long phoneNumber, String emailId, Role role) {
+	public Student(long id, String name, String password, String phoneNumber, String emailId, Role role) {
 		super(id, name, password, phoneNumber, emailId, role);
 
 	}
 
-	public Student(String name, String password, long phoneNumber, String emailId, Role role) {
+	public Student(String name, String password, String phoneNumber, String emailId, Role role) {
 		super(name, password, phoneNumber, emailId, role);
 
 	}

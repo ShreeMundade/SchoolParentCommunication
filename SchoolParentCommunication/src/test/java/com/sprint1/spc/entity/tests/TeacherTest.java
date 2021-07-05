@@ -44,7 +44,7 @@ class TeacherTest {
 		final Teacher teacher = new Teacher();
 		teacher.setName("Shree Mundade");
 		teacher.setEmailId("shreemundade@gmail.com");
-		teacher.setPhoneNumber(7276377795l);
+		teacher.setPhoneNumber("7276377795");
 		teacher.setPassword("Shree@123");
 		teacher.setRole(Role.TEACHER);
 		teacher.setSubjects(subjects);

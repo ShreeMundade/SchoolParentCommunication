@@ -14,7 +14,8 @@ public interface IAccountantService {
 	public long retrieveAccountantById(long id);
 	public Accountant addAccountant(Accountant accountant);
 	public Accountant updateAccountant(Accountant accountant);
-	public Accountant patchAccountant(long phoneNumber, long accountantId);
+	public Accountant patchAccountant(String phoneNumber, long accountantId);
 	public void deleteAccountant(long accountantId);
 	public Student updateFeeToStudent(long id, Fee fee);
+	
 }

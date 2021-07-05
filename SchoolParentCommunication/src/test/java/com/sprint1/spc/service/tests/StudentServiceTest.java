@@ -41,15 +41,15 @@ public class StudentServiceTest {
 	@Test
 	public void createStudentTest() {
 		
-		Student student = new Student(22,"priyanka","1234",12451L,"priyanka1998@gmail.com",Role.STUDENT);
+		Student student = new Student(22,"priyanka","1234","12451","priyanka1998@gmail.com",Role.STUDENT);
 		when(studentRepo.saveAndFlush(student)).thenReturn(student);
 		Assertions.assertEquals(student, studentService.addStudent(student));
 		
 	}
 	@Test
 	public void retrieveAllStudentsTest() {
-		Student student = new Student(22,"priyanka","1234",12451,"priyanka1998@gmail.com",Role.STUDENT);
-		Student student1 = new Student(21,"priyanka","1234",1245l,"priyanka1998@gmail.com",Role.STUDENT);
+		Student student = new Student(22,"priyanka","1234","12451","priyanka1998@gmail.com",Role.STUDENT);
+		Student student1 = new Student(21,"priyanka","1234","1245","priyanka1998@gmail.com",Role.STUDENT);
 		List<Student> studentsList = new ArrayList<Student>();
 		studentsList.add(student);
 		studentsList.add(student1);
@@ -60,7 +60,7 @@ public class StudentServiceTest {
    @Test
    public void retrieveStudentByIdTest() throws UserNotFoundException
    {
-	   Student student = new Student(22L,"priyanka","1234",12451,"priyanka1998@gmail.com",Role.STUDENT);
+	   Student student = new Student(22L,"priyanka","1234","12451","priyanka1998@gmail.com",Role.STUDENT);
 	   when(studentRepo.findById(22L)).thenReturn(Optional.of(student));
 	   Assertions.assertEquals(student,studentService.retrieveStudentById(22L));
    }
@@ -68,7 +68,7 @@ public class StudentServiceTest {
    @Test
    public void updateStudentTest() throws UserNotFoundException
    {
-	   Student student = new Student(22,"priyanka","1234",12451,"priyanka1998@gmail.com",Role.STUDENT);
+	   Student student = new Student(22,"priyanka","1234","12451","priyanka1998@gmail.com",Role.STUDENT);
 	   when(studentRepo.save(student)).thenReturn(student);
 	   Assertions.assertEquals(student,studentService.updateStudent(student));
    }

@@ -57,7 +57,7 @@ public class Teacher extends User {
 		this.exams = exams;
 	}
 
-	public Teacher(long id, String username, String password, long phoneNumber, String emailId, Role role,
+	public Teacher(long id, String username, String password, String phoneNumber, String emailId, Role role,
 			List<Subject> subjects, List<StudentClass> studentClasses, List<Exam> exams) {
 		super(id, username, password, phoneNumber, emailId, role);
 		this.subjects = subjects;
@@ -66,17 +66,17 @@ public class Teacher extends User {
 	}
 	
 
-	public Teacher(long id, String name, String password, long phoneNumber, String emailId, Role role,
+	public Teacher(long id, String name, String password, String phoneNumber, String emailId, Role role,
 			List<Exam> exams) {
 		super(id, name, password, phoneNumber, emailId, role);
 		this.exams = exams;
 	}
 
-	public Teacher(long id, String username, String password, long phoneNumber, String emailId, Role role) {
+	public Teacher(long id, String username, String password, String phoneNumber, String emailId, Role role) {
 		super(id, username, password, phoneNumber, emailId, role);
 	}
 
-	public Teacher(String username, String password, long phoneNumber, String emailId, Role role) {
+	public Teacher(String username, String password, String phoneNumber, String emailId, Role role) {
 		super(username, password, phoneNumber, emailId, role);
 	}
 

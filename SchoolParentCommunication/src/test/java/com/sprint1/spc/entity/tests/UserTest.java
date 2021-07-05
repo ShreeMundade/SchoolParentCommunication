@@ -29,7 +29,7 @@ public class UserTest {
 		final User user = new User();
 		user.setName("raymond");
 		user.setEmailId("raymond12@gmail.com");
-		user.setPhoneNumber(979797l);
+		user.setPhoneNumber("979797");
 		user.setRole(Role.STUDENT);
 		user.setPassword("1234");
 		
@@ -51,14 +51,14 @@ public class UserTest {
 		final User user = new User();
 		user.setName("jayz");
 		user.setEmailId("jayz@gmail.com");
-		user.setPhoneNumber(654654l);
+		user.setPhoneNumber("654654");
 		user.setRole(Role.ADMIN);
 		user.setPassword("1452");
 		
 		final User user1 = new User();
 		user.setName("dieg");
 		user.setEmailId("dieg@gmail.com");
-		user.setPhoneNumber(67554l);
+		user.setPhoneNumber("67554");
 		user.setRole(Role.PARENT);
 		user.setPassword("15789");
 		

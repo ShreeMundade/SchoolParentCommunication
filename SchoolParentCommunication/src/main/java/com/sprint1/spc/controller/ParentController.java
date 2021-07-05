@@ -124,11 +124,11 @@ public class ParentController {
 
 	@PatchMapping("/parent/{parentId}/{phoneNumber}")
 	@ApiOperation(value = "Update Phone Number", notes = "Update phone number by parent id.")
-	public Parent updateParent(@PathVariable long parentId, @PathVariable long phoneNumber) throws ParentServiceException {
+	public Parent updateParent(@PathVariable long parentId, @PathVariable String phoneNumber) throws ParentServiceException {
 		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
 			throw new ParentServiceException("Parent Not Found.");
 		}
-		else if(phoneNumber == 0) {
+		else if(phoneNumber == null) {
 			throw new ParentServiceException("Please Add Valid Phone Number.");
 		}
 		else {

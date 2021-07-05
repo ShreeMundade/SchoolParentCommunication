@@ -7,12 +7,12 @@ import javax.persistence.Table;
 @Table(name = "Accountant")
 public class Accountant extends User {
 
-	public Accountant(long id, String username, String password, long phoneNumber, String emailId, Role role) {
+	public Accountant(long id, String username, String password, String phoneNumber, String emailId, Role role) {
 		super(id, username, password, phoneNumber, emailId, role);
 
 	}
 
-	public Accountant(String username, String password, long phoneNumber, String emailId, Role role) {
+	public Accountant(String username, String password, String phoneNumber, String emailId, Role role) {
 		super(username, password, phoneNumber, emailId, role);
 
 	}

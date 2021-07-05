@@ -29,13 +29,13 @@ public class ParentTest {
 		parent.setName("Yash");
 		parent.setPassword("Yash1996");
 		parent.setEmailId("yashp@gmail.com");
-		parent.setPhoneNumber(1234567890L);
+		parent.setPhoneNumber("1234567890");
 		
 		final Student student = new Student();
 		student.setName("Abc");
 		student.setPassword("Yash1996");
 		student.setEmailId("yashp@gmail.com");
-		student.setPhoneNumber(1234567890L);
+		student.setPhoneNumber("1234567890");
 		
 		
 		Set<Student> studentSet = new HashSet<Student>();

@@ -41,7 +41,7 @@ public class UserServiceTest {
 	@Test
 	public void createUserTest() {
 		
-		User user = new User(1l,"mister","1234",1245l,"mister@gmail.com",Role.PARENT);
+		User user = new User(1l,"mister","1234","1245","mister@gmail.com",Role.PARENT);
 
 		when(userRepo
 				.saveAndFlush(user))
@@ -54,8 +54,8 @@ public class UserServiceTest {
 	@Test
 	public void getAllUsersTest() {
 		
-		User user = new User(1l,"mister","1234",1245l,"mister@gmail.com",Role.ADMIN);
-		User user1 = new User(2l,"miser","1234",1245l,"miser@gmail.com",Role.PARENT);
+		User user = new User(1l,"mister","1234","1245","mister@gmail.com",Role.ADMIN);
+		User user1 = new User(2l,"miser","1234","1245","miser@gmail.com",Role.PARENT);
 		
 		List<User> usersList = new ArrayList<User>();
 		usersList.add(user);

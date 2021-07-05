@@ -212,7 +212,7 @@ public class AdminController {
 	@PatchMapping("/accountant/{accountantId}/{phoneNumber}")
 	@ApiOperation(value = "Update Accountant Phone Number", notes = "Phone number details update for accountant.")
 	public ResponseEntity<Accountant> patchAccountant(@Valid @PathVariable long accountantId,
-			@PathVariable long phoneNumber) {
+			@PathVariable String phoneNumber) {
 		return new ResponseEntity<Accountant>(accountantService.patchAccountant(phoneNumber, accountantId),
 				HttpStatus.OK);
 	}

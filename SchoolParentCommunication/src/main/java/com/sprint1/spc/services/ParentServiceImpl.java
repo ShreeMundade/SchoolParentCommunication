@@ -13,6 +13,7 @@ import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Student;
+import com.sprint1.spc.exception.ParentServiceException;
 import com.sprint1.spc.repository.IParentRepository;
 
 @Service
@@ -67,8 +68,9 @@ public class ParentServiceImpl implements IParentService {
 	}
 
 	/***** Update Parent *****/
+	
 	@Override
-	public Parent updateParent(long id, long phoneNumber) {
+	public Parent updateParent(long id, String phoneNumber) {
 		Parent existingParent = iParentRepository.getById(id);
 		if(!existingParent.equals(null)) {
 			existingParent.setPhoneNumber(phoneNumber);
@@ -79,6 +81,7 @@ public class ParentServiceImpl implements IParentService {
 			return null;
 		}
 	}
+	
 
 	/***** Retrieve Parent By Id *****/
 	@Override
@@ -149,6 +152,9 @@ public class ParentServiceImpl implements IParentService {
 			return null;
 		}
 	}
+
+	
+
 	
 //	/***** Add Concern *****/
 //	@Override

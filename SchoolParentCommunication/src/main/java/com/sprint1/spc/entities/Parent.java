@@ -30,18 +30,18 @@ public class Parent extends User {
 		this.students = students;
 	}
 
-	public Parent(long id, String name, String password, long phoneNumber, String emailId, Role role,
+	public Parent(long id, String name, String password, String phoneNumber, String emailId, Role role,
 			Set<Student> students) {
 		super(id, name, password, phoneNumber, emailId, role);
 		this.students = students;
 	}
 
-	public Parent(long id, String name, String password, long phoneNumber, String emailId, Role role) {
+	public Parent(long id, String name, String password, String phoneNumber, String emailId, Role role) {
 		super(id, name, password, phoneNumber, emailId, role);
 
 	}
 
-	public Parent(String name, String password, long phoneNumber, String emailId, Role role) {
+	public Parent(String name, String password, String phoneNumber, String emailId, Role role) {
 		super(name, password, phoneNumber, emailId, role);
 
 	}
