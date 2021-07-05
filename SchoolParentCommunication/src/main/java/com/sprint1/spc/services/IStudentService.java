@@ -3,6 +3,8 @@ package com.sprint1.spc.services;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Attendance;
@@ -25,6 +27,7 @@ public interface IStudentService {
 	public Student updateStudentClassToStudent(long studentId, long classId);
 	public long retreiveStudentById1(long id);
 	public List<Attendance> listAllAttendanceByStudentId(long studentId);
+	public Student updateStudentById(@Valid Student student);
 	
 	
 	

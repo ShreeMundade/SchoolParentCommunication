@@ -3,6 +3,8 @@ package com.sprint1.spc.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -109,6 +111,17 @@ public class StudentServiceImpl implements IStudentService{
 			return null;
 		}
 	}
+
+	@Override
+	public Student updateStudentById(Student student) {
+		// TODO Auto-generated method stub
+		return studentRepo.save(student) ;
+	}
+	
+	}
+
+
+	
 	
 
-}
+

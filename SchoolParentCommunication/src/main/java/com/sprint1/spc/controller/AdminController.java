@@ -1,14 +1,18 @@
 package com.sprint1.spc.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Accountant;
@@ -27,6 +32,8 @@ import com.sprint1.spc.entities.StudentClass;
 import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.entities.User;
+import com.sprint1.spc.exception.FieldErrorMessage;
+import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.exception.TeacherNotFoundException;
 import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.services.IAccountantService;
@@ -41,7 +48,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin(allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowedHeaders={"Authorization","Access-Control-Request-Headers","Content-Type","Access-Control-Allow-Origin","Access-Control-Allow-Credentials","Access-Control-Allow-Headers"})
 public class AdminController {
 
 	@Autowired
@@ -112,10 +119,12 @@ public class AdminController {
 	@ApiOperation(value = "Get Student By Id", notes = "Enter student id to get student information. ")
 	public ResponseEntity<Student> getStudentById(@RequestParam long studentId) throws UserNotFoundException {
 		Student student = studentService.retrieveStudentById(studentId);
-		if (student.equals(null)) {
-			throw new UserNotFoundException("Student Not Found");
-		}
+//		if (student.equals(null)) {
+//			throw new UserNotFoundException("Student Not Found");
+//		}
 		return new ResponseEntity<Student>(student,HttpStatus.OK);
+		
+			
 	}
 	
 	@GetMapping("/teacher")
@@ -126,26 +135,10 @@ public class AdminController {
 //			throw new UserNotFoundException("Student Not Found");
 //		}
 		return new ResponseEntity<Teacher>(teacher,HttpStatus.OK);
-	}
-	
-	@GetMapping("/subject")
-	@ApiOperation(value = "Get Subject By Id", notes = "Enter subject id to get subject information. ")
-	public ResponseEntity<Subject> getSubjectById(@RequestParam long subjectId) throws UserNotFoundException {
-		Subject subject = subjectService.getSubjectById(subjectId);
-//		if (teacher.equals(null)) {
-//			throw new UserNotFoundException("Student Not Found");
-//		}
-		return new ResponseEntity<Subject>(subject,HttpStatus.OK);
 		
 			
 	}
 
-	@GetMapping("/parent")
-	public ResponseEntity<Parent> retrieveParentById(@RequestParam long parentId) throws UserNotFoundException {
-		Parent parent = parentService.retrieveParentById(parentId);
-		return new ResponseEntity<Parent>(parent,HttpStatus.OK);
-	}
-	
 	@ApiOperation(value = "Get All Subjects", notes = "List of all subjects given here.")
 	@GetMapping("/subjects")
 	public ResponseEntity<List<Subject>> getAllSubjects() {
@@ -201,6 +194,13 @@ public class AdminController {
 	public ResponseEntity<Teacher> updateTeacher(@Valid @RequestBody Teacher teacher) throws TeacherNotFoundException {
 		return new ResponseEntity<Teacher>(teacherService.updateTeacher(teacher), HttpStatus.CREATED);
 	}
+	
+	@PutMapping("/updateStudent")
+	@ApiOperation(value = "Update Student Details", notes = "Enter the Student details to update.")
+	public ResponseEntity<Student> updateStudent(@Valid @RequestBody Student student)  {
+		return new ResponseEntity<Student>(studentService.updateStudentById(student), HttpStatus.CREATED);
+	}
+
 
 	@PatchMapping("/student")
 	@ApiOperation(value = "Add Student Class To Student", notes = "Student will get added to the particular student class.")
