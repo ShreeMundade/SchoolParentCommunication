@@ -21,13 +21,7 @@ public interface IParentService {
 	public long retrieveParentById1(long id);
 	//public Parent retrieveParentByStudentId(long id);
 	public Parent updateStudentToParent(long id, Parent parent) throws ParentServiceException;
-<<<<<<< Updated upstream
-
-=======
 	public Parent updateParent(Parent parent) throws ParentServiceException, UserNotFoundException;
->>>>>>> Stashed changes
 //	Concern addConcern(String concernDesc, LocalDate concernDate, long parentId, ConcernType type);
 	public Concern addConcern(Concern concern);
-	/***** Update Parent *****/
-	public Parent updateParent(long id, String phoneNumber);
 }

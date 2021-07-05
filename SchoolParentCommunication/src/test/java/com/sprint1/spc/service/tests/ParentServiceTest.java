@@ -21,6 +21,7 @@ import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Role;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.exception.ParentServiceException;
+import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.repository.IParentRepository;
 import com.sprint1.spc.services.ParentServiceImpl;
 
@@ -78,7 +79,7 @@ public class ParentServiceTest {
 	}
 
 	@Test
-	public void updateParentTest() throws ParentServiceException {
+	public void updateParentTest() throws ParentServiceException, UserNotFoundException {
 		Set<Student> studentSet = new HashSet<Student>();
 		studentSet.add(new Student(1L, "Yash", "Yash1234", "1234567890", "yash@gmail.com", Role.STUDENT));
 		studentSet.add(new Student(2L, "Rohit", "Rohit1234", "1234567890", "rohit@gmail.com", Role.STUDENT));
@@ -86,7 +87,7 @@ public class ParentServiceTest {
 		assertNotNull(parent);
 		
 		Mockito.when(iParentRepository.getById(1L)).thenReturn(parent);
-		assertEquals(parent, parentServiceImpl.updateParent(1L, "1234567890"));
+		assertEquals(parent, parentServiceImpl.updateParent(parent));
 	}
 	
 	@Test

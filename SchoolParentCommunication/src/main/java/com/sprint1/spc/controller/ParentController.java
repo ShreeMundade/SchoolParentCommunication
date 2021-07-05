@@ -125,20 +125,10 @@ public class ParentController {
 
 	@PatchMapping("/parent")
 	@ApiOperation(value = "Update Phone Number", notes = "Update phone number by parent id.")
-<<<<<<< Updated upstream
-	public Parent updateParent(@PathVariable long parentId, @PathVariable String phoneNumber) throws ParentServiceException {
-		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
-			throw new ParentServiceException("Parent Not Found.");
-		}
-		else if(phoneNumber == null) {
-			throw new ParentServiceException("Please Add Valid Phone Number.");
-		}
-=======
 	public Parent updateParent(@RequestBody Parent parent) throws ParentServiceException, UserNotFoundException {
 		if(parentServiceImpl.retrieveParentById1(parent.getId()) == 0) {
 			throw new ParentServiceException("Parent Not Found.");
 		}
->>>>>>> Stashed changes
 		else {
 			return parentServiceImpl.updateParent(parent);
 		}
