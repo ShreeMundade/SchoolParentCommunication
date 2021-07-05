@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Attendance;
@@ -34,7 +35,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/teacher")
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowedHeaders={"Authorization","Access-Control-Request-Headers","Content-Type","Access-Control-Allow-Origin","Access-Control-Allow-Credentials","Access-Control-Allow-Headers"})
+@CrossOrigin
 public class TeacherController {
 
 	@Autowired
@@ -105,6 +106,12 @@ public class TeacherController {
 		return attendanceServiceImpl.listAttendanceByDate(LocalDate.parse(dateOfAttendance));
 
 	}
+	
+	@GetMapping("/attendance/id/{attendanceId}")
+	public Attendance getAttendanceById(@Valid @PathVariable long attendanceId) {
+		return attendanceServiceImpl.getAttendanceById(attendanceId);
+	}
+	
 	@GetMapping("/attendance/student/{studentId}")
 	//@ApiOperation(value = "Get The Attendance  ", notes = "Get the attendence details by studentID")
 	public List<Attendance> getAllAttendanceByStudentId(@Valid @PathVariable Long studentId) {
@@ -167,7 +174,7 @@ public class TeacherController {
 		return new ResponseEntity<Attendance>(attendanceServiceImpl.updateAttendanceById(attendance), HttpStatus.CREATED);
 	}
 	@PutMapping("/exam")
-    @ApiOperation(value = "Update The Exam By ExamId", notes = "Update the attendence details for student.")
+    @ApiOperation(value = "Update The Exam By ExamId", notes = "Update the exam details for student.")
     public ResponseEntity<Exam> updateExam(@Valid @RequestBody Exam exam) {
         return new ResponseEntity<Exam>(examServiceImpl.updateExamById(exam), HttpStatus.CREATED);
     }

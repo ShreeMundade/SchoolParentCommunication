@@ -15,7 +15,7 @@ public interface IAttendanceService {
 	public Attendance updateAttendanceById(Attendance attendance);
     public List<Attendance> listAttendanceByDate(LocalDate dateOfClass);
 	public List<Attendance> listAttendance();
-	public Attendance giveAttendance(long attendanceId);
+	public Attendance getAttendanceById(long attendanceId);
 	
 
 //	public Attendance updateAttendanceById(Long attendanceId);

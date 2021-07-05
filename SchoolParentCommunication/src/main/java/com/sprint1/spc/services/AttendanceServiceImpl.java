@@ -53,7 +53,7 @@ public class AttendanceServiceImpl implements IAttendanceService{
 	}
 
 
-	public Attendance giveAttendance(long attendanceId) {
+	public Attendance getAttendanceById(long attendanceId) {
 		// TODO Auto-generated method stub
 		return attendanceRepo.findById(attendanceId).get();
 	}
