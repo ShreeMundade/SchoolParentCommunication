@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,11 @@ import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Student;
+<<<<<<< Updated upstream
 import com.sprint1.spc.exception.ParentServiceException;
+=======
+import com.sprint1.spc.exception.UserNotFoundException;
+>>>>>>> Stashed changes
 import com.sprint1.spc.repository.IParentRepository;
 
 @Service
@@ -70,15 +75,26 @@ public class ParentServiceImpl implements IParentService {
 	/***** Update Parent *****/
 	
 	@Override
+<<<<<<< Updated upstream
 	public Parent updateParent(long id, String phoneNumber) {
 		Parent existingParent = iParentRepository.getById(id);
 		if(!existingParent.equals(null)) {
 			existingParent.setPhoneNumber(phoneNumber);
 			iParentRepository.save(existingParent);
 			return existingParent;
+=======
+	public Parent updateParent(Parent parent) throws UserNotFoundException {
+		long parentId = parent.getId();
+		String id = Long.toString(parentId);
+		Parent parentDb = iParentRepository.findById(parentId).get();
+		if((id.equals(null)) || (parentDb.equals(null))) {
+			throw new UserNotFoundException("Can't Update Student, Please Try Again!");
+>>>>>>> Stashed changes
 		}
 		else {
-			return null;
+			BeanUtils.copyProperties(parent, parentDb, "parentId");
+			iParentRepository.save(parentDb);
+			return parentDb;
 		}
 	}
 	

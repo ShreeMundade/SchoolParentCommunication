@@ -21,6 +21,7 @@ import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.exception.ParentServiceException;
+import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.services.ParentServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
@@ -122,8 +123,9 @@ public class ParentController {
 		}
 	}
 
-	@PatchMapping("/parent/{parentId}/{phoneNumber}")
+	@PatchMapping("/parent")
 	@ApiOperation(value = "Update Phone Number", notes = "Update phone number by parent id.")
+<<<<<<< Updated upstream
 	public Parent updateParent(@PathVariable long parentId, @PathVariable String phoneNumber) throws ParentServiceException {
 		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
 			throw new ParentServiceException("Parent Not Found.");
@@ -131,8 +133,14 @@ public class ParentController {
 		else if(phoneNumber == null) {
 			throw new ParentServiceException("Please Add Valid Phone Number.");
 		}
+=======
+	public Parent updateParent(@RequestBody Parent parent) throws ParentServiceException, UserNotFoundException {
+		if(parentServiceImpl.retrieveParentById1(parent.getId()) == 0) {
+			throw new ParentServiceException("Parent Not Found.");
+		}
+>>>>>>> Stashed changes
 		else {
-			return parentServiceImpl.updateParent(parentId, phoneNumber);
+			return parentServiceImpl.updateParent(parent);
 		}
 	}
 
