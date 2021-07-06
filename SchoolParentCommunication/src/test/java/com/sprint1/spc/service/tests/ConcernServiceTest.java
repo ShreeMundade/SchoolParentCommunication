@@ -54,7 +54,7 @@ class ConcernServiceTest {
 
 		Mockito.when(concernRepo.save(concern)).thenReturn(concern);
 
-		Assertions.assertEquals(concern, concernService.addConcern(concern));
+		Assertions.assertEquals(concern, concernService.addConcern(0, concern));
 
 	}
 

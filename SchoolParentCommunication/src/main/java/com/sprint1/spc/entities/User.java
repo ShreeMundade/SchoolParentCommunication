@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class User {
 
 	@Id
-	@SequenceGenerator(name = "UserIdGeneration", initialValue = 1, allocationSize = 999)
+	@SequenceGenerator(name = "UserIdGeneration",sequenceName = "userSequence", initialValue = 1, allocationSize = 995)
     @GeneratedValue(generator = "UserIdGeneration")
 	@ApiModelProperty(value = "Id - auto generated")
 	private long id;

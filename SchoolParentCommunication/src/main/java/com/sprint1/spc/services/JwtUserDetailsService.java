@@ -13,6 +13,7 @@ import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Admin;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Role;
+import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.entities.User;
 import com.sprint1.spc.exception.UserNotFoundException;
@@ -40,7 +41,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	@Autowired
 	private IParentRepository iParentRepository;
 	@Autowired
-	private IStudentRepository istudentRepository;
+	private IStudentRepository iStudentRepository;
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
@@ -59,8 +60,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 				user = iTeacherRepository.findByEmailId(username);
 			} else if (iParentRepository.findByEmailId(username) != null) {
 				user = iParentRepository.findByEmailId(username);
-			}else if (iParentRepository.findByEmailId(username) != null) {
-				user = iParentRepository.findByEmailId(username);
+			}else if (iStudentRepository.findByEmailId(username) != null) {
+				user = iStudentRepository.findByEmailId(username);
 			}
 		}
 
@@ -121,6 +122,19 @@ public class JwtUserDetailsService implements UserDetailsService {
 				teac.setLoggedIn(user.isLoggedIn());
 				teac.setRole(user.getRole());
 				return userServiceImpl.addUser(teac);
+			}
+		}
+		else if (user.getRole() == Role.STUDENT) {
+			Student student = iStudentRepository.findByEmailId(user.getEmailId());
+			if (student == null) {
+				Student stud = new Student();
+				stud.setName(user.getName());
+				stud.setPhoneNumber(user.getPhoneNumber());
+				stud.setPassword(bcryptEncoder.encode(user.getPassword()));
+				stud.setEmailId(user.getEmailId());
+				stud.setLoggedIn(user.isLoggedIn());
+				stud.setRole(user.getRole());
+				return userServiceImpl.addUser(stud);
 			}
 		}
 		return null;

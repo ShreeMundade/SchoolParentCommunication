@@ -39,7 +39,7 @@ public class UserServiceTest {
 
 	
 	@Test
-	public void createUserTest() {
+	public void createUserTest() throws UserNotFoundException {
 		
 		User user = new User(1l,"mister","1234","1245","mister@gmail.com",Role.PARENT);
 
@@ -47,7 +47,7 @@ public class UserServiceTest {
 				.saveAndFlush(user))
 		.thenReturn(user);
 
-		Assertions.assertEquals(user, userService.addNewUser(user));
+		Assertions.assertEquals(user, userService.addUser(user));
 		
 	}
 	
@@ -63,7 +63,7 @@ public class UserServiceTest {
 		
 		when(userRepo.findAll()).thenReturn(usersList);
 		
-		Assertions.assertEquals(2, userService.getAllUsers().size());
+		Assertions.assertEquals(2, userService.listAllUsers().size());
 	}
 	
 	
@@ -76,7 +76,7 @@ public class UserServiceTest {
 
 		when(userRepo.findByEmailIdAndPassword("rise@gmail.com", "1758"))
 		.thenReturn(user);
-		user = userService.signIn("rise@gmail.com","1758");
+		user = userService.signOut("rise@gmail.com","1758");
 		Assertions.assertEquals(true,user.isLoggedIn());
 
 	}
