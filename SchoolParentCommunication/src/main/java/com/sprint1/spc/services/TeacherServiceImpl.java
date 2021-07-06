@@ -38,17 +38,7 @@ public class TeacherServiceImpl implements ITeacherService {
 	/***** Update Teacher *****/
 	@Override
 	public Teacher updateTeacher(Teacher teacher) throws UserNotFoundException {
-		long teacherId = teacher.getId();
-		String id = Long.toString(teacherId);
-		Teacher teacherDb = iTeacherRepo.findById(teacherId).get();
-		if((id.equals(null)) || (teacherDb.equals(null))) {
-			throw new UserNotFoundException("Can't Update Teacher, Please Try Again!");
-		}
-		else {
-			BeanUtils.copyProperties(teacher, teacherDb, "teacherId");
-			iTeacherRepo.save(teacherDb);
-			return teacherDb;
-		}
+		return iTeacherRepo.save(teacher);
 	}
 
 	/***** Retrieve All Teachers *****/
@@ -82,10 +72,18 @@ public class TeacherServiceImpl implements ITeacherService {
 	}
 
 	@Override
-	public Teacher patchTeacher(long teacherId,String phoneNumber) {
-		Teacher teacher = iTeacherRepo.findById(teacherId).get();
-		teacher.setPhoneNumber(phoneNumber);
-		iTeacherRepo.saveAndFlush(teacher);
-		return teacher;
-	}
+    public Teacher patchTeacher(Teacher teacher) throws UserNotFoundException {
+        long teacherId = teacher.getId();
+        String id = Long.toString(teacherId);
+        Teacher teacherDb = iTeacherRepo.findById(teacherId).get();
+        if((id.equals(null)) || (teacherDb.equals(null))) {
+            throw new UserNotFoundException("Can't Update Teacher, Please Try Again!");
+        }
+        else {
+        	teacherDb.setPhoneNumber(teacher.getPhoneNumber());
+            BeanUtils.copyProperties(teacher, teacherDb);
+            iTeacherRepo.save(teacherDb);
+            return teacherDb;
+        }
+    }
 }

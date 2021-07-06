@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Role;
@@ -191,8 +192,15 @@ public class AdminController {
 
 	@PatchMapping("/updateTeacher")
 	@ApiOperation(value = "Update Teacher Details", notes = "Enter the teacher details to update.")
-	public ResponseEntity<Teacher> updateTeacher(@Valid @RequestParam long teacherId,@RequestParam String phoneNumber) {
-		return new ResponseEntity<Teacher>(teacherService.patchTeacher(teacherId,phoneNumber), HttpStatus.OK);
+	public ResponseEntity<Teacher> updateTeacher(@Valid @RequestBody Teacher teacher) throws UserNotFoundException {
+		
+		Teacher t1 = teacherService.retrieveTeacherById(teacher.getId());
+
+		t1.setPhoneNumber(teacher.getPhoneNumber());
+
+		Teacher updatedTeacher = teacherService.updateTeacher(t1);
+
+		return new ResponseEntity<Teacher>(updatedTeacher, HttpStatus.OK);
 	}
 	
 	@PatchMapping("/studentDet")
