@@ -189,10 +189,10 @@ public class AdminController {
 		return new ResponseEntity<StudentClass>(studentClassService.addStudentClass(studentClass), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/updateTeacher")
+	@PatchMapping("/updateTeacher")
 	@ApiOperation(value = "Update Teacher Details", notes = "Enter the teacher details to update.")
-	public ResponseEntity<Teacher> updateTeacher(@Valid @RequestBody Teacher teacher) throws TeacherNotFoundException {
-		return new ResponseEntity<Teacher>(teacherService.updateTeacher(teacher), HttpStatus.CREATED);
+	public ResponseEntity<Teacher> updateTeacher(@Valid @RequestParam long teacherId,@RequestParam String phoneNumber) {
+		return new ResponseEntity<Teacher>(teacherService.patchTeacher(teacherId,phoneNumber), HttpStatus.OK);
 	}
 	
 	@PatchMapping("/studentDet")

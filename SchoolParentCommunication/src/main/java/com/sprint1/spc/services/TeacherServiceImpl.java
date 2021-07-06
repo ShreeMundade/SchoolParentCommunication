@@ -6,9 +6,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Concern;
+import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.exception.TeacherNotFoundException;
+import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.repository.IConcernRepository;
 import com.sprint1.spc.repository.ITeacherRepository;
 
@@ -34,10 +37,18 @@ public class TeacherServiceImpl implements ITeacherService {
 
 	/***** Update Teacher *****/
 	@Override
-	public Teacher updateTeacher(Teacher teacher) throws TeacherNotFoundException {
-		Teacher existingTeacher = iTeacherRepo.getById(teacher.getId());
-		BeanUtils.copyProperties(teacher, existingTeacher, "teacherId");
-		return existingTeacher;
+	public Teacher updateTeacher(Teacher teacher) throws UserNotFoundException {
+		long teacherId = teacher.getId();
+		String id = Long.toString(teacherId);
+		Teacher teacherDb = iTeacherRepo.findById(teacherId).get();
+		if((id.equals(null)) || (teacherDb.equals(null))) {
+			throw new UserNotFoundException("Can't Update Teacher, Please Try Again!");
+		}
+		else {
+			BeanUtils.copyProperties(teacher, teacherDb, "teacherId");
+			iTeacherRepo.save(teacherDb);
+			return teacherDb;
+		}
 	}
 
 	/***** Retrieve All Teachers *****/
@@ -68,5 +79,13 @@ public class TeacherServiceImpl implements ITeacherService {
 	public Concern patchConcern(long teacherId, long concernId, String resolution) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Teacher patchTeacher(long teacherId,String phoneNumber) {
+		Teacher teacher = iTeacherRepo.findById(teacherId).get();
+		teacher.setPhoneNumber(phoneNumber);
+		iTeacherRepo.saveAndFlush(teacher);
+		return teacher;
 	}
 }

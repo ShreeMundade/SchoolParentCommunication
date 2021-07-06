@@ -21,6 +21,7 @@ import com.sprint1.spc.entities.StudentClass;
 import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.exception.TeacherNotFoundException;
+import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.repository.ITeacherRepository;
 import com.sprint1.spc.services.TeacherServiceImpl;
 
@@ -47,7 +48,7 @@ public class TeacherServiceTest {
 	}
 
 	@Test
-	public void updateTeacher() throws TeacherNotFoundException {
+	public void updateTeacher() throws TeacherNotFoundException, UserNotFoundException {
 		List<Subject> subjects = new ArrayList<Subject>();
 		List<StudentClass> stundentClasses = new ArrayList<StudentClass>();
 		List<Exam> exams = new ArrayList<Exam>();
