@@ -37,7 +37,7 @@ public class UserController {
 	@ApiOperation(value = "Parent Registration", notes = "Parents can register with us from here.")
 	public ResponseEntity<User> registerUser(@Valid @RequestBody Parent newUser) throws EmailAlreadyExistsException {
 
-		User user = userService.getUserEmail(newUser.getEmailId());
+		User user = userService.getByEmailId(newUser.getEmailId());
 
 		if (user != null) {
 

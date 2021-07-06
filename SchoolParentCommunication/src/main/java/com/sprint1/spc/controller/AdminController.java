@@ -111,7 +111,7 @@ public class AdminController {
 	@GetMapping("/users")
 	@ApiOperation(value = "Get All Users Of The System", notes = "List of all the users of the system.")
 	public ResponseEntity<List<User>> allUsers() {
-		List<User> listOfUsers = userService.getAllUsers(); 
+		List<User> listOfUsers = userService.listAllUsers(); 
 		return new ResponseEntity<List<User>>(listOfUsers,HttpStatus.OK);
 	}
 

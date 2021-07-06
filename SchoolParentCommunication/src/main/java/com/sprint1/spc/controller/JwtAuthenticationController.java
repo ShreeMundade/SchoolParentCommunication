@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Accountant;
+import com.sprint1.spc.entities.JwtRequest;
 import com.sprint1.spc.entities.JwtResponse;
 import com.sprint1.spc.entities.User;
 import com.sprint1.JwtTokenUtil;
@@ -49,8 +50,8 @@ public class JwtAuthenticationController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody Accountant accountant) throws Exception {
-		return ResponseEntity.ok(userDetailsService.save(accountant));
+	public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
+		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 
 	private void authenticate(String username, String password) throws Exception {
