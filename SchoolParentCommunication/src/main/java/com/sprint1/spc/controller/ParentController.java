@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Concern;
@@ -22,6 +23,7 @@ import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.exception.ParentServiceException;
 import com.sprint1.spc.exception.UserNotFoundException;
+import com.sprint1.spc.services.ConcernServiceImpl;
 import com.sprint1.spc.services.ParentServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +35,8 @@ public class ParentController {
 
 	@Autowired
 	private ParentServiceImpl parentServiceImpl;
+	@Autowired
+	private ConcernServiceImpl concernServiceImpl;
 
 //	@GetMapping("/parents")
 //	@ApiOperation(value = "Get All Parents", notes = "Get all parent information.")
@@ -95,9 +99,9 @@ public class ParentController {
 		}
 	}
 
-	@PutMapping("/parent/{parentId}/concern")
+	@PostMapping("/parent/concern")
 	@ApiOperation(value = "Add Concern", notes = "Add concern details.")
-	public Concern insertParentConcern(@PathVariable long parentId, @RequestBody Concern concern) throws ParentServiceException {
+	public Concern insertParentConcern(@RequestParam long parentId, @RequestBody Concern concern) throws ParentServiceException {
 		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
 			throw new ParentServiceException("Parent Not Found.");
 		}
@@ -105,9 +109,22 @@ public class ParentController {
 			throw new ParentServiceException("Please Add Valid Concern Details.");
 		}
 		else {
-			return parentServiceImpl.addConcern(concern);
+			return concernServiceImpl.addConcern(parentId,concern);
 		}
 	}
+//	@PostMapping("/parent/{parentId}/concern")
+//	@ApiOperation(value = "Add Concern", notes = "Add concern details.")
+//	public Concern insertParentConcern(@PathVariable long parentId, @RequestBody Concern concern) throws ParentServiceException {
+//		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
+//			throw new ParentServiceException("Parent Not Found.");
+//		}
+//		else if(concern.equals(null)) {
+//			throw new ParentServiceException("Please Add Valid Concern Details.");
+//		}
+//		else {
+//			return parentServiceImpl.addConcern(concern);
+//		}
+//	}
 
 	@PatchMapping("/parent/{parentId}/student")
 	@ApiOperation(value = "Update Student Details To Parent", notes = "Update student details to parent.")

@@ -17,5 +17,5 @@ public interface IConcernService {
 //	public Concern addConcern(Concern concern);
 //	public List<Concern> retrieveAllUnResolvedConcerns();
 //	public List<Concern> retrieveAllUnResolvedConcernsByParent(Parent parent);
-	public Concern addConcern(Concern concern);	
+	public Concern addConcern(long parentId,Concern concern);	
 }

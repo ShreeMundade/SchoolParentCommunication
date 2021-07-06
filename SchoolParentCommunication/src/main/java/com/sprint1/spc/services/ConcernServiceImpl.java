@@ -22,7 +22,10 @@ public class ConcernServiceImpl implements IConcernService {
 	private IParentRepository iParentRepo;
 
 	@Override
-	public Concern addConcern(Concern concern) {
+	public Concern addConcern(long parentId,Concern concern) {
+		Parent parent=iParentRepo.findById(parentId).get();
+		
+		concern.setAffectedParty(parent);
 		return iConcernRepo.save(concern);
 	}
 	

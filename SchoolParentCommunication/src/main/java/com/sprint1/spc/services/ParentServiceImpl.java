@@ -118,15 +118,15 @@ public class ParentServiceImpl implements IParentService {
 	}
 
 	/***** Add Concern *****/
-	@Override
-	public Concern addConcern(Concern concern) {
-		if(!concern.equals(null)) {
-			return concernServiceImpl.addConcern(concern);
-		}
-		else {
-			return null;
-		}
-	}
+//	@Override
+//	public Concern addConcern(long parentId,Concern concern) {
+//		if(!concern.equals(null)) {
+//			return concernServiceImpl.addConcern(parentId,concern);
+//		}
+//		else {
+//			return null;
+//		}
+//	}
 	
 	/***** Retrieve Concerns *****/
 	@Override

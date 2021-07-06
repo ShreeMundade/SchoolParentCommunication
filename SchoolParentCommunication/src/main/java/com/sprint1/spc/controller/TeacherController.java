@@ -213,7 +213,7 @@ public class TeacherController {
 			throw new ConcernNotFoundException("Please Add Valid Concern Details.");
 		}
 		else {
-			return parentServiceImpl.addConcern(concern);
+			return concernServiceImpl.addConcern(parentId, concern);
 		}
 	}
 }

@@ -23,5 +23,5 @@ public interface IParentService {
 	public Parent updateStudentToParent(long id, Parent parent) throws ParentServiceException;
 	public Parent updateParent(Parent parent) throws ParentServiceException, UserNotFoundException;
 //	Concern addConcern(String concernDesc, LocalDate concernDate, long parentId, ConcernType type);
-	public Concern addConcern(Concern concern);
+//	public Concern addConcern(Concern concern);
 }
