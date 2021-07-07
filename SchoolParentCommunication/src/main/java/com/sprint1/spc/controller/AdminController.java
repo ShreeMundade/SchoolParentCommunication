@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Accountant;
+import com.sprint1.spc.entities.Admin;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Role;
 import com.sprint1.spc.entities.Student;
@@ -36,7 +37,9 @@ import com.sprint1.spc.exception.FieldErrorMessage;
 import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.exception.TeacherNotFoundException;
 import com.sprint1.spc.exception.UserNotFoundException;
+import com.sprint1.spc.services.AdminServiceImpl;
 import com.sprint1.spc.services.IAccountantService;
+import com.sprint1.spc.services.IAdminService;
 import com.sprint1.spc.services.IParentService;
 import com.sprint1.spc.services.IStudentClassService;
 import com.sprint1.spc.services.IStudentService;
@@ -73,6 +76,9 @@ public class AdminController {
 
 	@Autowired
 	private IStudentClassService studentClassService;
+	
+	@Autowired
+	private AdminServiceImpl adminServiceImpl;
 
 	@GetMapping("/accountants")
 	@ApiOperation(value = "Get All Accountants", notes = "List of all accountants given here.")
@@ -241,8 +247,15 @@ public class AdminController {
 		return new ResponseEntity<StudentClass>(HttpStatus.OK);
 	}
 
+	@GetMapping("/get")
+	public ResponseEntity<Admin> getAdminByEmailId(@RequestParam String emailId) {
+		Admin admin = adminServiceImpl.getAdminByEmailId(emailId);
+		return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+	}
+	
 //	@PutMapping("/accountant")
 //	public ResponseEntity<Accountant> updateAccountant(@Valid @RequestBody Accountant accountant) {
 //		return new ResponseEntity<Accountant>(accountantService.updateAccountant(accountant), HttpStatus.CREATED);
+//	http://localhost:8081/spc/api/v1/admin/get?emailId='yash@gmail.com'
 //	}
 }

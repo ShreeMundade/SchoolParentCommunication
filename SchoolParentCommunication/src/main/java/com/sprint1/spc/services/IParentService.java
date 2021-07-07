@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
+import com.sprint1.spc.entities.User;
 import com.sprint1.spc.exception.ParentServiceException;
+import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.exception.UserNotFoundException;
 
 @Service
@@ -20,8 +22,9 @@ public interface IParentService {
 	public Fee getFeeByParentId(long parentId);
 	public long retrieveParentById1(long id);
 	//public Parent retrieveParentByStudentId(long id);
-	public Parent updateStudentToParent(long id, Parent parent) throws ParentServiceException;
+	public Parent updateStudentToParent(long id, Parent parent) throws ParentServiceException, StudentIDNotFoundException;
 	public Parent updateParent(Parent parent) throws ParentServiceException, UserNotFoundException;
 //	Concern addConcern(String concernDesc, LocalDate concernDate, long parentId, ConcernType type);
 //	public Concern addConcern(Concern concern);
+	public User getParentByEmailId(String email);
 }

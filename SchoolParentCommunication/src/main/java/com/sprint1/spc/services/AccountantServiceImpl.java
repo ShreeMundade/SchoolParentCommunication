@@ -72,4 +72,17 @@ public class AccountantServiceImpl implements IAccountantService {
 	public void deleteAccountant(long accountantId) {
 		iAccountantRepository.deleteById(accountantId);
 	}
+
+	@Override
+	public Accountant getAccountantByEmailId(String email) {
+		List<Accountant> accountantList = iAccountantRepository.findAll();
+		for(Accountant accountant: accountantList) {
+			if(accountant.getEmailId() == email) {
+				return accountant;
+			}
+		}
+		return null;
+	}
+	
+	
 }

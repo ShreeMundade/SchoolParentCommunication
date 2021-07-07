@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
+import com.sprint1.spc.entities.User;
 import com.sprint1.spc.exception.ParentServiceException;
+import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.services.ConcernServiceImpl;
 import com.sprint1.spc.services.ParentServiceImpl;
@@ -128,7 +131,7 @@ public class ParentController {
 
 	@PatchMapping("/parent/{parentId}/student")
 	@ApiOperation(value = "Update Student Details To Parent", notes = "Update student details to parent.")
-	public Parent updateStudentToParent(@PathVariable long parentId, @RequestBody Parent parent) throws ParentServiceException {
+	public Parent updateStudentToParent(@PathVariable long parentId, @RequestBody Parent parent) throws ParentServiceException, StudentIDNotFoundException {
 		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
 			throw new ParentServiceException("Parent Not Found.");
 		}
@@ -150,7 +153,14 @@ public class ParentController {
 			return parentServiceImpl.updateParent(parent);
 		}
 	}
-
+	
+	@GetMapping("/parent/get")
+	public ResponseEntity<Parent> getParentByEmailId(@RequestParam String emailId) {
+		System.out.println(emailId);
+		Parent foundParent = parentServiceImpl.getParentByEmailId(emailId);
+		return new ResponseEntity<Parent>(foundParent, HttpStatus.OK);
+	}
+	
 //	@GetMapping("/parent/student/{studentId}")
 //	public Parent getParentByStudentId(@PathVariable long studentId) {
 //		Parent parent = parentServiceImpl.retrieveParentByStudentId(studentId);

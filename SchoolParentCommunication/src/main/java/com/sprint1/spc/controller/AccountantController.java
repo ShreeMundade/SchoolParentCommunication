@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sprint1.spc.entities.Accountant;
+import com.sprint1.spc.entities.Admin;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.exception.FeeServiceException;
@@ -190,5 +193,11 @@ public class AccountantController {
 			Fee addFee = feeServiceImpl.addFee(fee);
 			return new ResponseEntity<Fee>(addFee, HttpStatus.OK);
 		}
+	}
+	
+	@GetMapping("/get")
+	public ResponseEntity<Accountant> getAccountantByEmailId(@RequestParam String emailId) {
+		Accountant accountant = accountantServiceImpl.getAccountantByEmailId(emailId);
+		return new ResponseEntity<Accountant>(accountant, HttpStatus.OK);
 	}
 }

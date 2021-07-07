@@ -79,6 +79,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			Admin admin = iAdminRepository.findByEmailId(user.getEmailId());
 			if (admin == null) {
 				Admin adm = new Admin();
+				adm.setId(user.getId());
 				adm.setName(user.getName());
 				adm.setPhoneNumber(user.getPhoneNumber());
 				adm.setPassword(bcryptEncoder.encode(user.getPassword()));
@@ -91,6 +92,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			Accountant accountant = iAccountantRepository.findByEmailId(user.getEmailId());
 			if (accountant == null) {
 				Accountant acc = new Accountant();
+				acc.setId(user.getId());
 				acc.setName(user.getName());
 				acc.setPhoneNumber(user.getPhoneNumber());
 				acc.setPassword(bcryptEncoder.encode(user.getPassword()));
@@ -103,6 +105,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			Parent parent = iParentRepository.findByEmailId(user.getEmailId());
 			if (parent == null) {
 				Parent par = new Parent();
+				par.setId(user.getId());
 				par.setName(user.getName());
 				par.setPhoneNumber(user.getPhoneNumber());
 				par.setPassword(bcryptEncoder.encode(user.getPassword()));
@@ -115,6 +118,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			Teacher teacher = iTeacherRepository.findByEmailId(user.getEmailId());
 			if (teacher == null) {
 				Teacher teac = new Teacher();
+				teac.setId(user.getId());
 				teac.setName(user.getName());
 				teac.setPhoneNumber(user.getPhoneNumber());
 				teac.setPassword(bcryptEncoder.encode(user.getPassword()));
@@ -128,6 +132,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			Student student = iStudentRepository.findByEmailId(user.getEmailId());
 			if (student == null) {
 				Student stud = new Student();
+				stud.setId(user.getId());
 				stud.setName(user.getName());
 				stud.setPhoneNumber(user.getPhoneNumber());
 				stud.setPassword(bcryptEncoder.encode(user.getPassword()));

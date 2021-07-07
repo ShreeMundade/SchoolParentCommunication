@@ -20,4 +20,17 @@ public class AdminServiceImpl implements IAdminService {
 	public Admin addAdmin(Admin admin) {
 		return iAdminRepository.save(admin);
 	}
+
+
+
+	@Override
+	public Admin getAdminByEmailId(String email) {
+		List<Admin> adminList = iAdminRepository.findAll();
+		for(Admin admin: adminList) {
+			if(admin.getEmailId() == email) {
+				return admin;
+			}
+		}
+		return null;
+	}
 }

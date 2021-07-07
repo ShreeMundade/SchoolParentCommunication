@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Exam;
+import com.sprint1.spc.entities.Parent;
+import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.exception.ConcernNotFoundException;
 import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.services.AttendanceServiceImpl;
@@ -173,6 +175,7 @@ public class TeacherController {
 	public ResponseEntity<Attendance> updateAttendance(@Valid @RequestBody Attendance attendance) {
 		return new ResponseEntity<Attendance>(attendanceServiceImpl.updateAttendanceById(attendance), HttpStatus.CREATED);
 	}
+	
 	@PutMapping("/exam")
     @ApiOperation(value = "Update The Exam By ExamId", notes = "Update the exam details for student.")
     public ResponseEntity<Exam> updateExam(@Valid @RequestBody Exam exam) {
@@ -215,5 +218,11 @@ public class TeacherController {
 		else {
 			return concernServiceImpl.addConcern(parentId, concern);
 		}
+	}
+	
+	@GetMapping("/teacher/get")
+	public ResponseEntity<Teacher> getTeacherByEmailId(@RequestParam String emailId) {
+		Teacher teacher = teacherServiceImpl.getTeacherByEmailId(emailId);
+		return new ResponseEntity<Teacher>(teacher, HttpStatus.OK);
 	}
 }

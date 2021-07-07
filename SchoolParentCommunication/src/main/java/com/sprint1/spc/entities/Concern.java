@@ -174,6 +174,16 @@ public class Concern {
 		this.type = type;
 	}
 	
+	public Concern(long concernId, String concernDescription, LocalDate concernDate, Parent affectedParty,
+			ConcernType type) {
+		super();
+		this.concernId = concernId;
+		this.concernDescription = concernDescription;
+		this.concernDate = concernDate;
+		this.affectedParty = affectedParty;
+		this.type = type;
+	}
+
 	public Concern() {
 		super();
 		// TODO Auto-generated constructor stub

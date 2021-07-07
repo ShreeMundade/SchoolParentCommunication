@@ -18,5 +18,5 @@ public interface IAccountantService {
 	public Accountant patchAccountant(String phoneNumber, long accountantId);
 	public void deleteAccountant(long accountantId);
 	public Student updateFeeToStudent(long id, Fee fee);
-	
+	public Accountant getAccountantByEmailId(String email);
 }

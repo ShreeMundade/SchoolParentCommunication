@@ -1,7 +1,8 @@
 package com.sprint1.spc.services;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -15,9 +16,11 @@ import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Student;
-
+import com.sprint1.spc.entities.User;
+import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.repository.IParentRepository;
+import com.sprint1.spc.repository.IStudentRepository;
 
 @Service
 public class ParentServiceImpl implements IParentService {
@@ -29,6 +32,9 @@ public class ParentServiceImpl implements IParentService {
 	
 	@Autowired
 	private ConcernServiceImpl concernServiceImpl;
+	
+	@Autowired
+	private IStudentRepository iStudentRepository;
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -56,12 +62,18 @@ public class ParentServiceImpl implements IParentService {
 		} 
 	}
 
-	/***** Patch Student To Parent *****/
+	/***** Patch Student To Parent  *****/
 	@Override
-	public Parent updateStudentToParent(long id, Parent parent) {
+	public Parent updateStudentToParent(long id, Parent parent) throws StudentIDNotFoundException {
 		Parent existingParent = iParentRepository.getById(id);
+		Set<Student> studentList = new HashSet<Student>();
+		Student s1 = null;
 		if(!existingParent.equals(null)) {
-			existingParent.setStudents(parent.getStudents());
+			for(Student s: parent.getStudents()) {
+				s1 = iStudentRepository.findById(s.getId()).orElseThrow(StudentIDNotFoundException:: new);
+				studentList.add(s1);
+			}
+			existingParent.setStudents(studentList);
 			iParentRepository.save(existingParent);
 			return existingParent;
 		}
@@ -157,7 +169,17 @@ public class ParentServiceImpl implements IParentService {
 		}
 	}
 	
-
+	@Override
+	public Parent getParentByEmailId(String email) {
+		Parent user = iParentRepository.findByEmailId(email);
+//		List<Parent> parentList = iParentRepository.findAll();
+//		for(Parent parent: parentList) {
+//			if(parent.getEmailId() == email) {
+//				return parent;
+//			}
+//		}
+		return user;
+	}
 	
 //	/***** Add Concern *****/
 //	@Override

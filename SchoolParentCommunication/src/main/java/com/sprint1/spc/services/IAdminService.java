@@ -8,6 +8,6 @@ import com.sprint1.spc.entities.Admin;
 public interface IAdminService {
 
 	public Admin addAdmin(Admin admin);
-
+	public Admin getAdminByEmailId(String email);
 	//public boolean retrieveAdminById(long id);
 }

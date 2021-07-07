@@ -86,4 +86,10 @@ public class TeacherServiceImpl implements ITeacherService {
             return teacherDb;
         }
     }
+
+	@Override
+	public Teacher getTeacherByEmailId(String email) {
+		Teacher teacher = iTeacherRepo.findByEmailId(email);
+		return teacher;
+	}
 }

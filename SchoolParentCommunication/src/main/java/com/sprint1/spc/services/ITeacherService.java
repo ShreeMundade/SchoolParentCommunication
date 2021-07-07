@@ -18,4 +18,5 @@ public interface ITeacherService {
 	List<Concern> retrieveAllConcerns();
 //	Concern patchConcern(long teacherId, long concernId, String resolution);
 	public Teacher patchTeacher(Teacher teacher) throws UserNotFoundException;
+	public Teacher getTeacherByEmailId(String email);
 }
