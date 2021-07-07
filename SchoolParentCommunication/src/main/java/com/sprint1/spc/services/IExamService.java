@@ -16,7 +16,7 @@ public interface IExamService {
 	public List<Exam> listAllExamsByDate(LocalDate dateOfExam);
 	
 	
-	public Exam addExam(Exam exam);
+	public Exam addExam(long subjectId,Exam exam);
 	public Exam deleteExam(int id);
 	public Exam updateExam(long id,Exam exam);
 	public Exam updateExamById(Exam exam);

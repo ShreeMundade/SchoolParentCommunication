@@ -90,8 +90,8 @@ public class TeacherController {
 
 	@PostMapping("/exam")
 	@ApiOperation(value = "Add Exam Details", notes = "Adding the exam.")
-	public ResponseEntity<Exam> insertExam(@Valid @RequestBody Exam exam) {
-		return new ResponseEntity<Exam>(examServiceImpl.addExam(exam), HttpStatus.CREATED);
+	public ResponseEntity<Exam> insertExam(@Valid @RequestParam long subjectId, @RequestBody Exam exam) {
+		return new ResponseEntity<Exam>(examServiceImpl.addExam(subjectId,exam), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/attendance")
