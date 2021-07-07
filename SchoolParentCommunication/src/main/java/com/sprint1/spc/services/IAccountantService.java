@@ -12,6 +12,7 @@ import com.sprint1.spc.entities.Student;
 public interface IAccountantService {
 	public List<Accountant> retrieveAllAccountants();
 	public long retrieveAccountantById(long id);
+	public Accountant retrieveAccountantById1(long id);
 	public Accountant addAccountant(Accountant accountant);
 	public Accountant updateAccountant(Accountant accountant);
 	public Accountant patchAccountant(String phoneNumber, long accountantId);

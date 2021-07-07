@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Student;
+import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.repository.IAccountantRepository;
 import com.sprint1.spc.repository.IStudentRepository;
 
@@ -36,7 +37,10 @@ public class AccountantServiceImpl implements IAccountantService {
 		}
 		return accountantId;
 	}
-
+	@Override
+	public Accountant retrieveAccountantById1(long id) {
+		return iAccountantRepository.findById(id).get();
+	}
 	@Override
 	public Accountant addAccountant(Accountant accountant) {
 		return iAccountantRepository.save(accountant);

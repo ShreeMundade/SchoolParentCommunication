@@ -48,7 +48,9 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowedHeaders={"Authorization","Access-Control-Request-Headers","Content-Type","Access-Control-Allow-Origin","Access-Control-Allow-Credentials","Access-Control-Allow-Headers"})
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowedHeaders = { "Authorization",
+		"Access-Control-Request-Headers", "Content-Type", "Access-Control-Allow-Origin",
+		"Access-Control-Allow-Credentials", "Access-Control-Allow-Headers" })
 public class AdminController {
 
 	@Autowired
@@ -71,7 +73,6 @@ public class AdminController {
 
 	@Autowired
 	private IStudentClassService studentClassService;
-	
 
 	@GetMapping("/accountants")
 	@ApiOperation(value = "Get All Accountants", notes = "List of all accountants given here.")
@@ -111,8 +112,8 @@ public class AdminController {
 	@GetMapping("/users")
 	@ApiOperation(value = "Get All Users Of The System", notes = "List of all the users of the system.")
 	public ResponseEntity<List<User>> allUsers() {
-		List<User> listOfUsers = userService.listAllUsers(); 
-		return new ResponseEntity<List<User>>(listOfUsers,HttpStatus.OK);
+		List<User> listOfUsers = userService.listAllUsers();
+		return new ResponseEntity<List<User>>(listOfUsers, HttpStatus.OK);
 	}
 
 	@GetMapping("/student")
@@ -122,11 +123,10 @@ public class AdminController {
 //		if (student.equals(null)) {
 //			throw new UserNotFoundException("Student Not Found");
 //		}
-		return new ResponseEntity<Student>(student,HttpStatus.OK);
-		
-			
+		return new ResponseEntity<Student>(student, HttpStatus.OK);
+
 	}
-	
+
 	@GetMapping("/teacher")
 	@ApiOperation(value = "Get Teacher By Id", notes = "Enter teacher id to get teacher information. ")
 	public ResponseEntity<Teacher> getTeacherById(@RequestParam long teacherId) throws UserNotFoundException {
@@ -134,9 +134,8 @@ public class AdminController {
 //		if (teacher.equals(null)) {
 //			throw new UserNotFoundException("Student Not Found");
 //		}
-		return new ResponseEntity<Teacher>(teacher,HttpStatus.OK);
-		
-			
+		return new ResponseEntity<Teacher>(teacher, HttpStatus.OK);
+
 	}
 
 	@ApiOperation(value = "Get All Subjects", notes = "List of all subjects given here.")
@@ -144,6 +143,16 @@ public class AdminController {
 	public ResponseEntity<List<Subject>> getAllSubjects() {
 		List<Subject> listOfSubjects = subjectService.retrieveAllSubjects();
 		return new ResponseEntity<List<Subject>>(listOfSubjects, HttpStatus.OK);
+	}
+
+	@GetMapping("/accountant")
+
+	@ApiOperation(value = "Get Accountant Id", notes = "Enter Accountant id to get accountant information. ")
+	public ResponseEntity<Accountant> getAccountantById(@RequestParam long id) throws UserNotFoundException {
+		Accountant accountant = accountantService.retrieveAccountantById1(id);
+
+		return new ResponseEntity<Accountant>(accountant, HttpStatus.OK);
+
 	}
 
 	@PostMapping("/student")
@@ -165,8 +174,7 @@ public class AdminController {
 		Student student = studentService.retrieveStudentById(studentId);
 		if (student.equals(null)) {
 			throw new UserNotFoundException("Student Id Not Found");
-		} 
-		else {
+		} else {
 			return new ResponseEntity<Parent>(parentService.addParent(parent), HttpStatus.CREATED);
 		}
 	}
@@ -191,22 +199,31 @@ public class AdminController {
 
 	@PatchMapping("/updateTeacher")
 	@ApiOperation(value = "Update Teacher Details", notes = "Enter the teacher details to update.")
-	public ResponseEntity<Teacher> updateTeacher(@Valid @RequestParam Long teacherId,@RequestParam String phoneNumber) {
-		return new ResponseEntity<Teacher>(teacherService.patchTeacher(teacherId,phoneNumber), HttpStatus.OK);
+	public ResponseEntity<Teacher> updateTeacher(@Valid @RequestBody Teacher teacher) throws UserNotFoundException {
+
+		Teacher t1 = teacherService.retrieveTeacherById(teacher.getId());
+
+		t1.setPhoneNumber(teacher.getPhoneNumber());
+
+		Teacher updatedTeacher = teacherService.updateTeacher(t1);
+
+		return new ResponseEntity<Teacher>(updatedTeacher, HttpStatus.OK);
+
 	}
-	
+
 	@PatchMapping("/studentDet")
 	@ApiOperation(value = "Update Student Details", notes = "Enter the Student details to update.")
-	public ResponseEntity<Student> updateStudent(@Valid @RequestBody Student student)  {
+	public ResponseEntity<Student> updateStudent(@Valid @RequestBody Student student) {
 		return new ResponseEntity<Student>(studentService.updateStudentById(student), HttpStatus.CREATED);
 	}
 
 	@PatchMapping("/student")
 	@ApiOperation(value = "Add Student Class To Student", notes = "Student will get added to the particular student class.")
-	public ResponseEntity<Student> updateStudentClassToStudent(@Valid 
-			@RequestParam long studentId, @RequestParam long classId) {
+	public ResponseEntity<Student> updateStudentClassToStudent(@Valid @RequestParam long studentId,
+			@RequestParam long classId) {
 
-		return new ResponseEntity<Student>(studentService.updateStudentClassToStudent(studentId, classId), HttpStatus.OK);
+		return new ResponseEntity<Student>(studentService.updateStudentClassToStudent(studentId, classId),
+				HttpStatus.OK);
 	}
 
 	@PatchMapping("/accountant/{accountantId}/{phoneNumber}")
