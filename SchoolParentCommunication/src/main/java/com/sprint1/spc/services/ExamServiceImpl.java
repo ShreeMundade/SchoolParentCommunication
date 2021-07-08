@@ -56,9 +56,9 @@ public class ExamServiceImpl implements IExamService{
 	
 
 	@Override
-	public Exam addExam(long subjectId,Exam exam) {
-		Subject subject=subjectRepo.findById(subjectId).get();
-		exam.setSubject(subject);
+	public Exam addExam(Exam exam) {
+//		Subject subject=subjectRepo.findById(subjectId).get();
+//		exam.setSubject(subject);
 		return examRepo.save(exam);
 	}
 
@@ -84,8 +84,8 @@ public class ExamServiceImpl implements IExamService{
 
 
 	@Override
-    public Exam patchExam(long subjectId,long examId) {
-        Exam exam=examRepo.findById(examId).get();
+    public Exam patchExam(long subjectId,Exam exam) {
+        Exam exam1=examRepo.findById(exam.getExamId()).get();
         Subject subject=subjectRepo.findById(subjectId).get();
         exam.setSubject(subject);
         examRepo.save(exam);

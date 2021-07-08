@@ -23,6 +23,7 @@ import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Exam;
 import com.sprint1.spc.entities.Parent;
+import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.exception.ConcernNotFoundException;
 import com.sprint1.spc.exception.StudentIDNotFoundException;
@@ -31,6 +32,7 @@ import com.sprint1.spc.services.ConcernServiceImpl;
 import com.sprint1.spc.services.ExamServiceImpl;
 import com.sprint1.spc.services.ParentServiceImpl;
 import com.sprint1.spc.services.StudentServiceImpl;
+import com.sprint1.spc.services.SubjectServiceImpl;
 import com.sprint1.spc.services.TeacherServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
@@ -57,6 +59,8 @@ public class TeacherController {
 	
 	@Autowired
 	private ParentServiceImpl parentServiceImpl;
+	@Autowired
+	private SubjectServiceImpl subjectServiceImpl;
 
 //	@ResponseStatus(HttpStatus.BAD_REQUEST)
 //    @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -92,8 +96,8 @@ public class TeacherController {
 
 	@PostMapping("/exam")
 	@ApiOperation(value = "Add Exam Details", notes = "Adding the exam.")
-	public ResponseEntity<Exam> insertExam(@Valid @RequestParam long subjectId, @RequestBody Exam exam) {
-		return new ResponseEntity<Exam>(examServiceImpl.addExam(subjectId,exam), HttpStatus.CREATED);
+	public ResponseEntity<Exam> insertExam(@Valid  @RequestBody Exam exam) {
+		return new ResponseEntity<Exam>(examServiceImpl.addExam(exam), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/attendance")
@@ -188,10 +192,10 @@ public class TeacherController {
 		return teacherServiceImpl.retrieveAllConcerns();
 	}
 
-	@PatchMapping("{subjectId}/exam/{examId}")
+	@PatchMapping("{subjectId}/exam")
 	@ApiOperation(value = "Add Subject To Exam", notes = "Add subject to exam.")
-    public ResponseEntity<Exam> patchExam(@PathVariable long subjectId, @PathVariable long examId) {
-        return new ResponseEntity<Exam>(examServiceImpl.patchExam(subjectId,examId),HttpStatus.OK);
+    public ResponseEntity<Exam> patchExam(@PathVariable long subjectId, @RequestBody Exam exam) {
+        return new ResponseEntity<Exam>(examServiceImpl.patchExam(subjectId,exam),HttpStatus.OK);
     }
 
 //	@GetMapping("/concern/{concernId}")
@@ -225,4 +229,10 @@ public class TeacherController {
 		Teacher teacher = teacherServiceImpl.getTeacherByEmailId(emailId);
 		return new ResponseEntity<Teacher>(teacher, HttpStatus.OK);
 	}
+	@GetMapping("/subject")
+	public ResponseEntity<Subject> getSubjectById(@RequestParam long subjectId) {
+		Subject subject= subjectServiceImpl.getSubjectById(subjectId);
+		return new ResponseEntity<Subject>(subject, HttpStatus.OK);
+	
+}
 }
