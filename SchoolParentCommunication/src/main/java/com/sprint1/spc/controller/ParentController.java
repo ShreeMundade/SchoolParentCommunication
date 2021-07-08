@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Accountant;
@@ -104,16 +105,16 @@ public class ParentController {
 
 	@PostMapping("/parent/concern")
 	@ApiOperation(value = "Add Concern", notes = "Add concern details.")
-	public Concern insertParentConcern(@RequestParam long parentId, @RequestBody Concern concern) throws ParentServiceException {
-		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
-			throw new ParentServiceException("Parent Not Found.");
-		}
-		else if(concern.equals(null)) {
-			throw new ParentServiceException("Please Add Valid Concern Details.");
-		}
-		else {
-			return concernServiceImpl.addConcern(parentId,concern);
-		}
+	public Concern insertParentConcern(@RequestBody Concern concern) throws ParentServiceException {
+//		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
+//			throw new ParentServiceException("Parent Not Found.");
+//		}
+//		else if(concern.equals(null)) {
+//			throw new ParentServiceException("Please Add Valid Concern Details.");
+//		}
+//		else {
+			return concernServiceImpl.addConcern(concern);
+//		}
 	}
 //	@PostMapping("/parent/{parentId}/concern")
 //	@ApiOperation(value = "Add Concern", notes = "Add concern details.")
@@ -129,22 +130,22 @@ public class ParentController {
 //		}
 //	}
 
-	@PatchMapping("/parent/{parentId}/student")
+	@PatchMapping("/parent/{studentId}")
 	@ApiOperation(value = "Update Student Details To Parent", notes = "Update student details to parent.")
-	public Parent updateStudentToParent(@PathVariable long parentId, @RequestBody Parent parent) throws ParentServiceException, StudentIDNotFoundException {
-		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
-			throw new ParentServiceException("Parent Not Found.");
-		}
-		else if(parent.equals(null)) {
-			throw new ParentServiceException("Please Add Valid Parent Details.");
-		}
-		else {
-			return parentServiceImpl.updateStudentToParent(parentId, parent);
-		}
+	public Parent updateStudentToParent(@PathVariable long studentId, @RequestBody Parent parent) throws ParentServiceException, StudentIDNotFoundException {
+//		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
+//			throw new ParentServiceException("Parent Not Found.");
+//		}
+//		else if(parent.equals(null)) {
+//			throw new ParentServiceException("Please Add Valid Parent Details.");
+//		}
+//		else {
+			return parentServiceImpl.updateStudentToParent(studentId, parent);
+//		}
 	}
 
 	@PatchMapping("/parent")
-	@ApiOperation(value = "Update Phone Number", notes = "Update phone number by parent id.")
+	@ApiOperation(value = "Update Parent", notes = "Update phone number by parent id.")
 	public Parent updateParent(@RequestBody Parent parent) throws ParentServiceException, UserNotFoundException {
 		if(parentServiceImpl.retrieveParentById1(parent.getId()) == 0) {
 			throw new ParentServiceException("Parent Not Found.");

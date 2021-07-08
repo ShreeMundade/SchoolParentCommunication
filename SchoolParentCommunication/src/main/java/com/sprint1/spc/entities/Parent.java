@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Parent extends User {
 
-//	@Access(AccessType.PROPERTY)
+	@Access(AccessType.PROPERTY)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	//@JsonBackReference(value="students")
 	private Set<Student> students;
@@ -50,6 +50,8 @@ public class Parent extends User {
 		super(name, password);
 
 	}
+
+	
 
 	public Parent() {
 		super();

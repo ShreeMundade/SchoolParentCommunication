@@ -22,7 +22,7 @@ public interface IParentService {
 	public Fee getFeeByParentId(long parentId);
 	public long retrieveParentById1(long id);
 	//public Parent retrieveParentByStudentId(long id);
-	public Parent updateStudentToParent(long id, Parent parent) throws ParentServiceException, StudentIDNotFoundException;
+	public Parent updateStudentToParent(long studentId, Parent parent);
 	public Parent updateParent(Parent parent) throws ParentServiceException, UserNotFoundException;
 //	Concern addConcern(String concernDesc, LocalDate concernDate, long parentId, ConcernType type);
 //	public Concern addConcern(Concern concern);

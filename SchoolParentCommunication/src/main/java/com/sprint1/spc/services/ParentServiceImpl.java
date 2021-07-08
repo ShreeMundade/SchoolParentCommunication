@@ -63,23 +63,38 @@ public class ParentServiceImpl implements IParentService {
 	}
 
 	/***** Patch Student To Parent  *****/
-	@Override
-	public Parent updateStudentToParent(long id, Parent parent) throws StudentIDNotFoundException {
-		Parent existingParent = iParentRepository.getById(id);
-		Set<Student> studentList = new HashSet<Student>();
-		Student s1 = null;
-		if(!existingParent.equals(null)) {
-			for(Student s: parent.getStudents()) {
-				s1 = iStudentRepository.findById(s.getId()).orElseThrow(StudentIDNotFoundException:: new);
-				studentList.add(s1);
+//	@Override
+//	public Parent updateStudentToParent(long id, Parent parent) throws StudentIDNotFoundException {
+//		Parent existingParent = iParentRepository.getById(id);
+//		Set<Student> studentList = new HashSet<Student>();
+//		Student s1 = null;
+//		if(!existingParent.equals(null)) {
+//			for(Student s: parent.getStudents()) {
+//				s1 = iStudentRepository.findById(s.getId()).orElseThrow(StudentIDNotFoundException:: new);
+//				studentList.add(s1);
+//			}
+//			existingParent.setStudents(studentList);
+//			iParentRepository.save(existingParent);
+//			return existingParent;
+//		}
+//		else {
+//			return null;
+//		}
+//	}
+	
+	public Parent updateStudentToParent(long studentId, Parent parent) {
+		Parent existingParent = iParentRepository.findById(parent.getId()).get();
+		List<Student> studentList = iStudentRepository.findAll();
+//		Student student = iStudentRepository.findById(studentId).get();
+		Set<Student> studentSet = new HashSet<Student>();
+		for(Student student: studentList) {
+			if(student.getId() == studentId) {
+				studentSet.add(student);
 			}
-			existingParent.setStudents(studentList);
-			iParentRepository.save(existingParent);
-			return existingParent;
 		}
-		else {
-			return null;
-		}
+		existingParent.setStudents(studentSet);
+		iParentRepository.save(existingParent);
+		return existingParent;
 	}
 
 	/***** Update Parent *****/
