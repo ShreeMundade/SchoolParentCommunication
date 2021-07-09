@@ -14,6 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Subject {
 
 	@Id
+	@SequenceGenerator(name = "SubjectIdGeneration",sequenceName = "subjectSequence", initialValue = 10000, allocationSize = 1)
+    @GeneratedValue(generator = "SubjectIdGeneration")
 	private long subjectId;
 	private String subjectTitle;
 

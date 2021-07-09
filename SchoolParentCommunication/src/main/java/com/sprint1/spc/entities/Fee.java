@@ -14,7 +14,7 @@ import com.sun.istack.NotNull;
 public class Fee {
 
 	@Id
-    @SequenceGenerator(name = "FeesIdGeneration", initialValue = 4001, allocationSize = 995)
+    @SequenceGenerator(name = "FeesIdGeneration", initialValue = 4001, allocationSize = 1)
     @GeneratedValue(generator = "FeesIdGeneration")
 	
 	private long feeId;

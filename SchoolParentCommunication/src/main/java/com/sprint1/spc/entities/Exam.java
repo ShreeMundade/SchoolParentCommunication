@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Exam {
 
 	@Id
-	@SequenceGenerator(name = "ExamIdGeneration", initialValue = 3001, allocationSize = 995)
+	@SequenceGenerator(name = "ExamIdGeneration", initialValue = 3001, allocationSize = 1)
 	@GeneratedValue(generator = "ExamIdGeneration")
 	private long examId;
 	private LocalDate dateOfExam;

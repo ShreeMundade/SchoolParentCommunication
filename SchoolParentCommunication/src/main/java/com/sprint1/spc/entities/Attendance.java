@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Attendance {
 
 	@Id
-	@SequenceGenerator(name = "AttencenceIdGeneration", initialValue = 1001, allocationSize = 995)
+	@SequenceGenerator(name = "AttencenceIdGeneration", initialValue = 1001, allocationSize = 1)
 	@GeneratedValue(generator = "AttencenceIdGeneration")
 	private long attendanceId;
 	private LocalDate dateOfClass;

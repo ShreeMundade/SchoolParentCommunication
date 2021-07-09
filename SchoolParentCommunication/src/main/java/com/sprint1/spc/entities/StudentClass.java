@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class StudentClass {
 	
 	@Id
-	@SequenceGenerator(name = "StudnetClassIdGeneration", initialValue = 8001, allocationSize = 50)
+	@SequenceGenerator(name = "StudnetClassIdGeneration", initialValue = 8001)
 	@GeneratedValue(generator = "StundetClassIdGeneration")
 	private long classId;
 	private String description;
