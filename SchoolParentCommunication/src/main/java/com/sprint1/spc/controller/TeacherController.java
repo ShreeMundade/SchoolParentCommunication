@@ -215,7 +215,7 @@ public class TeacherController {
 //		return new ResponseEntity<Concern>(teacherServiceImpl.patchConcern(teacherId,concernId,resolution), HttpStatus.OK);
 //	}
 
-	@PatchMapping("/teacher/{parentId}/concern/")
+	@PatchMapping("/{parentId}/concern/")
 	@ApiOperation(value = "Resolve Concern", notes = "Solve concern details.")
 	public Concern resolveConcern(@PathVariable long parentId, @RequestBody Concern concern) throws ConcernNotFoundException {
 		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
@@ -229,7 +229,7 @@ public class TeacherController {
 		}
 	}
 	
-	@GetMapping("/teacher/get")
+	@GetMapping("/get")
 	public ResponseEntity<Teacher> getTeacherByEmailId(@RequestParam String emailId) {
 		Teacher teacher = teacherServiceImpl.getTeacherByEmailId(emailId);
 		return new ResponseEntity<Teacher>(teacher, HttpStatus.OK);
