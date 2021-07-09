@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sprint1.spc.entities.Concern;
+import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.exception.ConcernNotFoundException;
 
 @Service

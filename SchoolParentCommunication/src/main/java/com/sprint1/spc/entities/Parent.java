@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -22,10 +23,12 @@ public class Parent extends User {
 	//@JsonBackReference(value="students")
 	private Set<Student> students;
 
+	@JsonIgnore
 	public Set<Student> getStudents() {
 		return students;
 	}
 
+	@JsonIgnore
 	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
