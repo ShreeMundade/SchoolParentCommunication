@@ -17,47 +17,46 @@ import com.sprint1.spc.repository.IParentRepository;
 public class ConcernServiceImpl implements IConcernService {
 	@Autowired
 	private IConcernRepository iConcernRepo;
-	
+
 	@Autowired
 	private IParentRepository iParentRepo;
 
 	@Override
 	public Concern addConcern(Concern concern) {
-//		Parent parentDb = iParentRepo.findById(concern.getAffectedParty().getId()).get();
-//		concern.setAffectedParty(parentDb);
 		return iConcernRepo.save(concern);
 	}
-	
+
 	@Override
 	public Concern updateConcern(Concern concern) throws ConcernNotFoundException {
 		Concern existingConcern = iConcernRepo.getById(concern.getConcernId());
 		BeanUtils.copyProperties(concern, existingConcern, "concernId");
 		return existingConcern;
-
 	}
-
 
 	@Override
 	public List<Concern> retrieveAllConcerns() {
-
 		return iConcernRepo.findAll();
 	}
 
-
 	@Override
 	public List<Concern> retrieveAllConcernsByParentId(long id) {
-		Parent parent=iParentRepo.findById(id).get();
+		Parent parent = iParentRepo.findById(id).get();
 		List<Concern> concernList = iConcernRepo.findAll();
-		List<Concern> filteredConcern=new ArrayList<Concern>();
-		for(Concern concern:concernList) {
-			if(parent.getId()==concern.getAffectedParty().getId()) {
+		List<Concern> filteredConcern = new ArrayList<Concern>();
+		for (Concern concern : concernList) {
+			if (parent.getId() == concern.getAffectedParty().getId()) {
 				filteredConcern.add(concern);
 			}
 		}
 		return filteredConcern;
 	}
-	
 
+	@Override
+	public Concern retrieveConcernById(long id) {
+		Concern concern = iConcernRepo.findById(id).get();
+		return concern;
+	}
+	
 //	@Override
 //	public List<Concern> retrieveAllUnResolvedConcerns() {
 //		// TODO Auto-generated method stub
@@ -69,9 +68,4 @@ public class ConcernServiceImpl implements IConcernService {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
-
-
-
-	
-
 }

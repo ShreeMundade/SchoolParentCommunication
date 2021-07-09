@@ -12,18 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Parent;
-import com.sprint1.spc.entities.User;
 import com.sprint1.spc.exception.ParentServiceException;
 import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.exception.UserNotFoundException;
@@ -39,6 +35,7 @@ public class ParentController {
 
 	@Autowired
 	private ParentServiceImpl parentServiceImpl;
+
 	@Autowired
 	private ConcernServiceImpl concernServiceImpl;
 
@@ -116,19 +113,6 @@ public class ParentController {
 			return concernServiceImpl.addConcern(concern);
 //		}
 	}
-//	@PostMapping("/parent/{parentId}/concern")
-//	@ApiOperation(value = "Add Concern", notes = "Add concern details.")
-//	public Concern insertParentConcern(@PathVariable long parentId, @RequestBody Concern concern) throws ParentServiceException {
-//		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
-//			throw new ParentServiceException("Parent Not Found.");
-//		}
-//		else if(concern.equals(null)) {
-//			throw new ParentServiceException("Please Add Valid Concern Details.");
-//		}
-//		else {
-//			return parentServiceImpl.addConcern(concern);
-//		}
-//	}
 
 	@PatchMapping("/parent/{studentId}")
 	@ApiOperation(value = "Update Student Details To Parent", notes = "Update student details to parent.")
@@ -155,6 +139,17 @@ public class ParentController {
 		}
 	}
 	
+	@GetMapping("/parent/concerns/{parentId}")
+	public ResponseEntity<List<Concern>> retrieveAllConcernsByParentId(@PathVariable long parentId) {
+		List<Concern> concernList = concernServiceImpl.retrieveAllConcernsByParentId(parentId);
+		return new ResponseEntity<List<Concern>>(concernList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/parent/concern/{concernId}")
+	public ResponseEntity<Concern> retrieveConcernById(@PathVariable long concernId) {
+		Concern concern = concernServiceImpl.retrieveConcernById(concernId);
+		return new ResponseEntity<Concern>(concern, HttpStatus.OK);
+	}
 	@GetMapping("/parent/get")
 	public ResponseEntity<Parent> getParentByEmailId(@RequestParam String emailId) {
 		System.out.println(emailId);
