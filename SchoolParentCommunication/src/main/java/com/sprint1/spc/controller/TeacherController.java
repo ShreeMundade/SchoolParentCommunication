@@ -142,7 +142,7 @@ public class TeacherController {
 //        }
 //    }
 //	
-	@PostMapping("/attendance")
+	@PostMapping("/attendance/{studentId}")
 	@ApiOperation(value = "Add The Attendence By Student Id", notes = "Add the attendence details for student.")
 	public ResponseEntity<Attendance> addAttendance(@PathVariable long studentId, @RequestBody Attendance attendance) throws StudentIDNotFoundException {
 	// if(teacherServiceImpl.retrieveTeacherById(teacherId) == null && studentServiceImpl.retreiveStudentById1(studentId) == 0) {
