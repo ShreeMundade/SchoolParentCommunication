@@ -102,10 +102,10 @@ public class ExamServiceImpl implements IExamService{
         Exam exam1=examRepo.findById(exam.getExamId()).get();
         Teacher teacher=teacherRepo.findById(teacherId).get();
         Subject subject=subjectRepo.findById(subjectId).get();
-        exam.setSubject(subject);
-        exam.setConductedBy(teacher);
+        exam1.setSubject(subject);
+        exam1.setConductedBy(teacher);
         examRepo.save(exam1);
-        return exam;
+        return exam1;
     }
 	@Override
     public Exam updateExamById(Exam exam) {
