@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Parent;
@@ -14,6 +15,7 @@ import com.sprint1.spc.repository.IConcernRepository;
 import com.sprint1.spc.repository.IParentRepository;
 
 @Service
+@Transactional
 public class ConcernServiceImpl implements IConcernService {
 	@Autowired
 	private IConcernRepository iConcernRepo;

@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Student;
@@ -17,6 +18,7 @@ import com.sprint1.spc.repository.IStudentClassRepository;
 import com.sprint1.spc.repository.IStudentRepository;
 
 @Service
+@Transactional
 public class StudentServiceImpl implements IStudentService{
 	
 	@Autowired

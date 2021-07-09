@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Exam;
@@ -15,6 +16,7 @@ import com.sprint1.spc.exception.UserNotFoundException;
 
 
 @Service
+@Transactional
 public interface IStudentService {
 	public Student addStudent(Student student);
 	public Student updateStudent(Student student) throws UserNotFoundException;

@@ -2,6 +2,8 @@ package com.sprint1.spc.entities;
 
 import java.util.List;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +21,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Teacher extends User {
 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@Access(AccessType.PROPERTY)
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	//@JsonBackReference
 	private List<Subject> subjects;
 

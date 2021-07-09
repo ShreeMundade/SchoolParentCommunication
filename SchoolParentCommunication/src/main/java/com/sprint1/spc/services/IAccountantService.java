@@ -3,12 +3,14 @@ package com.sprint1.spc.services;
 import java.util.*;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Student;
 
 @Service
+@Transactional
 public interface IAccountantService {
 	public List<Accountant> retrieveAllAccountants();
 	public long retrieveAccountantById(long id);

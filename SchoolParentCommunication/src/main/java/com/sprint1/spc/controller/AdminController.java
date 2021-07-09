@@ -203,17 +203,45 @@ public class AdminController {
 		return new ResponseEntity<StudentClass>(studentClassService.addStudentClass(studentClass), HttpStatus.CREATED);
 	}
 
-	@PatchMapping("/updateTeacher")
+//	@PatchMapping("/updateTeacher")
+//	@ApiOperation(value = "Update Teacher Details", notes = "Enter the teacher details to update.")
+//	public ResponseEntity<Teacher> updateTeacher(@Valid @RequestBody Teacher teacher) throws UserNotFoundException {
+//
+//		Teacher t1 = teacherService.retrieveTeacherById(teacher.getId());
+//
+//		t1.setPhoneNumber(teacher.getPhoneNumber());
+//
+//		Teacher updatedTeacher = teacherService.updateTeacher(t1);
+//
+//		return new ResponseEntity<Teacher>(updatedTeacher, HttpStatus.OK);
+//
+//	}
+	
+	
+//	@PatchMapping("/updateTeacher/{subjectId}/{teacherId}")
+//	@ApiOperation(value = "Update Teacher Details", notes = "Enter the teacher details to update.")
+//	public ResponseEntity<Teacher> updateTeacher(@PathVariable long subjectId,@PathVariable long teacherId ) throws UserNotFoundException {
+//		
+//
+//		return new ResponseEntity<Teacher>(teacherService.patchTeacher(subjectId,teacherId), HttpStatus.OK);
+//
+//	}
+	
+	@PatchMapping("/updateTeacher/{subjectId}")
 	@ApiOperation(value = "Update Teacher Details", notes = "Enter the teacher details to update.")
-	public ResponseEntity<Teacher> updateTeacher(@Valid @RequestBody Teacher teacher) throws UserNotFoundException {
+	public ResponseEntity<Teacher> updateTeacher(@PathVariable long subjectId,@RequestBody Teacher teacher) throws UserNotFoundException {
+		
 
-		Teacher t1 = teacherService.retrieveTeacherById(teacher.getId());
+		return new ResponseEntity<Teacher>(teacherService.patchTeacher(subjectId,teacher), HttpStatus.OK);
 
-		t1.setPhoneNumber(teacher.getPhoneNumber());
+	}
+	
+	@PatchMapping("/updateClass/{classId}")
+	@ApiOperation(value = "Update Teacher Class", notes = "Enter the teacher details to update.")
+	public ResponseEntity<Teacher> updateClass(@PathVariable long classId,@RequestBody Teacher teacher) {
+		
 
-		Teacher updatedTeacher = teacherService.updateTeacher(t1);
-
-		return new ResponseEntity<Teacher>(updatedTeacher, HttpStatus.OK);
+		return new ResponseEntity<Teacher>(teacherService.patchClass(classId,teacher), HttpStatus.OK);
 
 	}
 

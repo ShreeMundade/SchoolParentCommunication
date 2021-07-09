@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Role;
 import com.sprint1.spc.entities.User;
@@ -14,6 +15,7 @@ import com.sprint1.spc.exception.UserNotFoundException;
  
 
 @Service
+@Transactional
 public interface IUserService {
     
     public User signIn(User user);

@@ -5,17 +5,23 @@ import java.util.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Student;
+import com.sprint1.spc.entities.StudentClass;
+import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.exception.TeacherNotFoundException;
 import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.repository.IConcernRepository;
+import com.sprint1.spc.repository.IStudentClassRepository;
+import com.sprint1.spc.repository.ISubjectRepository;
 import com.sprint1.spc.repository.ITeacherRepository;
 
 @Service
+@Transactional
 public class TeacherServiceImpl implements ITeacherService {
 	
 	/***** Teacher Service Implementation *****/
@@ -28,6 +34,12 @@ public class TeacherServiceImpl implements ITeacherService {
 	
 	@Autowired
 	private ConcernServiceImpl concernServiceImpl;
+	
+	@Autowired
+	private ISubjectRepository subjectRepo;
+	
+	@Autowired
+	private IStudentClassRepository classRepo;
 
 	/***** Add Teacher *****/
 	@Override
@@ -71,25 +83,91 @@ public class TeacherServiceImpl implements ITeacherService {
 		return null;
 	}
 
-	@Override
-    public Teacher patchTeacher(Teacher teacher) throws UserNotFoundException {
-        long teacherId = teacher.getId();
-        String id = Long.toString(teacherId);
-        Teacher teacherDb = iTeacherRepo.findById(teacherId).get();
-        if((id.equals(null)) || (teacherDb.equals(null))) {
-            throw new UserNotFoundException("Can't Update Teacher, Please Try Again!");
-        }
-        else {
-        	teacherDb.setPhoneNumber(teacher.getPhoneNumber());
-            BeanUtils.copyProperties(teacher, teacherDb);
-            iTeacherRepo.save(teacherDb);
-            return teacherDb;
-        }
-    }
+//	@Override
+//    public Teacher patchTeacher(Teacher teacher) throws UserNotFoundException {
+//        long teacherId = teacher.getId();
+//        String id = Long.toString(teacherId);
+//        Teacher teacherDb = iTeacherRepo.findById(teacherId).get();
+//        if((id.equals(null)) || (teacherDb.equals(null))) {
+//            throw new UserNotFoundException("Can't Update Teacher, Please Try Again!");
+//        }
+//        else {
+//        	teacherDb.setPhoneNumber(teacher.getPhoneNumber());
+//            BeanUtils.copyProperties(teacher, teacherDb);
+//            iTeacherRepo.save(teacherDb);
+//            return teacherDb;
+//        }
+//    }
+	
+	/***** Patch Subject To Teacher *****/
+//	@Override
+//	public Teacher patchTeacher(long subjectId, Teacher teacher) {
+//		Teacher existingTeacher = iTeacherRepo.findById(teacher.getId()).get();
+//		List<Subject> filteredList = new ArrayList<>();
+//		List<Subject> subjectList = subjectRepo.findAll();
+//		Subject existingSubject = subjectRepo.findById(subjectId).get();
+//		subjectList.add(existingSubject);
+//		for(Subject subject: subjectList) {
+//			if(subject.getSubjectId() == subjectId) {
+//				filteredList.add(subject);
+//			}
+//		}
+//		if(!existingTeacher.equals(null)) {
+			
+//			existingTeacher.setSubjects(filteredList);
+//			iTeacherRepo.save(existingTeacher);
+//			return existingTeacher;
+//		}
+//		else {
+//			return null;
+//		}
+		
+//		Teacher existingTeacher = iTeacherRepo.findById(teacherId).get();
+//		Subject existingSubject = subjectRepo.findById(subjectId).get();
+//		List<Subject> subjectList = new ArrayList<>();
+//		if(!existingTeacher.equals(null)) {
+//			subjectList.add(existingSubject);
+//			existingTeacher.setSubjects(subjectList);
+//			iTeacherRepo.save(existingTeacher);
+//			return existingTeacher;
+//		}
+//		else {
+//			return null;
+//		}
+//	}
 
 	@Override
 	public Teacher getTeacherByEmailId(String email) {
 		Teacher teacher = iTeacherRepo.findByEmailId(email);
 		return teacher;
 	}
+
+	@Override
+	public Teacher patchTeacher(long subjectId, Teacher teacher) throws UserNotFoundException {
+		Teacher existingTeacher = iTeacherRepo.findById(teacher.getId()).get();
+		Subject existingSubject = subjectRepo.findById(subjectId).get();
+		List<Subject> subjectList = existingTeacher.getSubjects();
+		subjectList.add(existingSubject);
+		existingTeacher.setSubjects(subjectList);
+		iTeacherRepo.saveAndFlush(existingTeacher);
+		return existingTeacher;
+	}
+	
+	
+	@Override
+	public Teacher patchClass(long classId, Teacher teacher) {
+		Teacher existingTeacher = iTeacherRepo.findById(teacher.getId()).get();
+		StudentClass existingClass = classRepo.findById(classId).get();
+		List<StudentClass> classList = new ArrayList<>();
+		classList.add(existingClass);
+		existingTeacher.setStudentClasses(classList);
+		iTeacherRepo.saveAndFlush(existingTeacher);
+		return existingTeacher;
+	}
+	
+	
+	
+	
+	
+	
 }

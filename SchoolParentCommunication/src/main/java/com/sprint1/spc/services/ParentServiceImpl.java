@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Fee;
@@ -23,6 +24,7 @@ import com.sprint1.spc.repository.IParentRepository;
 import com.sprint1.spc.repository.IStudentRepository;
 
 @Service
+@Transactional
 public class ParentServiceImpl implements IParentService {
 	
 	/***** Parent Service Implementation *****/

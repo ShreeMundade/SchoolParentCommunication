@@ -3,6 +3,7 @@ package com.sprint1.spc.services;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Fee;
@@ -13,6 +14,7 @@ import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.exception.UserNotFoundException;
 
 @Service
+@Transactional
 public interface IParentService {
 	public Parent addParent(Parent parent);
 	public List<Parent> retrieveAllParents();

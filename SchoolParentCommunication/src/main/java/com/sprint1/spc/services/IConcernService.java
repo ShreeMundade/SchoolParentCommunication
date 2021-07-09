@@ -3,12 +3,14 @@ package com.sprint1.spc.services;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.exception.ConcernNotFoundException;
 
 @Service
+@Transactional
 public interface IConcernService {
 	public Concern updateConcern(Concern concern) throws ConcernNotFoundException;
 	public List<Concern> retrieveAllConcerns();

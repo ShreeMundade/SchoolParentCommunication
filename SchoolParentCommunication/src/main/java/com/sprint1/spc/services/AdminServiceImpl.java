@@ -2,11 +2,13 @@ package com.sprint1.spc.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Admin;
 import com.sprint1.spc.repository.IAdminRepository;
 
 @Service
+@Transactional
 public class AdminServiceImpl implements IAdminService {
 
 	@Autowired

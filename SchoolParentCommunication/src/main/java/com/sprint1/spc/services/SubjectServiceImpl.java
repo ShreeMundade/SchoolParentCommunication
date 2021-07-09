@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.repository.ISubjectRepository;
 
 @Service
+@Transactional
 public class SubjectServiceImpl implements ISubjectService {
 
 	@Autowired
