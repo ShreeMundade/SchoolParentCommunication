@@ -22,7 +22,7 @@ public interface IExamService {
 	public Exam deleteExam(int id);
 	public Exam updateExam(long id,Exam exam);
 	public Exam updateExamById(Exam exam);
-	
+	public Exam patchExamByTeacherId(long teacherId,long subjectId,Exam exam);
 	public Exam patchExam(long subjectId,Exam exam);
 	
 

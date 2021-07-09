@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Exam;
 import com.sprint1.spc.entities.Subject;
+import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.repository.IExamRepository;
 import com.sprint1.spc.repository.ISubjectRepository;
+import com.sprint1.spc.repository.ITeacherRepository;
 
 @Service
 @Transactional
@@ -22,6 +24,8 @@ public class ExamServiceImpl implements IExamService{
 	private IExamRepository examRepo;
 	@Autowired
 	private ISubjectRepository subjectRepo;
+	@Autowired
+	private ITeacherRepository teacherRepo;
 	
 	
 	@Override
@@ -85,12 +89,22 @@ public class ExamServiceImpl implements IExamService{
 	}
 
 
+//	@Override
+//    public Exam patchExam(long subjectId,Exam exam) {
+//        Exam exam1=examRepo.findById(exam.getExamId()).get();
+//        Subject subject=subjectRepo.findById(subjectId).get();
+//        exam.setSubject(subject);
+//        examRepo.save(exam);
+//        return exam;
+//    }
 	@Override
-    public Exam patchExam(long subjectId,Exam exam) {
+    public Exam patchExamByTeacherId(long teacherId,long subjectId,Exam exam) {
         Exam exam1=examRepo.findById(exam.getExamId()).get();
+        Teacher teacher=teacherRepo.findById(teacherId).get();
         Subject subject=subjectRepo.findById(subjectId).get();
         exam.setSubject(subject);
-        examRepo.save(exam);
+        exam.setConductedBy(teacher);
+        examRepo.save(exam1);
         return exam;
     }
 	@Override
@@ -101,6 +115,12 @@ public class ExamServiceImpl implements IExamService{
  
 
     }
+
+	@Override
+	public Exam patchExam(long subjectId, Exam exam) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

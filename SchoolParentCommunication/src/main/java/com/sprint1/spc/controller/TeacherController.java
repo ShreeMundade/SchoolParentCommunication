@@ -192,10 +192,15 @@ public class TeacherController {
 		return teacherServiceImpl.retrieveAllConcerns();
 	}
 
-	@PatchMapping("{subjectId}/exam")
-	@ApiOperation(value = "Add Subject To Exam", notes = "Add subject to exam.")
-    public ResponseEntity<Exam> patchExam(@PathVariable long subjectId, @RequestBody Exam exam) {
-        return new ResponseEntity<Exam>(examServiceImpl.patchExam(subjectId,exam),HttpStatus.OK);
+//	@PatchMapping("/exam/subject/{subjectId}")
+//	@ApiOperation(value = "Add Subject To Exam", notes = "Add subject to exam.")
+//    public ResponseEntity<Exam> patchExam(@PathVariable long subjectId, @RequestBody Exam exam) {
+//        return new ResponseEntity<Exam>(examServiceImpl.patchExam(subjectId,exam),HttpStatus.OK);
+//    }
+	@PatchMapping("/exam/{teacherId}/{subjectId}")
+	@ApiOperation(value = "Add teacher To Exam", notes = "Add teacher to exam.")
+    public ResponseEntity<Exam> patchExamByTeacherId(@PathVariable long teacherId,@PathVariable long subjectId, @RequestBody Exam exam) {
+        return new ResponseEntity<Exam>(examServiceImpl.patchExamByTeacherId(teacherId,subjectId,exam),HttpStatus.OK);
     }
 
 //	@GetMapping("/concern/{concernId}")
