@@ -187,12 +187,6 @@ public class ParentServiceImpl implements IParentService {
 	@Override
 	public Parent getParentByEmailId(String email) {
 		Parent user = iParentRepository.findByEmailId(email);
-//		List<Parent> parentList = iParentRepository.findAll();
-//		for(Parent parent: parentList) {
-//			if(parent.getEmailId() == email) {
-//				return parent;
-//			}
-//		}
 		return user;
 	}
 	

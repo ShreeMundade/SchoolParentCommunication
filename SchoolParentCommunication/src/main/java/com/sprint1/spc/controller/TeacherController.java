@@ -229,6 +229,7 @@ public class TeacherController {
 		Teacher teacher = teacherServiceImpl.getTeacherByEmailId(emailId);
 		return new ResponseEntity<Teacher>(teacher, HttpStatus.OK);
 	}
+	
 	@GetMapping("/subject")
 	public ResponseEntity<Subject> getSubjectById(@RequestParam long subjectId) {
 		Subject subject= subjectServiceImpl.getSubjectById(subjectId);

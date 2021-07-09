@@ -75,13 +75,8 @@ public class AccountantServiceImpl implements IAccountantService {
 
 	@Override
 	public Accountant getAccountantByEmailId(String email) {
-		List<Accountant> accountantList = iAccountantRepository.findAll();
-		for(Accountant accountant: accountantList) {
-			if(accountant.getEmailId() == email) {
-				return accountant;
-			}
-		}
-		return null;
+		Accountant accountant = iAccountantRepository.findByEmailId(email);
+		return accountant;
 	}
 	
 	
