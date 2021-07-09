@@ -49,8 +49,8 @@ public class AttendanceServiceTest {
 	@Test
 	public void addAttendanceTest() {
 		Attendance attendance1=new Attendance(1L,LocalDate.now(),true);
-		when(iAttendanceRepository.saveAndFlush(attendance1)).thenReturn(attendance1);
-		Assertions.assertEquals(attendance1, attendanceServiceImpl.addAttendance(attendance1));
+		when(iAttendanceRepository.save(attendance1)).thenReturn(attendance1);
+		Assertions.assertEquals(attendance1, attendanceServiceImpl.addAttendance(1, attendance1));
 	}
 	
 	@Test

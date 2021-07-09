@@ -144,7 +144,7 @@ public class TeacherController {
 //	
 	@PostMapping("/attendance")
 	@ApiOperation(value = "Add The Attendence By Student Id", notes = "Add the attendence details for student.")
-	public ResponseEntity<Attendance> addAttendance(@RequestBody Attendance attendance) throws StudentIDNotFoundException {
+	public ResponseEntity<Attendance> addAttendance(@PathVariable long studentId, @RequestBody Attendance attendance) throws StudentIDNotFoundException {
 	// if(teacherServiceImpl.retrieveTeacherById(teacherId) == null && studentServiceImpl.retreiveStudentById1(studentId) == 0) {
 	// throw new StudentIDNotFoundException("Please Add Valid Student Id.");
 	// }
@@ -152,7 +152,7 @@ public class TeacherController {
 	// throw new StudentIDNotFoundException("Please Add Valid Attendance.");
 	// }
 	// else {
-	Attendance attendance2 = attendanceServiceImpl.addAttendance(attendance);
+	Attendance attendance2 = attendanceServiceImpl.addAttendance(studentId, attendance);
 	return new ResponseEntity<Attendance>(attendance2,HttpStatus.OK);
 	// }
 	}
@@ -197,11 +197,11 @@ public class TeacherController {
 //    public ResponseEntity<Exam> patchExam(@PathVariable long subjectId, @RequestBody Exam exam) {
 //        return new ResponseEntity<Exam>(examServiceImpl.patchExam(subjectId,exam),HttpStatus.OK);
 //    }
-	@PatchMapping("/exam/{teacherId}/{subjectId}")
-	@ApiOperation(value = "Add teacher To Exam", notes = "Add teacher to exam.")
-    public ResponseEntity<Exam> patchExamByTeacherId(@PathVariable long teacherId,@PathVariable long subjectId, @RequestBody Exam exam) {
-        return new ResponseEntity<Exam>(examServiceImpl.patchExamByTeacherId(teacherId,subjectId,exam),HttpStatus.OK);
-    }
+//	@PatchMapping("/exam/{teacherId}/{subjectId}")
+//	@ApiOperation(value = "Add teacher To Exam", notes = "Add teacher to exam.")
+//    public ResponseEntity<Exam> patchExamByTeacherId(@PathVariable long teacherId,@PathVariable long subjectId, @RequestBody Exam exam) {
+//        return new ResponseEntity<Exam>(examServiceImpl.patchExamByTeacherId(teacherId,subjectId,exam),HttpStatus.OK);
+//  }
 
 //	@GetMapping("/concern/{concernId}")
 //	@ApiOperation(value = "Get All The Concerns", notes = "Get all the concern details.")
