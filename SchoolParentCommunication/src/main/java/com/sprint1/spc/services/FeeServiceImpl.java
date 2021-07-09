@@ -52,12 +52,12 @@ public class FeeServiceImpl implements IFeeService {
 	}
 
 	@Override
-	public Fee updateFee(long id, Fee fee) {
-		long feeId = fee.getFeeId();
-		Fee existingFee = iFeeRepository.findById(feeId).orElse(null);
+	public Fee updateFee(long feeId, Fee fee) {
+		long feeId1 = fee.getFeeId();
+		Fee existingFee = iFeeRepository.findById(feeId1).orElse(null);
 		if(existingFee == null) {
 			return null;
-//			BeanUtils.copyProperties(fee, existingFee, "feeId");
+//			BeanUtils.copyProperties(fee, existingFee, "feeId1");
 //			iFeeRepository.save(existingFee);
 //			return existingFee;
 		}
