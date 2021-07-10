@@ -158,7 +158,7 @@ public class TeacherServiceImpl implements ITeacherService {
 	public Teacher patchClass(long classId, Teacher teacher) {
 		Teacher existingTeacher = iTeacherRepo.findById(teacher.getId()).get();
 		StudentClass existingClass = classRepo.findById(classId).get();
-		List<StudentClass> classList = new ArrayList<>();
+		List<StudentClass> classList = existingTeacher.getStudentClasses();
 		classList.add(existingClass);
 		existingTeacher.setStudentClasses(classList);
 		iTeacherRepo.saveAndFlush(existingTeacher);

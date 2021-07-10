@@ -21,5 +21,6 @@ public interface IStudentClassService {
 
 	public StudentClass updateStudentClassById(@Valid StudentClass studentclass);
 
-	
+	public StudentClass updateTeacherToClass(@Valid long teacherId, StudentClass studentClass);
+
 }
