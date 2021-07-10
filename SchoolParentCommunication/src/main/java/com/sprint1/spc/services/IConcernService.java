@@ -12,7 +12,7 @@ import com.sprint1.spc.exception.ConcernNotFoundException;
 @Service
 @Transactional
 public interface IConcernService {
-	public Concern updateConcern(Concern concern) throws ConcernNotFoundException;
+	public Concern updateConcern(long teacherId,Concern concern) throws ConcernNotFoundException;
 	public List<Concern> retrieveAllConcerns();
 	List<Concern> retrieveAllConcernsByParentId(long id);
 //	Concern addConcern(String concernDesc, LocalDate concernDate, long parentId, ConcernType type);

@@ -221,18 +221,18 @@ public class TeacherController {
 //		return new ResponseEntity<Concern>(teacherServiceImpl.patchConcern(teacherId,concernId,resolution), HttpStatus.OK);
 //	}
 
-	@PatchMapping("/{parentId}/concern/")
+	@PatchMapping("/{teacherId}/concern")
 	@ApiOperation(value = "Resolve Concern", notes = "Solve concern details.")
-	public Concern resolveConcern(@PathVariable long parentId, @RequestBody Concern concern) throws ConcernNotFoundException {
-		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
-			throw new ConcernNotFoundException("Concern Not Found For Parent Id.");
-		}
-		else if(concern.equals(null)) {
-			throw new ConcernNotFoundException("Please Add Valid Concern Details.");
-		}
-		else {
-			return concernServiceImpl.addConcern(concern);
-		}
+	public ResponseEntity<Concern> resolveConcern(@PathVariable long teacherId,@RequestBody Concern concern) throws ConcernNotFoundException {
+//		if(parentServiceImpl.retrieveParentById1(parentId) == 0) {
+//			throw new ConcernNotFoundException("Concern Not Found For Parent Id.");
+//		}
+//		else if(concern.equals(null)) {
+//			throw new ConcernNotFoundException("Please Add Valid Concern Details.");
+//		}
+//		else {
+			return new ResponseEntity<Concern>(concernServiceImpl.updateConcern(teacherId,concern),HttpStatus.OK);
+//		}
 	}
 	
 	@GetMapping("/get")

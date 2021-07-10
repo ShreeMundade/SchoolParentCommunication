@@ -1,5 +1,6 @@
 package com.sprint1.spc.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Parent;
+import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.exception.ConcernNotFoundException;
 import com.sprint1.spc.repository.IConcernRepository;
 import com.sprint1.spc.repository.IParentRepository;
+import com.sprint1.spc.repository.ITeacherRepository;
 
 @Service
 @Transactional
@@ -22,6 +25,9 @@ public class ConcernServiceImpl implements IConcernService {
 
 	@Autowired
 	private IParentRepository iParentRepo;
+	
+	@Autowired
+	private ITeacherRepository teacherRepo;
 
 	@Override
 	public Concern addConcern(Concern concern) {
@@ -29,12 +35,18 @@ public class ConcernServiceImpl implements IConcernService {
 	}
 
 	@Override
-	public Concern updateConcern(Concern concern) throws ConcernNotFoundException {
+	public Concern updateConcern(long teacherId,Concern concern) throws ConcernNotFoundException {
 		Concern existingConcern = iConcernRepo.getById(concern.getConcernId());
-		BeanUtils.copyProperties(concern, existingConcern, "concernId");
+		Teacher teacher = teacherRepo.findById(teacherId).get();
+		existingConcern.setResolution(concern.getResolution());
+		existingConcern.setResolved(concern.isResolved());
+		existingConcern.setResolvedBy(teacher);
+		existingConcern.setResolvedDate(LocalDate.now());
+		iConcernRepo.save(existingConcern);
+//		BeanUtils.copyProperties(concern, existingConcern, "concernId");
 		return existingConcern;
 	}
-
+//resolution resolved by id 
 	@Override
 	public List<Concern> retrieveAllConcerns() {
 		return iConcernRepo.findAll();
