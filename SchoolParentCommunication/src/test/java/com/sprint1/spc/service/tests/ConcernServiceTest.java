@@ -73,7 +73,7 @@ class ConcernServiceTest {
 
 		Mockito.when(concernRepo.getById(concern.getConcernId())).thenReturn(concern1);
 
-		Assertions.assertEquals(concern1, concernService.updateConcern(concern1));
+		Assertions.assertEquals(concern1, concernService.updateConcern(111, concern1));
 
 	}
 	@Test
