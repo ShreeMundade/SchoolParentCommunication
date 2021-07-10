@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sprint1.spc.entities.Exam;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.entities.StudentClass;
 
@@ -22,5 +23,7 @@ public interface IStudentClassService {
 	public StudentClass updateStudentClassById(@Valid StudentClass studentclass);
 
 	public StudentClass updateTeacherToClass(@Valid long teacherId, StudentClass studentClass);
+
+	public StudentClass listClassById(@Valid long classId);
 
 }

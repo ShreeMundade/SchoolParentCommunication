@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Admin;
+import com.sprint1.spc.entities.Exam;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Role;
 import com.sprint1.spc.entities.Student;
@@ -212,6 +213,29 @@ public class AdminController {
 	public ResponseEntity<List<StudentClass>> getAllStudentClass() {
 		List<StudentClass> listOfStudentClass = studentClassService.retrieveAllStudentClass();
 		return new ResponseEntity<List<StudentClass>>(listOfStudentClass, HttpStatus.OK);
+	}
+	
+	@PatchMapping("studentClass/{studentId}")
+	@ApiOperation(value = "Add Studentclass With Student Id", notes = "Enter the studentId to update studentclass details.")
+	public ResponseEntity<Student> patchStudentClassToStudent(@Valid @PathVariable long studentId, @RequestBody StudentClass studentclass) throws UserNotFoundException {
+//		if(accountantServiceImpl.retrieveAccountantById(accountantId) == 0) {
+//			throw new FeeServiceException("Please Add Valid Accountant Id");
+//		}
+		 if(studentId == 0) {
+			throw new UserNotFoundException("Please Add Valid Student Id");
+		}
+		else if(studentclass.equals(null)) {
+			throw new UserNotFoundException("Please Add Valid studentclass");
+		}
+		else {
+			return new ResponseEntity<Student>(studentService.updateStudentClassToStudent1(studentId, studentclass), HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping("/studentclass/{classId}")
+	@ApiOperation(value = "Get All Studentclass Detail By Class Id", notes = "Details of the StudnetClass ")
+	public StudentClass getClasssById(@Valid @PathVariable long classId) {
+		return studentClassService.listClassById(classId);
 	}
 	
 	@PatchMapping("/studentclassDet")

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Student;
+import com.sprint1.spc.entities.StudentClass;
 import com.sprint1.spc.exception.UserNotFoundException;
 
 @Service
@@ -23,4 +24,5 @@ public interface IStudentService {
 	public List<Attendance> listAllAttendanceByStudentId(long studentId);
 	public Student updateStudentById(Student student);
 	public Student getStudentByParentId(long parentId);
+	public Student updateStudentClassToStudent1(long studentId, StudentClass studentclass);
 }

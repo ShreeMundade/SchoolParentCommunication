@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -133,5 +135,15 @@ public class StudentServiceImpl implements IStudentService {
 			filteredStudent = student;
 		}
 		return filteredStudent;
+	}
+	
+	
+	@Override
+	public Student updateStudentClassToStudent1(@Valid long studentId, StudentClass studentclass) {
+		Student existingStudent = studentRepo.findById(studentId).get();
+		existingStudent.setStudentClass(studentclass);
+		studentRepo.save(existingStudent);
+		return existingStudent;
+		
 	}
 }

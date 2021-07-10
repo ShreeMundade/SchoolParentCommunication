@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sprint1.spc.entities.Exam;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.entities.StudentClass;
@@ -51,7 +52,7 @@ public class StudentClassServiceImpl implements IStudentClassService {
 	@Override
 	public StudentClass updateStudentClassById(@Valid StudentClass studentclass) {
 		// TODO Auto-generated method stub
-		return null;
+		return  iStudentClassRepository.save(studentclass) ;
 	}
 	/***** Patch Fee To Student *****/
 //	@Override
@@ -70,6 +71,13 @@ public class StudentClassServiceImpl implements IStudentClassService {
 //		return studentClass;
 		return iStudentClassRepository.save(studentClass);
 
+	}
+
+
+	@Override
+	public StudentClass listClassById(@Valid long classId) {
+		StudentClass studentclass =iStudentClassRepository.findById(classId).get();
+		return studentclass;
 	}
 	
 }
