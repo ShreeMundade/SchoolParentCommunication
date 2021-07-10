@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Exam;
+import com.sprint1.spc.entities.ExamAttempt;
 import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.repository.IExamRepository;
@@ -111,10 +112,15 @@ public class ExamServiceImpl implements IExamService{
     public Exam updateExamById(Exam exam) {
         // TODO Auto-generated method stub
         return examRepo.save(exam);
-
- 
-
+        
     }
+	@Override
+	public  Exam addExamAttempt(long examId,ExamAttempt attempt) {
+		Exam exam2=examRepo.findById(examId).get();
+		exam2.setExamAttempt(attempt);
+		return exam2;
+		   	
+	}
 
 	@Override
 	public Exam patchExam(long subjectId, Exam exam) {
@@ -125,3 +131,5 @@ public class ExamServiceImpl implements IExamService{
 	
 	
 }
+
+

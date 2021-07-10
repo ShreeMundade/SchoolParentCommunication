@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sprint1.spc.entities.Attendance;
 import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Exam;
+import com.sprint1.spc.entities.ExamAttempt;
 import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
@@ -98,6 +99,11 @@ public class TeacherController {
 	@ApiOperation(value = "Add Exam Details", notes = "Adding the exam.")
 	public ResponseEntity<Exam> insertExam(@Valid  @RequestBody Exam exam) {
 		return new ResponseEntity<Exam>(examServiceImpl.addExam(exam), HttpStatus.CREATED);
+	}
+	@PutMapping("/exam/examattempt/{examId}")
+	@ApiOperation(value = "Add ExamAttempt Details", notes = "Adding the examAttempt.")
+	public ResponseEntity<Exam> insertExamAttempt(@Valid @PathVariable long examId,@RequestBody ExamAttempt examAttempt) {
+		return new ResponseEntity<Exam>(examServiceImpl.addExamAttempt(examId,examAttempt), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/attendance")
@@ -197,11 +203,11 @@ public class TeacherController {
 //    public ResponseEntity<Exam> patchExam(@PathVariable long subjectId, @RequestBody Exam exam) {
 //        return new ResponseEntity<Exam>(examServiceImpl.patchExam(subjectId,exam),HttpStatus.OK);
 //    }
-//	@PatchMapping("/exam/{teacherId}/{subjectId}")
-//	@ApiOperation(value = "Add teacher To Exam", notes = "Add teacher to exam.")
-//    public ResponseEntity<Exam> patchExamByTeacherId(@PathVariable long teacherId,@PathVariable long subjectId, @RequestBody Exam exam) {
-//        return new ResponseEntity<Exam>(examServiceImpl.patchExamByTeacherId(teacherId,subjectId,exam),HttpStatus.OK);
-//  }
+	@PatchMapping("/exam/{teacherId}/{subjectId}")
+	@ApiOperation(value = "Add teacher To Exam", notes = "Add teacher to exam.")
+    public ResponseEntity<Exam> patchExamByTeacherId(@PathVariable long teacherId,@PathVariable long subjectId, @RequestBody Exam exam) {
+        return new ResponseEntity<Exam>(examServiceImpl.patchExamByTeacherId(teacherId,subjectId,exam),HttpStatus.OK);
+  }
 
 //	@GetMapping("/concern/{concernId}")
 //	@ApiOperation(value = "Get All The Concerns", notes = "Get all the concern details.")

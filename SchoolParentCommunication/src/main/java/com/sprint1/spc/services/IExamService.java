@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Exam;
+import com.sprint1.spc.entities.ExamAttempt;
 
 
 @Service
@@ -24,6 +25,7 @@ public interface IExamService {
 	public Exam updateExamById(Exam exam);
 	public Exam patchExamByTeacherId(long teacherId,long subjectId,Exam exam);
 	public Exam patchExam(long subjectId,Exam exam);
+	public Exam addExamAttempt(long examId,ExamAttempt attempt);
 	
 
 }
