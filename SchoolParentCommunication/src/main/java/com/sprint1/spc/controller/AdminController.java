@@ -202,6 +202,19 @@ public class AdminController {
 	public ResponseEntity<StudentClass> addStudentClass(@Valid @RequestBody StudentClass studentClass) {
 		return new ResponseEntity<StudentClass>(studentClassService.addStudentClass(studentClass), HttpStatus.CREATED);
 	}
+	@GetMapping("/studentclasses")
+	@ApiOperation(value = "Get All Studentsclasses", notes = "List of all students given here.")
+	public ResponseEntity<List<StudentClass>> getAllStudentClass() {
+		List<StudentClass> listOfStudentClass = studentClassService.retrieveAllStudentClass();
+		return new ResponseEntity<List<StudentClass>>(listOfStudentClass, HttpStatus.OK);
+	}
+	
+	@PatchMapping("/studentclassDet")
+	@ApiOperation(value = "Update StudentClass Details", notes = "Enter the Studentclass details to update.")
+	public ResponseEntity<StudentClass> updateStudentClass(@Valid @RequestBody StudentClass studentclass) {
+		return new ResponseEntity<StudentClass>(studentClassService.updateStudentClassById(studentclass), HttpStatus.CREATED);
+	}
+	
 
 //	@PatchMapping("/updateTeacher")
 //	@ApiOperation(value = "Update Teacher Details", notes = "Enter the teacher details to update.")

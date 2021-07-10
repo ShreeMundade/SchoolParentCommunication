@@ -1,5 +1,9 @@
 package com.sprint1.spc.services;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +30,20 @@ public class StudentClassServiceImpl implements IStudentClassService {
 		iStudentClassRepository.deleteById(studentClassId);
 		return s;
 		
+	}
+
+
+	@Override
+	public List<StudentClass> retrieveAllStudentClass() {
+		// TODO Auto-generated method stub
+		return iStudentClassRepository.findAll();
+	}
+
+
+	@Override
+	public StudentClass updateStudentClassById(@Valid StudentClass studentclass) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
