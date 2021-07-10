@@ -18,4 +18,5 @@ public interface IAttendanceService {
 	public List<Attendance> listAttendance();
 	public Attendance getAttendanceById(long attendanceId);
 //	public Attendance updateAttendanceById(Long attendanceId);
+	List<Attendance> listAllAttendanceByStudentId(long studentId);
 }

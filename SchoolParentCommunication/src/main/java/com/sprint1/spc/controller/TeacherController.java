@@ -127,9 +127,7 @@ public class TeacherController {
 	@GetMapping("/attendance/student/{studentId}")
 	//@ApiOperation(value = "Get The Attendance  ", notes = "Get the attendence details by studentID")
 	public List<Attendance> getAllAttendanceByStudentId(@Valid @PathVariable Long studentId) {
-		return studentServiceImpl.listAllAttendanceByStudentId(studentId);
-		
-
+		return attendanceServiceImpl.listAllAttendanceByStudentId(studentId);
 	}
 	//Tobe completed get student id get a join 
 

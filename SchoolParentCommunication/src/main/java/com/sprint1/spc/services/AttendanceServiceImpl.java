@@ -56,19 +56,11 @@ public class AttendanceServiceImpl implements IAttendanceService {
 		return attendanceRepo.findById(attendanceId).get();
 	}
 
-//	@Override
-//    public List<Attendance> listAllAttendanceByStudentId(long studentId){
-//        Student student = studentRepo.findById(studentId).get();
-//        List<Attendance> attendanceList = attendanceRepo.findAll();
-//        List<Attendance> filteredList = new ArrayList<Attendance>();
-//        for(Attendance attendance : attendanceList) {
-//            if(attendance.getStudent().getStudentId() == student.getStudentId()) {
-//                filteredList.add(attendance);
-//            }
-//            else {
-//              return null;
-//            }
-//        }
-//        return filteredList;
-//    }
+	@Override
+    public List<Attendance> listAllAttendanceByStudentId(long studentId) {
+		Student student = studentRepo.findById(studentId).get();
+        List<Attendance> filteredList = new ArrayList<Attendance>();
+        filteredList.addAll(student.getAttendance());
+        return filteredList;
+    }
 }
