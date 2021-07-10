@@ -52,7 +52,7 @@ public class StudentClassServiceImpl implements IStudentClassService {
 	public StudentClass updateStudentClassById(@Valid StudentClass studentclass) {
 		// TODO Auto-generated method stub
 		return null;
-
+	}
 	/***** Patch Fee To Student *****/
 //	@Override
 //	public Student updateFeeToStudent(long id, Fee fee) {
