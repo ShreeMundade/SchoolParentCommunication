@@ -25,5 +25,7 @@ public interface IStudentClassService {
 	public StudentClass updateTeacherToClass(@Valid long teacherId, StudentClass studentClass);
 
 	public StudentClass listClassById(@Valid long classId);
+	
+	public List<StudentClass> listAllClassesByTeacherId(long teacherId);
 
 }

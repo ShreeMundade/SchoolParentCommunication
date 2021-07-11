@@ -13,4 +13,5 @@ public interface ISubjectService {
 	public Subject addSubject(Subject subject);
 	public List<Subject> retrieveAllSubjects(); 
 	public Subject getSubjectById(long subjectId);
+	public List<Subject> listAllSubjectsByTeacherId(long teacherId); 
 }

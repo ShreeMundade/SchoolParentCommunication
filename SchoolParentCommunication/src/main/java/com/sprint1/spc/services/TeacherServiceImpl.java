@@ -1,5 +1,6 @@
 package com.sprint1.spc.services;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import org.springframework.beans.BeanUtils;
@@ -143,12 +144,20 @@ public class TeacherServiceImpl implements ITeacherService {
 	}
 
 	@Override
-	public Teacher patchTeacher(long subjectId, Teacher teacher) throws UserNotFoundException {
+	public Teacher patchTeacher(long subjectId,long classId, Teacher teacher) throws SQLException {
 		Teacher existingTeacher = iTeacherRepo.findById(teacher.getId()).get();
 		Subject existingSubject = subjectRepo.findById(subjectId).get();
+		StudentClass existingClass = classRepo.findById(classId).get();
+		
 		List<Subject> subjectList = existingTeacher.getSubjects();
 		subjectList.add(existingSubject);
+		
+		List<StudentClass> classList = existingTeacher.getStudentClasses();
+		classList.add(existingClass);
+		
 		existingTeacher.setSubjects(subjectList);
+		existingTeacher.setStudentClasses(classList);
+		
 		iTeacherRepo.saveAndFlush(existingTeacher);
 		return existingTeacher;
 	}

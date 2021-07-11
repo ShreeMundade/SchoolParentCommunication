@@ -1,5 +1,6 @@
 package com.sprint1.spc.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -198,16 +199,17 @@ public class AdminController {
 		return new ResponseEntity<Accountant>(accountantService.addAccountant(accountant), HttpStatus.CREATED);
 	}
 
-	@PatchMapping("/studentClass/{teacherId}")
+	@PostMapping("/studentClass")
 	@ApiOperation(value = "Add Student Class", notes = "Enter the class details to add.")
-	public ResponseEntity<StudentClass> addStudentClass(@Valid @PathVariable long teacherId, @RequestBody StudentClass studentClass) throws UserNotFoundException {
-		Teacher teacher = teacherService.retrieveTeacherById(teacherId);
-		if (teacher.equals(null)) {
-			throw new UserNotFoundException("Teacher Id Not Found");
-		} else {
-		return new ResponseEntity<StudentClass>(studentClassService.updateTeacherToClass(teacherId,studentClass), HttpStatus.CREATED);
-		}
+	public ResponseEntity<StudentClass> addStudentClass(@Valid @RequestBody StudentClass studentClass) throws UserNotFoundException {
+//		Teacher teacher = teacherService.retrieveTeacherById(teacherId);
+//		if (teacher.equals(null)) {
+//			throw new UserNotFoundException("Teacher Id Not Found");
+//		} else {
+		return new ResponseEntity<StudentClass>(studentClassService.addStudentClass(studentClass), HttpStatus.CREATED);
+//		}
 	}
+	
 	@GetMapping("/studentclasses")
 	@ApiOperation(value = "Get All Studentsclasses", notes = "List of all students given here.")
 	public ResponseEntity<List<StudentClass>> getAllStudentClass() {
@@ -269,12 +271,13 @@ public class AdminController {
 //
 //	}
 	
-	@PatchMapping("/updateTeacher/{subjectId}")
+	@PatchMapping("/updateTeacher/{subjectId}/{classId}")
 	@ApiOperation(value = "Update Teacher Details", notes = "Enter the teacher details to update.")
-	public ResponseEntity<Teacher> updateTeacher(@PathVariable long subjectId,@RequestBody Teacher teacher) throws UserNotFoundException {
+	public ResponseEntity<Teacher> updateTeacher(@PathVariable long subjectId,@PathVariable long classId,
+			@RequestBody Teacher teacher) throws SQLException {
 		
 
-		return new ResponseEntity<Teacher>(teacherService.patchTeacher(subjectId,teacher), HttpStatus.OK);
+		return new ResponseEntity<Teacher>(teacherService.patchTeacher(subjectId,classId,teacher), HttpStatus.OK);
 
 	}
 	

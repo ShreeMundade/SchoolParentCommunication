@@ -1,6 +1,7 @@
 package com.sprint1.spc.services;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,6 +15,7 @@ import com.sprint1.spc.entities.Exam;
 import com.sprint1.spc.entities.Fee;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.entities.StudentClass;
+import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.repository.IStudentClassRepository;
 import com.sprint1.spc.repository.ITeacherRepository;
@@ -78,6 +80,13 @@ public class StudentClassServiceImpl implements IStudentClassService {
 	public StudentClass listClassById(@Valid long classId) {
 		StudentClass studentclass =iStudentClassRepository.findById(classId).get();
 		return studentclass;
+	}
+	
+	public List<StudentClass> listAllClassesByTeacherId(long teacherId){
+		Teacher teacher = iTeacherRepository.findById(teacherId).get();
+        List<StudentClass> classList = new ArrayList<StudentClass>();
+        classList.addAll(teacher.getStudentClasses());
+        return classList;
 	}
 	
 }

@@ -24,6 +24,7 @@ import com.sprint1.spc.entities.Concern;
 import com.sprint1.spc.entities.Exam;
 import com.sprint1.spc.entities.ExamAttempt;
 import com.sprint1.spc.entities.Parent;
+import com.sprint1.spc.entities.StudentClass;
 import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.exception.ConcernNotFoundException;
@@ -31,6 +32,7 @@ import com.sprint1.spc.exception.StudentIDNotFoundException;
 import com.sprint1.spc.services.AttendanceServiceImpl;
 import com.sprint1.spc.services.ConcernServiceImpl;
 import com.sprint1.spc.services.ExamServiceImpl;
+import com.sprint1.spc.services.IStudentClassService;
 import com.sprint1.spc.services.ParentServiceImpl;
 import com.sprint1.spc.services.StudentServiceImpl;
 import com.sprint1.spc.services.SubjectServiceImpl;
@@ -60,8 +62,12 @@ public class TeacherController {
 	
 	@Autowired
 	private ParentServiceImpl parentServiceImpl;
+	
 	@Autowired
 	private SubjectServiceImpl subjectServiceImpl;
+	
+	@Autowired
+	private IStudentClassService classService;
 
 //	@ResponseStatus(HttpStatus.BAD_REQUEST)
 //    @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -122,6 +128,18 @@ public class TeacherController {
 	@GetMapping("/attendance/id/{attendanceId}")
 	public Attendance getAttendanceById(@Valid @PathVariable long attendanceId) {
 		return attendanceServiceImpl.getAttendanceById(attendanceId);
+	}
+	
+	@GetMapping("/subjects/{teacherId}")
+	//@ApiOperation(value = "Get The Subjects by teacher id  ", notes = "Get the attendence details by studentID")
+	public List<Subject> getAllSubjectsByTeacherId(@Valid @PathVariable long teacherId) {
+		return subjectServiceImpl.listAllSubjectsByTeacherId(teacherId);
+	}
+	
+	@GetMapping("/classes/{teacherId}")
+	//@ApiOperation(value = "Get The Classes by teacher id  ", notes = "Get the attendence details by studentID")
+	public List<StudentClass> getAllClassesByTeacherId(@Valid @PathVariable long teacherId) {
+		return classService.listAllClassesByTeacherId(teacherId);
 	}
 	
 	@GetMapping("/attendance/student/{studentId}")

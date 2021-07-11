@@ -1,5 +1,6 @@
 package com.sprint1.spc.services;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -21,7 +22,10 @@ public interface ITeacherService {
 	public Teacher retrieveTeacherById(long id);
 	List<Concern> retrieveAllConcerns();
 //	Concern patchConcern(long teacherId, long concernId, String resolution);
-	public Teacher patchTeacher(long subjectId,Teacher teacher) throws UserNotFoundException;
+	
+	public Teacher patchTeacher(long subjectId,long classId, Teacher teacher) throws SQLException;
+	
 	public Teacher getTeacherByEmailId(String email);
+	
 	Teacher patchClass(long classId, Teacher teacher);
 }
