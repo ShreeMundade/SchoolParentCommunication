@@ -28,4 +28,6 @@ public interface IStudentClassService {
 	
 	public List<StudentClass> listAllClassesByTeacherId(long teacherId);
 
+	public List<StudentClass> listAllClassesByStudentId(long studentId);
+
 }

@@ -18,6 +18,7 @@ import com.sprint1.spc.entities.StudentClass;
 import com.sprint1.spc.entities.Subject;
 import com.sprint1.spc.entities.Teacher;
 import com.sprint1.spc.repository.IStudentClassRepository;
+import com.sprint1.spc.repository.IStudentRepository;
 import com.sprint1.spc.repository.ITeacherRepository;
 
 @Service
@@ -28,6 +29,9 @@ public class StudentClassServiceImpl implements IStudentClassService {
 	private IStudentClassRepository iStudentClassRepository;
 	@Autowired
 	private ITeacherRepository iTeacherRepository;
+	@Autowired
+	private IStudentRepository iStudentRepo;
+	
 
 	@Override
 	public StudentClass addStudentClass(StudentClass studentClass) {
@@ -87,6 +91,17 @@ public class StudentClassServiceImpl implements IStudentClassService {
         List<StudentClass> classList = new ArrayList<StudentClass>();
         classList.addAll(teacher.getStudentClasses());
         return classList;
+	}
+
+
+	@Override
+	public List<StudentClass> listAllClassesByStudentId(long studentId) {
+		// TODO Auto-generated method stub
+		Student student = iStudentRepo.findById(studentId).get();
+        List<StudentClass> classList = new ArrayList<StudentClass>();
+        classList.add(student.getStudentClass());
+        return classList;
+		
 	}
 	
 }

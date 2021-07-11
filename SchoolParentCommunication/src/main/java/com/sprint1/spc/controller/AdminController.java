@@ -256,6 +256,12 @@ public class AdminController {
 		return new ResponseEntity<StudentClass>(studentClassService.updateStudentClassById(studentclass), HttpStatus.CREATED);
 	}
 	
+	@GetMapping("/studentClasses/{studentId}")
+	
+	public List<StudentClass> getAllClassesByStudentId(@Valid @PathVariable long studentId) {
+		return studentClassService.listAllClassesByStudentId(studentId);
+	}
+	
 
 //	@PatchMapping("/updateTeacher")
 //	@ApiOperation(value = "Update Teacher Details", notes = "Enter the teacher details to update.")
