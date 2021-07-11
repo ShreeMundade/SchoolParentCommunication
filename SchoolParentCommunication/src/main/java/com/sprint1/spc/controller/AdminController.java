@@ -132,9 +132,18 @@ public class AdminController {
 //			throw new UserNotFoundException("Student Not Found");
 //		}
 		return new ResponseEntity<Student>(student, HttpStatus.OK);
-
 	}
-
+	
+	@GetMapping("/student/parent")
+	@ApiOperation(value = "Get Student By Parent Id", notes = "Enter student id to get student information.")
+	public ResponseEntity<Student> getStudentByParentId(@RequestParam long parentId) throws UserNotFoundException {
+		Student student = studentService.getStudentByParentId(parentId);
+//		if (student.equals(null)) {
+//			throw new UserNotFoundException("Student Not Found");
+//		}
+		return new ResponseEntity<Student>(student, HttpStatus.OK);
+	}
+	
 	@GetMapping("/teacher")
 	@ApiOperation(value = "Get Teacher By Id", notes = "Enter teacher id to get teacher information. ")
 	public ResponseEntity<Teacher> getTeacherById(@RequestParam long teacherId) throws UserNotFoundException {
