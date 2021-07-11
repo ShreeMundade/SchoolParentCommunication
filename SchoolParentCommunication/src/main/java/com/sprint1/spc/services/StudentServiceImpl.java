@@ -109,8 +109,8 @@ public class StudentServiceImpl implements IStudentService {
 
 	/***** Patch StudentClass To Student *****/
 	@Override
-	public Student updateStudentClassToStudent(long studentId, long classId) {
-		Student existingStudent = studentRepo.findById(studentId).get();
+	public Student updateStudentClassToStudent(long classId, Student student) {
+		Student existingStudent = studentRepo.findById(student.getId()).get();
 		StudentClass existingClass = classRepo.findById(classId).get();
 		if (!existingStudent.equals(null)) {
 			existingStudent.setStudentClass(existingClass);

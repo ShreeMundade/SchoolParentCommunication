@@ -19,7 +19,7 @@ public interface IStudentService {
 	public List<Student> retrieveAllStudents();
 	public Student retrieveStudentById(long id) throws UserNotFoundException;
 	public Student listStudentById(long studentId);
-	public Student updateStudentClassToStudent(long studentId, long classId);
+	public Student updateStudentClassToStudent(long classId, Student student);
 	public long retreiveStudentById1(long id);
 	public List<Attendance> listAllAttendanceByStudentId(long studentId);
 	public Student updateStudentById(Student student);

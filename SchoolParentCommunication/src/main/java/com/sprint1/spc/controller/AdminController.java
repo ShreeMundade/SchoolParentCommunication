@@ -177,6 +177,7 @@ public class AdminController {
 	public ResponseEntity<Student> addStudent(@Valid @RequestBody Student student) {
 		return new ResponseEntity<Student>(studentService.addStudent(student), HttpStatus.CREATED);
 	}
+	
 
 	@PostMapping("/teacher")
 	@ApiOperation(value = "Add Teacher", notes = "Enter the teacher details to add student.")
@@ -305,12 +306,11 @@ public class AdminController {
 		return new ResponseEntity<Student>(studentService.updateStudentById(student), HttpStatus.CREATED);
 	}
 
-	@PatchMapping("/student")
+	@PatchMapping("/student/{classId}")
 	@ApiOperation(value = "Add Student Class To Student", notes = "Student will get added to the particular student class.")
-	public ResponseEntity<Student> updateStudentClassToStudent(@Valid @RequestParam long studentId,
-			@RequestParam long classId) {
+	public ResponseEntity<Student> updateStudentClassToStudent(@Valid @PathVariable long classId,@RequestBody Student student) {
 
-		return new ResponseEntity<Student>(studentService.updateStudentClassToStudent(studentId, classId),
+		return new ResponseEntity<Student>(studentService.updateStudentClassToStudent(classId,student),
 				HttpStatus.OK);
 	}
 
