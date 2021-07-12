@@ -26,7 +26,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
 	@Override
 	public Attendance addAttendance(long studentId, Attendance attendance) {
 		Student student = studentRepo.findById(studentId).get();
-		List<Attendance> attendanceList = new ArrayList<Attendance>();
+		List<Attendance> attendanceList = student.getAttendance();
 		attendanceList.add(attendance);
 		student.setAttendance(attendanceList);
 		return attendanceRepo.save(attendance);
