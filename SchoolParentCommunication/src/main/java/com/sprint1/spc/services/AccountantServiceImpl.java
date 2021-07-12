@@ -2,14 +2,17 @@ package com.sprint1.spc.services;
 
 import java.util.*;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Fee;
+import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.entities.Teacher;
+import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.repository.IAccountantRepository;
 import com.sprint1.spc.repository.IStudentRepository;
 
@@ -19,7 +22,7 @@ public class AccountantServiceImpl implements IAccountantService {
 
 	@Autowired
 	private IAccountantRepository iAccountantRepository;
-	
+
 	@Autowired
 	private IStudentRepository iStudentRepository;
 
@@ -39,18 +42,31 @@ public class AccountantServiceImpl implements IAccountantService {
 		}
 		return accountantId;
 	}
+
 	@Override
 	public Accountant retrieveAccountantById1(long id) {
 		return iAccountantRepository.findById(id).get();
 	}
+
 	@Override
 	public Accountant addAccountant(Accountant accountant) {
 		return iAccountantRepository.save(accountant);
 	}
 
 	@Override
-	public Accountant updateAccountant(Accountant accountant) {
-		return iAccountantRepository.saveAndFlush(accountant);
+
+	public Accountant updateAccountant(Accountant accountant) throws UserNotFoundException {
+
+		// return iAccountantRepository.save(accountant);
+
+		long accountantId = accountant.getId();
+		Accountant accountantDb = iAccountantRepository.findById(accountantId).get();
+
+		BeanUtils.copyProperties(accountant, accountantDb);
+
+		iAccountantRepository.save(accountantDb);
+		return accountantDb;
+
 	}
 
 	@Override
@@ -69,7 +85,7 @@ public class AccountantServiceImpl implements IAccountantService {
 		iStudentRepository.save(existingStudent);
 		return existingStudent;
 	}
-	
+
 	@Override
 	public void deleteAccountant(long accountantId) {
 		iAccountantRepository.deleteById(accountantId);
@@ -80,6 +96,5 @@ public class AccountantServiceImpl implements IAccountantService {
 		Accountant accountant = iAccountantRepository.findByEmailId(email);
 		return accountant;
 	}
-	
-	
+
 }

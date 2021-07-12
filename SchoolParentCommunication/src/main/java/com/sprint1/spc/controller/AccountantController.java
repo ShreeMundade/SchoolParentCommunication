@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sprint1.spc.entities.Accountant;
 import com.sprint1.spc.entities.Admin;
 import com.sprint1.spc.entities.Fee;
+import com.sprint1.spc.entities.Parent;
 import com.sprint1.spc.entities.Student;
 import com.sprint1.spc.exception.FeeServiceException;
+import com.sprint1.spc.exception.ParentServiceException;
+import com.sprint1.spc.exception.UserNotFoundException;
 import com.sprint1.spc.services.AccountantServiceImpl;
 import com.sprint1.spc.services.FeeServiceImpl;
 import com.sprint1.spc.services.StudentServiceImpl;
@@ -134,7 +137,15 @@ public class AccountantController {
 			return new ResponseEntity<Fee>(addFee, HttpStatus.OK);
 		}
 	}
-
+	
+	@PatchMapping("/update")
+	@ApiOperation(value = "Update Accountant", notes = "Update phone number by Accountant id.")
+	public Accountant updateAccountant( @RequestBody Accountant accountant) throws  UserNotFoundException {
+		
+			return accountantServiceImpl.updateAccountant(accountant);
+		
+	}
+	
 	// Patch fee to student
 	@PatchMapping("fee/{studentId}")
 	@ApiOperation(value = "Add Fee With Student Id", notes = "Enter the studentId to update fee details.")
